@@ -37,7 +37,7 @@ namespace Reacon.Sdk.Model
         /// <param name="draft">draft</param>
         /// <param name="sequences">sequences</param>
         [JsonConstructor]
-        public MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1(MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign campaign, MailCampaignDraftRecord draft, List<MailSequenceRunRecord> sequences)
+        public MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1(MailPostCampaignsByCampaignIdLaunchResponse200Campaign campaign, MailCampaignDraftRecord draft, List<MailSequenceRunRecord> sequences)
         {
             Campaign = campaign;
             Draft = draft;
@@ -51,7 +51,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Campaign
         /// </summary>
         [JsonPropertyName("campaign")]
-        public MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign Campaign { get; set; }
+        public MailPostCampaignsByCampaignIdLaunchResponse200Campaign Campaign { get; set; }
 
         /// <summary>
         /// Gets or Sets Draft
@@ -131,7 +131,7 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign?> campaign = default;
+            Option<MailPostCampaignsByCampaignIdLaunchResponse200Campaign?> campaign = default;
             Option<MailCampaignDraftRecord?> draft = default;
             Option<List<MailSequenceRunRecord>?> sequences = default;
 
@@ -151,7 +151,7 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "campaign":
-                            campaign = new Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign?>(JsonSerializer.Deserialize<MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            campaign = new Option<MailPostCampaignsByCampaignIdLaunchResponse200Campaign?>(JsonSerializer.Deserialize<MailPostCampaignsByCampaignIdLaunchResponse200Campaign>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "draft":
                             draft = new Option<MailCampaignDraftRecord?>(JsonSerializer.Deserialize<MailCampaignDraftRecord>(ref utf8JsonReader, jsonSerializerOptions)!);

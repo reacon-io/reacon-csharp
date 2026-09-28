@@ -26,18 +26,18 @@ using Reacon.Sdk.Client;
 namespace Reacon.Sdk.Model
 {
     /// <summary>
-    /// MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign
+    /// MailGetPortfolioResponse200Portfolio
     /// </summary>
-    public partial class MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign : IValidatableObject
+    public partial class MailGetPortfolioResponse200Portfolio : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign" /> class.
+        /// Initializes a new instance of the <see cref="MailGetPortfolioResponse200Portfolio" /> class.
         /// </summary>
-        /// <param name="mailCampaignProgress"></param>
+        /// <param name="mailMailPortfolio"></param>
         /// <param name="object"></param>
-        public MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign(Option<MailCampaignProgress?> mailCampaignProgress, Option<Object?> @object)
+        public MailGetPortfolioResponse200Portfolio(Option<MailMailPortfolio?> mailMailPortfolio, Option<Object?> @object)
         {
-            MailCampaignProgressOption = mailCampaignProgress;
+            MailMailPortfolioOption = mailMailPortfolio;
             ObjectOption = @object;
             OnCreated();
         }
@@ -45,16 +45,16 @@ namespace Reacon.Sdk.Model
         partial void OnCreated();
 
         /// <summary>
-        /// Used to track the state of MailCampaignProgress
+        /// Used to track the state of MailMailPortfolio
         /// </summary>
         [JsonIgnore]
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<MailCampaignProgress?> MailCampaignProgressOption { get; private set; }
+        public Option<MailMailPortfolio?> MailMailPortfolioOption { get; private set; }
 
         /// <summary>
-        /// Gets or Sets MailCampaignProgress
+        /// Gets or Sets MailMailPortfolio
         /// </summary>
-        public MailCampaignProgress? MailCampaignProgress { get { return this.MailCampaignProgressOption.Value; } set { this.MailCampaignProgressOption = new(value); } }
+        public MailMailPortfolio? MailMailPortfolio { get { return this.MailMailPortfolioOption.Value; } set { this.MailMailPortfolioOption = new(value); } }
 
         /// <summary>
         /// Used to track the state of Object
@@ -81,7 +81,7 @@ namespace Reacon.Sdk.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign {\n");
+            sb.Append("class MailGetPortfolioResponse200Portfolio {\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -99,29 +99,29 @@ namespace Reacon.Sdk.Model
     }
 
     /// <summary>
-    /// A Json converter for type <see cref="MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign" />
+    /// A Json converter for type <see cref="MailGetPortfolioResponse200Portfolio" />
     /// </summary>
-    public partial class MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaignJsonConverter : JsonConverter<MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign>
+    public partial class MailGetPortfolioResponse200PortfolioJsonConverter : JsonConverter<MailGetPortfolioResponse200Portfolio>
     {
         partial void OnCreated();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaignJsonConverter" /> class.
+        /// Initializes a new instance of the <see cref="MailGetPortfolioResponse200PortfolioJsonConverter" /> class.
         /// </summary>
-        public MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaignJsonConverter()
+        public MailGetPortfolioResponse200PortfolioJsonConverter()
         {
             OnCreated();
         }
 
         /// <summary>
-        /// Deserializes json to <see cref="MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign" />
+        /// Deserializes json to <see cref="MailGetPortfolioResponse200Portfolio" />
         /// </summary>
         /// <param name="utf8JsonReader"></param>
         /// <param name="typeToConvert"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <returns></returns>
         /// <exception cref="JsonException"></exception>
-        public override MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
+        public override MailGetPortfolioResponse200Portfolio Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
         {
             int currentDepth = utf8JsonReader.CurrentDepth;
 
@@ -130,7 +130,7 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            MailCampaignProgress? mailCampaignProgress = default;
+            MailMailPortfolio? mailMailPortfolio = default;
             Object? varObject = default;
 
             Utf8JsonReader utf8JsonReaderAnyOf = utf8JsonReader;
@@ -144,8 +144,8 @@ namespace Reacon.Sdk.Model
 
                 if (utf8JsonReaderAnyOf.TokenType == JsonTokenType.PropertyName && currentDepth == utf8JsonReaderAnyOf.CurrentDepth - 1)
                 {
-                    Utf8JsonReader utf8JsonReaderMailCampaignProgress = utf8JsonReader;
-                    ClientUtils.TryDeserialize<MailCampaignProgress?>(ref utf8JsonReaderMailCampaignProgress, jsonSerializerOptions, out mailCampaignProgress);
+                    Utf8JsonReader utf8JsonReaderMailMailPortfolio = utf8JsonReader;
+                    ClientUtils.TryDeserialize<MailMailPortfolio?>(ref utf8JsonReaderMailMailPortfolio, jsonSerializerOptions, out mailMailPortfolio);
 
                     Utf8JsonReader utf8JsonReaderObject = utf8JsonReader;
                     ClientUtils.TryDeserialize<Object?>(ref utf8JsonReaderObject, jsonSerializerOptions, out varObject);
@@ -173,47 +173,47 @@ namespace Reacon.Sdk.Model
                 }
             }
 
-            Option<MailCampaignProgress?> mailCampaignProgressParsedValue = mailCampaignProgress == null
+            Option<MailMailPortfolio?> mailMailPortfolioParsedValue = mailMailPortfolio == null
                 ? default
-                : new Option<MailCampaignProgress?>(mailCampaignProgress);
+                : new Option<MailMailPortfolio?>(mailMailPortfolio);
             Option<Object?> varObjectParsedValue = varObject == null
                 ? default
                 : new Option<Object?>(varObject);
 
-            return new MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign(mailCampaignProgressParsedValue, varObjectParsedValue);
+            return new MailGetPortfolioResponse200Portfolio(mailMailPortfolioParsedValue, varObjectParsedValue);
         }
 
         /// <summary>
-        /// Serializes a <see cref="MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign" />
+        /// Serializes a <see cref="MailGetPortfolioResponse200Portfolio" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign"></param>
+        /// <param name="mailGetPortfolioResponse200Portfolio"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public override void Write(Utf8JsonWriter writer, MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign, JsonSerializerOptions jsonSerializerOptions)
+        public override void Write(Utf8JsonWriter writer, MailGetPortfolioResponse200Portfolio mailGetPortfolioResponse200Portfolio, JsonSerializerOptions jsonSerializerOptions)
         {
             writer.WriteStartObject();
 
-            if (mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign.MailCampaignProgressOption.IsSet && mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign.MailCampaignProgressOption.Value != null)
+            if (mailGetPortfolioResponse200Portfolio.MailMailPortfolioOption.IsSet && mailGetPortfolioResponse200Portfolio.MailMailPortfolioOption.Value != null)
             {
-                MailCampaignProgressJsonConverter mailCampaignProgressJsonConverter = (MailCampaignProgressJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign.MailCampaignProgressOption.Value.GetType()));
-                mailCampaignProgressJsonConverter.WriteProperties(writer, mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign.MailCampaignProgressOption.Value, jsonSerializerOptions);
+                MailMailPortfolioJsonConverter mailMailPortfolioJsonConverter = (MailMailPortfolioJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(mailGetPortfolioResponse200Portfolio.MailMailPortfolioOption.Value.GetType()));
+                mailMailPortfolioJsonConverter.WriteProperties(writer, mailGetPortfolioResponse200Portfolio.MailMailPortfolioOption.Value, jsonSerializerOptions);
             }
 
-            if (mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign.ObjectOption.IsSet && mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign.ObjectOption.Value != null)
+            if (mailGetPortfolioResponse200Portfolio.ObjectOption.IsSet && mailGetPortfolioResponse200Portfolio.ObjectOption.Value != null)
 
-            WriteProperties(writer, mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign, jsonSerializerOptions);
+            WriteProperties(writer, mailGetPortfolioResponse200Portfolio, jsonSerializerOptions);
             writer.WriteEndObject();
         }
 
         /// <summary>
-        /// Serializes the properties of <see cref="MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign" />
+        /// Serializes the properties of <see cref="MailGetPortfolioResponse200Portfolio" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign"></param>
+        /// <param name="mailGetPortfolioResponse200Portfolio"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void WriteProperties(Utf8JsonWriter writer, MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign mailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign, JsonSerializerOptions jsonSerializerOptions)
+        public void WriteProperties(Utf8JsonWriter writer, MailGetPortfolioResponse200Portfolio mailGetPortfolioResponse200Portfolio, JsonSerializerOptions jsonSerializerOptions)
         {
 
         }

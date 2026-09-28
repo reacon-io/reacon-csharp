@@ -281,6 +281,7 @@ namespace Reacon.Sdk.Client
             _jsonOptions.Converters.Add(new MailGetPortfolioResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailGetPortfolioResponse200AnyOfJsonConverter());
             _jsonOptions.Converters.Add(new MailGetPortfolioResponse200AnyOf1JsonConverter());
+            _jsonOptions.Converters.Add(new MailGetPortfolioResponse200PortfolioJsonConverter());
             _jsonOptions.Converters.Add(new MailGetQueueResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailGetReplyAutomationsResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailGetSignaturesResponse200JsonConverter());
@@ -363,7 +364,7 @@ namespace Reacon.Sdk.Client
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200AnyOfJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1JsonConverter());
-            _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaignJsonConverter());
+            _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200CampaignJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdStateRequestJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdStateResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsRequestJsonConverter());
