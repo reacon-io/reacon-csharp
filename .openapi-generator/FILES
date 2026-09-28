@@ -284,6 +284,7 @@ src/Reacon.Sdk/Model/MailGetPortfolioOverviewResponse200.cs
 src/Reacon.Sdk/Model/MailGetPortfolioResponse200.cs
 src/Reacon.Sdk/Model/MailGetPortfolioResponse200AnyOf.cs
 src/Reacon.Sdk/Model/MailGetPortfolioResponse200AnyOf1.cs
+src/Reacon.Sdk/Model/MailGetPortfolioResponse200Portfolio.cs
 src/Reacon.Sdk/Model/MailGetQueueResponse200.cs
 src/Reacon.Sdk/Model/MailGetReplyAutomationsResponse200.cs
 src/Reacon.Sdk/Model/MailGetSignaturesResponse200.cs
@@ -366,7 +367,7 @@ src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchRequest.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200AnyOf.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1.cs
-src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200AnyOfCampaign.cs
+src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200Campaign.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdStateRequest.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdStateResponse200.cs
 src/Reacon.Sdk/Model/MailPostCampaignsRequest.cs

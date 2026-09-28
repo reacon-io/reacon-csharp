@@ -88,7 +88,7 @@ namespace Reacon.Sdk.Api
         /// Count known emails for a domain
         /// </summary>
         /// <remarks>
-        /// Returns personal, generic and total email counts for the domain. Authenticate with X-API-Key.
+        /// Returns personal, generic and total known email counts for the domain. Authenticate with X-API-Key. This endpoint reports counts only; it does not reveal email addresses. The recorded example uses a reserved example.invalid domain with zero known emails.
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="domain"></param>
@@ -100,7 +100,7 @@ namespace Reacon.Sdk.Api
         /// Count known emails for a domain
         /// </summary>
         /// <remarks>
-        /// Returns personal, generic and total email counts for the domain. Authenticate with X-API-Key.
+        /// Returns personal, generic and total known email counts for the domain. Authenticate with X-API-Key. This endpoint reports counts only; it does not reveal email addresses. The recorded example uses a reserved example.invalid domain with zero known emails.
         /// </remarks>
         /// <param name="domain"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1544,7 +1544,7 @@ namespace Reacon.Sdk.Api
         partial void OnErrorGetDomainCounts(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, string domain);
 
         /// <summary>
-        /// Count known emails for a domain Returns personal, generic and total email counts for the domain. Authenticate with X-API-Key.
+        /// Count known emails for a domain Returns personal, generic and total known email counts for the domain. Authenticate with X-API-Key. This endpoint reports counts only; it does not reveal email addresses. The recorded example uses a reserved example.invalid domain with zero known emails.
         /// </summary>
         /// <param name="domain"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -1562,7 +1562,7 @@ namespace Reacon.Sdk.Api
         }
 
         /// <summary>
-        /// Count known emails for a domain Returns personal, generic and total email counts for the domain. Authenticate with X-API-Key.
+        /// Count known emails for a domain Returns personal, generic and total known email counts for the domain. Authenticate with X-API-Key. This endpoint reports counts only; it does not reveal email addresses. The recorded example uses a reserved example.invalid domain with zero known emails.
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="domain"></param>
