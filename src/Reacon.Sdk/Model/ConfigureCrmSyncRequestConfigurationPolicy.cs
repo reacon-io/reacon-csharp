@@ -219,7 +219,7 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "createOn":
-                            createOn = new Option<List<ConfigureCrmSyncRequestConfigurationPolicy.CreateOnEnum>?>(JsonSerializer.Deserialize<List<ConfigureCrmSyncRequestConfigurationPolicy.CreateOnEnum>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            createOn = new Option<List<ConfigureCrmSyncRequestConfigurationPolicy.CreateOnEnum>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)?.Select(value => ConfigureCrmSyncRequestConfigurationPolicy.CreateOnEnumFromString(value)).ToList()!);
                             break;
                         case "deleteOnLeadDeleted":
                             deleteOnLeadDeleted = new Option<bool?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (bool?)null : utf8JsonReader.GetBoolean());
@@ -291,7 +291,7 @@ namespace Reacon.Sdk.Model
                 throw new ArgumentNullException(nameof(configureCrmSyncRequestConfigurationPolicy.CreateOn), "Property is required for class ConfigureCrmSyncRequestConfigurationPolicy.");
 
             writer.WritePropertyName("createOn");
-            JsonSerializer.Serialize(writer, configureCrmSyncRequestConfigurationPolicy.CreateOn, jsonSerializerOptions);
+            JsonSerializer.Serialize(writer, configureCrmSyncRequestConfigurationPolicy.CreateOn?.Select(value => ConfigureCrmSyncRequestConfigurationPolicy.CreateOnEnumToJsonValue(value)).ToArray(), jsonSerializerOptions);
             writer.WriteBoolean("deleteOnLeadDeleted", configureCrmSyncRequestConfigurationPolicy.DeleteOnLeadDeleted);
 
             writer.WriteBoolean("logActivity", configureCrmSyncRequestConfigurationPolicy.LogActivity);

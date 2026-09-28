@@ -217,7 +217,7 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "eventTypes":
-                            eventTypes = new Option<List<ConfigureNotificationRoutesRequest.EventTypesEnum>?>(JsonSerializer.Deserialize<List<ConfigureNotificationRoutesRequest.EventTypesEnum>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            eventTypes = new Option<List<ConfigureNotificationRoutesRequest.EventTypesEnum>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)?.Select(value => ConfigureNotificationRoutesRequest.EventTypesEnumFromString(value)).ToList()!);
                             break;
                         default:
                             break;
@@ -262,7 +262,7 @@ namespace Reacon.Sdk.Model
                 throw new ArgumentNullException(nameof(configureNotificationRoutesRequest.EventTypes), "Property is required for class ConfigureNotificationRoutesRequest.");
 
             writer.WritePropertyName("eventTypes");
-            JsonSerializer.Serialize(writer, configureNotificationRoutesRequest.EventTypes, jsonSerializerOptions);
+            JsonSerializer.Serialize(writer, configureNotificationRoutesRequest.EventTypes?.Select(value => ConfigureNotificationRoutesRequest.EventTypesEnumToJsonValue(value)).ToArray(), jsonSerializerOptions);
         }
     }
 }

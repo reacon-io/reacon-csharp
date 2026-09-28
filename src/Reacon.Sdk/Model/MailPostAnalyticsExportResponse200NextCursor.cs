@@ -33,40 +33,29 @@ namespace Reacon.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MailPostAnalyticsExportResponse200NextCursor" /> class.
         /// </summary>
-        /// <param name="mailPostAnalyticsExportResponse200NextCursorAnyOf"></param>
-        /// <param name="object"></param>
-        public MailPostAnalyticsExportResponse200NextCursor(Option<MailPostAnalyticsExportResponse200NextCursorAnyOf?> mailPostAnalyticsExportResponse200NextCursorAnyOf, Option<Object?> @object)
+        /// <param name="createdAt">createdAt</param>
+        /// <param name="id">id</param>
+        [JsonConstructor]
+        public MailPostAnalyticsExportResponse200NextCursor(string createdAt, string id)
         {
-            MailPostAnalyticsExportResponse200NextCursorAnyOfOption = mailPostAnalyticsExportResponse200NextCursorAnyOf;
-            ObjectOption = @object;
+            CreatedAt = createdAt;
+            Id = id;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Used to track the state of MailPostAnalyticsExportResponse200NextCursorAnyOf
+        /// Gets or Sets CreatedAt
         /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<MailPostAnalyticsExportResponse200NextCursorAnyOf?> MailPostAnalyticsExportResponse200NextCursorAnyOfOption { get; private set; }
+        [JsonPropertyName("createdAt")]
+        public string CreatedAt { get; set; }
 
         /// <summary>
-        /// Gets or Sets MailPostAnalyticsExportResponse200NextCursorAnyOf
+        /// Gets or Sets Id
         /// </summary>
-        public MailPostAnalyticsExportResponse200NextCursorAnyOf? MailPostAnalyticsExportResponse200NextCursorAnyOf { get { return this.MailPostAnalyticsExportResponse200NextCursorAnyOfOption.Value; } set { this.MailPostAnalyticsExportResponse200NextCursorAnyOfOption = new(value); } }
-
-        /// <summary>
-        /// Used to track the state of Object
-        /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<Object?> ObjectOption { get; private set; }
-
-        /// <summary>
-        /// Gets or Sets Object
-        /// </summary>
-        public Object? Object { get { return this.ObjectOption.Value; } set { this.ObjectOption = new(value); } }
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -82,6 +71,8 @@ namespace Reacon.Sdk.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class MailPostAnalyticsExportResponse200NextCursor {\n");
+            sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -124,33 +115,15 @@ namespace Reacon.Sdk.Model
         public override MailPostAnalyticsExportResponse200NextCursor Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
         {
             int currentDepth = utf8JsonReader.CurrentDepth;
+            var additionalProperties = new Dictionary<string, JsonElement>();
 
-            if (utf8JsonReader.TokenType != JsonTokenType.StartObject && utf8JsonReader.TokenType != JsonTokenType.StartArray)
+            if (utf8JsonReader.TokenType != JsonTokenType.StartObject)
                 throw new JsonException();
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            MailPostAnalyticsExportResponse200NextCursorAnyOf? mailPostAnalyticsExportResponse200NextCursorAnyOf = default;
-            Object? varObject = default;
-
-            Utf8JsonReader utf8JsonReaderAnyOf = utf8JsonReader;
-            while (utf8JsonReaderAnyOf.Read())
-            {
-                if (startingTokenType == JsonTokenType.StartObject && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndObject && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
-                    break;
-
-                if (startingTokenType == JsonTokenType.StartArray && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndArray && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
-                    break;
-
-                if (utf8JsonReaderAnyOf.TokenType == JsonTokenType.PropertyName && currentDepth == utf8JsonReaderAnyOf.CurrentDepth - 1)
-                {
-                    Utf8JsonReader utf8JsonReaderMailPostAnalyticsExportResponse200NextCursorAnyOf = utf8JsonReader;
-                    ClientUtils.TryDeserialize<MailPostAnalyticsExportResponse200NextCursorAnyOf?>(ref utf8JsonReaderMailPostAnalyticsExportResponse200NextCursorAnyOf, jsonSerializerOptions, out mailPostAnalyticsExportResponse200NextCursorAnyOf);
-
-                    Utf8JsonReader utf8JsonReaderObject = utf8JsonReader;
-                    ClientUtils.TryDeserialize<Object?>(ref utf8JsonReaderObject, jsonSerializerOptions, out varObject);
-                }
-            }
+            Option<string?> createdAt = default;
+            Option<string?> id = default;
 
             while (utf8JsonReader.Read())
             {
@@ -167,20 +140,35 @@ namespace Reacon.Sdk.Model
 
                     switch (localVarJsonPropertyName)
                     {
+                        case "createdAt":
+                            createdAt = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
+                        case "id":
+                            id = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
                         default:
+                            using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
+                                additionalProperties[localVarJsonPropertyName!] = reaconUnknownValue.RootElement.Clone();
                             break;
                     }
                 }
             }
 
-            Option<MailPostAnalyticsExportResponse200NextCursorAnyOf?> mailPostAnalyticsExportResponse200NextCursorAnyOfParsedValue = mailPostAnalyticsExportResponse200NextCursorAnyOf == null
-                ? default
-                : new Option<MailPostAnalyticsExportResponse200NextCursorAnyOf?>(mailPostAnalyticsExportResponse200NextCursorAnyOf);
-            Option<Object?> varObjectParsedValue = varObject == null
-                ? default
-                : new Option<Object?>(varObject);
+            if (!createdAt.IsSet)
+                throw new ArgumentException("Property is required for class MailPostAnalyticsExportResponse200NextCursor.", nameof(createdAt));
 
-            return new MailPostAnalyticsExportResponse200NextCursor(mailPostAnalyticsExportResponse200NextCursorAnyOfParsedValue, varObjectParsedValue);
+            if (!id.IsSet)
+                throw new ArgumentException("Property is required for class MailPostAnalyticsExportResponse200NextCursor.", nameof(id));
+
+            if (createdAt.IsSet && createdAt.Value == null)
+                throw new ArgumentNullException(nameof(createdAt), "Property is not nullable for class MailPostAnalyticsExportResponse200NextCursor.");
+
+            if (id.IsSet && id.Value == null)
+                throw new ArgumentNullException(nameof(id), "Property is not nullable for class MailPostAnalyticsExportResponse200NextCursor.");
+
+            var reaconModelResult = new MailPostAnalyticsExportResponse200NextCursor(createdAt.Value!, id.Value!);
+            foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
+            return reaconModelResult;
         }
 
         /// <summary>
@@ -193,14 +181,6 @@ namespace Reacon.Sdk.Model
         public override void Write(Utf8JsonWriter writer, MailPostAnalyticsExportResponse200NextCursor mailPostAnalyticsExportResponse200NextCursor, JsonSerializerOptions jsonSerializerOptions)
         {
             writer.WriteStartObject();
-
-            if (mailPostAnalyticsExportResponse200NextCursor.MailPostAnalyticsExportResponse200NextCursorAnyOfOption.IsSet && mailPostAnalyticsExportResponse200NextCursor.MailPostAnalyticsExportResponse200NextCursorAnyOfOption.Value != null)
-            {
-                MailPostAnalyticsExportResponse200NextCursorAnyOfJsonConverter mailPostAnalyticsExportResponse200NextCursorAnyOfJsonConverter = (MailPostAnalyticsExportResponse200NextCursorAnyOfJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(mailPostAnalyticsExportResponse200NextCursor.MailPostAnalyticsExportResponse200NextCursorAnyOfOption.Value.GetType()));
-                mailPostAnalyticsExportResponse200NextCursorAnyOfJsonConverter.WriteProperties(writer, mailPostAnalyticsExportResponse200NextCursor.MailPostAnalyticsExportResponse200NextCursorAnyOfOption.Value, jsonSerializerOptions);
-            }
-
-            if (mailPostAnalyticsExportResponse200NextCursor.ObjectOption.IsSet && mailPostAnalyticsExportResponse200NextCursor.ObjectOption.Value != null)
 
             WriteProperties(writer, mailPostAnalyticsExportResponse200NextCursor, jsonSerializerOptions);
             writer.WriteEndObject();
@@ -215,7 +195,22 @@ namespace Reacon.Sdk.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, MailPostAnalyticsExportResponse200NextCursor mailPostAnalyticsExportResponse200NextCursor, JsonSerializerOptions jsonSerializerOptions)
         {
+            if (mailPostAnalyticsExportResponse200NextCursor.CreatedAt == null)
+                throw new ArgumentNullException(nameof(mailPostAnalyticsExportResponse200NextCursor.CreatedAt), "Property is required for class MailPostAnalyticsExportResponse200NextCursor.");
 
+            if (mailPostAnalyticsExportResponse200NextCursor.Id == null)
+                throw new ArgumentNullException(nameof(mailPostAnalyticsExportResponse200NextCursor.Id), "Property is required for class MailPostAnalyticsExportResponse200NextCursor.");
+
+            writer.WriteString("createdAt", mailPostAnalyticsExportResponse200NextCursor.CreatedAt);
+
+            writer.WriteString("id", mailPostAnalyticsExportResponse200NextCursor.Id);
+
+            foreach (var property in mailPostAnalyticsExportResponse200NextCursor.AdditionalProperties)
+            {
+                if (property.Key == "createdAt" || property.Key == "id") throw new JsonException("Additional properties cannot override declared properties");
+                writer.WritePropertyName(property.Key);
+                property.Value.WriteTo(writer);
+            }
         }
     }
 }

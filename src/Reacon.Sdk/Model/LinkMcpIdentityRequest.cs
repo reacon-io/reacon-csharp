@@ -280,7 +280,7 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "scopes":
-                            scopes = new Option<List<LinkMcpIdentityRequest.ScopesEnum>?>(JsonSerializer.Deserialize<List<LinkMcpIdentityRequest.ScopesEnum>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            scopes = new Option<List<LinkMcpIdentityRequest.ScopesEnum>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)?.Select(value => LinkMcpIdentityRequest.ScopesEnumFromString(value)).ToList()!);
                             break;
                         default:
                             break;
@@ -324,7 +324,7 @@ namespace Reacon.Sdk.Model
             if (linkMcpIdentityRequest.ScopesOption.IsSet)
             {
                 writer.WritePropertyName("scopes");
-                JsonSerializer.Serialize(writer, linkMcpIdentityRequest.Scopes, jsonSerializerOptions);
+                JsonSerializer.Serialize(writer, linkMcpIdentityRequest.Scopes?.Select(value => LinkMcpIdentityRequest.ScopesEnumToJsonValue(value)).ToArray(), jsonSerializerOptions);
             }
         }
     }

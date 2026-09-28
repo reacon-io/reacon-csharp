@@ -309,7 +309,7 @@ namespace Reacon.Sdk.Model
                             startMinute = new Option<int?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (int?)null : utf8JsonReader.GetInt32());
                             break;
                         case "weekdays":
-                            weekdays = new Option<List<MailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.WeekdaysEnum>?>(JsonSerializer.Deserialize<List<MailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.WeekdaysEnum>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            weekdays = new Option<List<MailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.WeekdaysEnum>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)?.Select(value => MailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.WeekdaysEnumFromString(value)).ToList()!);
                             break;
                         default:
                             break;
@@ -370,7 +370,7 @@ namespace Reacon.Sdk.Model
             writer.WriteNumber("startMinute", mailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.StartMinute);
 
             writer.WritePropertyName("weekdays");
-            JsonSerializer.Serialize(writer, mailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.Weekdays, jsonSerializerOptions);
+            JsonSerializer.Serialize(writer, mailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.Weekdays?.Select(value => MailPatchCampaignsByCampaignIdRequestPolicySendingWindowsInner.WeekdaysEnumToJsonValue(value)).ToArray(), jsonSerializerOptions);
         }
     }
 }

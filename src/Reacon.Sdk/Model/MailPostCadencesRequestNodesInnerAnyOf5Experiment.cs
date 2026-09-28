@@ -615,7 +615,7 @@ namespace Reacon.Sdk.Model
                             attributionWindowMs = new Option<long?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (int?)null : utf8JsonReader.GetInt32());
                             break;
                         case "guardrailMetrics":
-                            guardrailMetrics = new Option<List<MailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetricsEnum>?>(JsonSerializer.Deserialize<List<MailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetricsEnum>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            guardrailMetrics = new Option<List<MailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetricsEnum>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)?.Select(value => MailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetricsEnumFromString(value)).ToList()!);
                             break;
                         case "hypothesis":
                             hypothesis = new Option<string?>(utf8JsonReader.GetString()!);
@@ -740,7 +740,7 @@ namespace Reacon.Sdk.Model
             if (mailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetricsOption.IsSet)
             {
                 writer.WritePropertyName("guardrailMetrics");
-                JsonSerializer.Serialize(writer, mailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetrics, jsonSerializerOptions);
+                JsonSerializer.Serialize(writer, mailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetrics?.Select(value => MailPostCadencesRequestNodesInnerAnyOf5Experiment.GuardrailMetricsEnumToJsonValue(value)).ToArray(), jsonSerializerOptions);
             }
             if (mailPostCadencesRequestNodesInnerAnyOf5Experiment.HypothesisOption.IsSet)
                 writer.WriteString("hypothesis", mailPostCadencesRequestNodesInnerAnyOf5Experiment.Hypothesis);

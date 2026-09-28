@@ -331,7 +331,6 @@ src/Reacon.Sdk/Model/MailPostAnalyticsExportRequest.cs
 src/Reacon.Sdk/Model/MailPostAnalyticsExportRequestAfter.cs
 src/Reacon.Sdk/Model/MailPostAnalyticsExportResponse200.cs
 src/Reacon.Sdk/Model/MailPostAnalyticsExportResponse200NextCursor.cs
-src/Reacon.Sdk/Model/MailPostAnalyticsExportResponse200NextCursorAnyOf.cs
 src/Reacon.Sdk/Model/MailPostCadenceCampaignsByCampaignIdStateRequest.cs
 src/Reacon.Sdk/Model/MailPostCadenceCampaignsByCampaignIdStateResponse200.cs
 src/Reacon.Sdk/Model/MailPostCadenceCampaignsByCampaignIdStateResponse200AnyOf.cs
