@@ -1325,7 +1325,7 @@ function nugetUploader({ getCredentials, inspectArchive = inspectNugetArchive, f
           body,
           redirect: "error",
           signal: AbortSignal.timeout(12e4),
-          headers: { "X-NuGet-ApiKey": credential.token, "User-Agent": "Reacon-SDK-Releases/1.0 (https://github.com/reacon-io)" }
+          headers: { "X-NuGet-ApiKey": credential.token, "X-NuGet-Protocol-Version": "4.1.0", "User-Agent": "Reacon-SDK-Releases/1.0 (https://github.com/reacon-io)" }
         });
       } catch {
         throw new Error("NuGet upload outcome unknown; reconcile before retry");
