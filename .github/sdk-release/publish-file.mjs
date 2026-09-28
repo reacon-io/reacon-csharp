@@ -1203,8 +1203,11 @@ async function inspectNugetArchive({
     const config = JSON.parse(await readFile2(toolchainConfiguration));
     const image = config.images[verifySignature ? "csharp" : "python"].image;
     if (!/^[a-z0-9/.-]+@sha256:[a-f0-9]{64}$/.test(image)) throw new Error("NuGet inspector image must be pinned");
+    const environment = { PATH: "/usr/local/bin:/usr/bin:/bin", HOME: directory2, LANG: "C.UTF-8" };
+    await runProcess({ command: "/usr/bin/docker", args: ["pull", image], cwd: directory2, env: environment });
     const args = [
       "run",
+      "--pull=never",
       "--rm",
       "--read-only",
       "--cap-drop=ALL",
@@ -1261,7 +1264,7 @@ async function inspectNugetArchive({
       command: "/usr/bin/docker",
       args,
       cwd: directory2,
-      env: { PATH: "/usr/local/bin:/usr/bin:/bin", HOME: directory2, LANG: "C.UTF-8" }
+      env: environment
     });
     return { ...verifySignature ? parseNugetVerification(output, fingerprints) : JSON.parse(output), inspectorImage: image };
   } finally {
