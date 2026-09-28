@@ -383,7 +383,7 @@ namespace Reacon.Sdk.Model
                             actions = new Option<MailPostReplyAutomationsRequestActions?>(JsonSerializer.Deserialize<MailPostReplyAutomationsRequestActions>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "labels":
-                            labels = new Option<List<MailPostReplyAutomationsRequest.LabelsEnum>?>(JsonSerializer.Deserialize<List<MailPostReplyAutomationsRequest.LabelsEnum>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            labels = new Option<List<MailPostReplyAutomationsRequest.LabelsEnum>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)?.Select(value => MailPostReplyAutomationsRequest.LabelsEnumFromString(value)).ToList()!);
                             break;
                         case "name":
                             name = new Option<string?>(utf8JsonReader.GetString()!);
@@ -472,7 +472,7 @@ namespace Reacon.Sdk.Model
             writer.WritePropertyName("actions");
             JsonSerializer.Serialize(writer, mailPostReplyAutomationsRequest.Actions, jsonSerializerOptions);
             writer.WritePropertyName("labels");
-            JsonSerializer.Serialize(writer, mailPostReplyAutomationsRequest.Labels, jsonSerializerOptions);
+            JsonSerializer.Serialize(writer, mailPostReplyAutomationsRequest.Labels?.Select(value => MailPostReplyAutomationsRequest.LabelsEnumToJsonValue(value)).ToArray(), jsonSerializerOptions);
             writer.WriteString("name", mailPostReplyAutomationsRequest.Name);
 
             if (mailPostReplyAutomationsRequest.EnabledOption.IsSet)

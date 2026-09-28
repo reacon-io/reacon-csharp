@@ -789,7 +789,7 @@ namespace Reacon.Sdk.Model
                             endpoint = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "eventTypes":
-                            eventTypes = new Option<List<MailPostWebhooksRequest.EventTypesEnum>?>(JsonSerializer.Deserialize<List<MailPostWebhooksRequest.EventTypesEnum>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            eventTypes = new Option<List<MailPostWebhooksRequest.EventTypesEnum>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)?.Select(value => MailPostWebhooksRequest.EventTypesEnumFromString(value)).ToList()!);
                             break;
                         default:
                             break;
@@ -844,7 +844,7 @@ namespace Reacon.Sdk.Model
             if (mailPostWebhooksRequest.EventTypesOption.IsSet)
             {
                 writer.WritePropertyName("eventTypes");
-                JsonSerializer.Serialize(writer, mailPostWebhooksRequest.EventTypes, jsonSerializerOptions);
+                JsonSerializer.Serialize(writer, mailPostWebhooksRequest.EventTypes?.Select(value => MailPostWebhooksRequest.EventTypesEnumToJsonValue(value)).ToArray(), jsonSerializerOptions);
             }
         }
     }

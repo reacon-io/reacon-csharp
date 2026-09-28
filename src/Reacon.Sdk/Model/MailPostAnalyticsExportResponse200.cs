@@ -36,16 +36,16 @@ namespace Reacon.Sdk.Model
         /// <param name="content">content</param>
         /// <param name="contentType">contentType</param>
         /// <param name="filename">filename</param>
-        /// <param name="nextCursor">nextCursor</param>
         /// <param name="rowCount">rowCount</param>
+        /// <param name="nextCursor">nextCursor</param>
         [JsonConstructor]
-        public MailPostAnalyticsExportResponse200(string content, ContentTypeEnum contentType, string filename, MailPostAnalyticsExportResponse200NextCursor nextCursor, decimal rowCount)
+        public MailPostAnalyticsExportResponse200(string content, ContentTypeEnum contentType, string filename, decimal rowCount, MailPostAnalyticsExportResponse200NextCursor? nextCursor = default)
         {
             Content = content;
             ContentType = contentType;
             Filename = filename;
-            NextCursor = nextCursor;
             RowCount = rowCount;
+            NextCursor = nextCursor;
             OnCreated();
         }
 
@@ -122,16 +122,16 @@ namespace Reacon.Sdk.Model
         public string Filename { get; set; }
 
         /// <summary>
-        /// Gets or Sets NextCursor
-        /// </summary>
-        [JsonPropertyName("nextCursor")]
-        public MailPostAnalyticsExportResponse200NextCursor NextCursor { get; set; }
-
-        /// <summary>
         /// Gets or Sets RowCount
         /// </summary>
         [JsonPropertyName("rowCount")]
         public decimal RowCount { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NextCursor
+        /// </summary>
+        [JsonPropertyName("nextCursor")]
+        public MailPostAnalyticsExportResponse200NextCursor? NextCursor { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -150,8 +150,8 @@ namespace Reacon.Sdk.Model
             sb.Append("  Content: ").Append(Content).Append("\n");
             sb.Append("  ContentType: ").Append(ContentType).Append("\n");
             sb.Append("  Filename: ").Append(Filename).Append("\n");
-            sb.Append("  NextCursor: ").Append(NextCursor).Append("\n");
             sb.Append("  RowCount: ").Append(RowCount).Append("\n");
+            sb.Append("  NextCursor: ").Append(NextCursor).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -204,8 +204,8 @@ namespace Reacon.Sdk.Model
             Option<string?> content = default;
             Option<MailPostAnalyticsExportResponse200.ContentTypeEnum?> contentType = default;
             Option<string?> filename = default;
-            Option<MailPostAnalyticsExportResponse200NextCursor?> nextCursor = default;
             Option<decimal?> rowCount = default;
+            Option<MailPostAnalyticsExportResponse200NextCursor?> nextCursor = default;
 
             while (utf8JsonReader.Read())
             {
@@ -238,11 +238,11 @@ namespace Reacon.Sdk.Model
                         case "filename":
                             filename = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
-                        case "nextCursor":
-                            nextCursor = new Option<MailPostAnalyticsExportResponse200NextCursor?>(JsonSerializer.Deserialize<MailPostAnalyticsExportResponse200NextCursor>(ref utf8JsonReader, jsonSerializerOptions)!);
-                            break;
                         case "rowCount":
                             rowCount = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
+                            break;
+                        case "nextCursor":
+                            nextCursor = new Option<MailPostAnalyticsExportResponse200NextCursor?>(JsonSerializer.Deserialize<MailPostAnalyticsExportResponse200NextCursor>(ref utf8JsonReader, jsonSerializerOptions));
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
@@ -261,11 +261,11 @@ namespace Reacon.Sdk.Model
             if (!filename.IsSet)
                 throw new ArgumentException("Property is required for class MailPostAnalyticsExportResponse200.", nameof(filename));
 
-            if (!nextCursor.IsSet)
-                throw new ArgumentException("Property is required for class MailPostAnalyticsExportResponse200.", nameof(nextCursor));
-
             if (!rowCount.IsSet)
                 throw new ArgumentException("Property is required for class MailPostAnalyticsExportResponse200.", nameof(rowCount));
+
+            if (!nextCursor.IsSet)
+                throw new ArgumentException("Property is required for class MailPostAnalyticsExportResponse200.", nameof(nextCursor));
 
             if (content.IsSet && content.Value == null)
                 throw new ArgumentNullException(nameof(content), "Property is not nullable for class MailPostAnalyticsExportResponse200.");
@@ -276,13 +276,10 @@ namespace Reacon.Sdk.Model
             if (filename.IsSet && filename.Value == null)
                 throw new ArgumentNullException(nameof(filename), "Property is not nullable for class MailPostAnalyticsExportResponse200.");
 
-            if (nextCursor.IsSet && nextCursor.Value == null)
-                throw new ArgumentNullException(nameof(nextCursor), "Property is not nullable for class MailPostAnalyticsExportResponse200.");
-
             if (rowCount.IsSet && rowCount.Value == null)
                 throw new ArgumentNullException(nameof(rowCount), "Property is not nullable for class MailPostAnalyticsExportResponse200.");
 
-            var reaconModelResult = new MailPostAnalyticsExportResponse200(content.Value!, contentType.Value!.Value!, filename.Value!, nextCursor.Value!, rowCount.Value!.Value!);
+            var reaconModelResult = new MailPostAnalyticsExportResponse200(content.Value!, contentType.Value!.Value!, filename.Value!, rowCount.Value!.Value!, nextCursor.Value!);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -317,22 +314,25 @@ namespace Reacon.Sdk.Model
             if (mailPostAnalyticsExportResponse200.Filename == null)
                 throw new ArgumentNullException(nameof(mailPostAnalyticsExportResponse200.Filename), "Property is required for class MailPostAnalyticsExportResponse200.");
 
-            if (mailPostAnalyticsExportResponse200.NextCursor == null)
-                throw new ArgumentNullException(nameof(mailPostAnalyticsExportResponse200.NextCursor), "Property is required for class MailPostAnalyticsExportResponse200.");
-
             writer.WriteString("content", mailPostAnalyticsExportResponse200.Content);
 
             var contentTypeRawValue = MailPostAnalyticsExportResponse200.ContentTypeEnumToJsonValue(mailPostAnalyticsExportResponse200.ContentType);
             writer.WriteString("contentType", contentTypeRawValue);
             writer.WriteString("filename", mailPostAnalyticsExportResponse200.Filename);
 
-            writer.WritePropertyName("nextCursor");
-            JsonSerializer.Serialize(writer, mailPostAnalyticsExportResponse200.NextCursor, jsonSerializerOptions);
             writer.WriteNumber("rowCount", mailPostAnalyticsExportResponse200.RowCount);
+
+            if (mailPostAnalyticsExportResponse200.NextCursor != null)
+            {
+                writer.WritePropertyName("nextCursor");
+                JsonSerializer.Serialize(writer, mailPostAnalyticsExportResponse200.NextCursor, jsonSerializerOptions);
+            }
+            else
+                writer.WriteNull("nextCursor");
 
             foreach (var property in mailPostAnalyticsExportResponse200.AdditionalProperties)
             {
-                if (property.Key == "contentType" || property.Key == "content" || property.Key == "filename" || property.Key == "nextCursor" || property.Key == "rowCount") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "contentType" || property.Key == "content" || property.Key == "filename" || property.Key == "rowCount" || property.Key == "nextCursor") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

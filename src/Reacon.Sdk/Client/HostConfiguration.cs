@@ -328,7 +328,6 @@ namespace Reacon.Sdk.Client
             _jsonOptions.Converters.Add(new MailPostAnalyticsExportRequestAfterJsonConverter());
             _jsonOptions.Converters.Add(new MailPostAnalyticsExportResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailPostAnalyticsExportResponse200NextCursorJsonConverter());
-            _jsonOptions.Converters.Add(new MailPostAnalyticsExportResponse200NextCursorAnyOfJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCadenceCampaignsByCampaignIdStateRequestJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCadenceCampaignsByCampaignIdStateResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailPostCadenceCampaignsByCampaignIdStateResponse200AnyOfJsonConverter());
