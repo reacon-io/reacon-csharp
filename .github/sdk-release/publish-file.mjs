@@ -1203,8 +1203,11 @@ async function inspectNugetArchive({
     const config = JSON.parse(await readFile2(toolchainConfiguration));
     const image = config.images[verifySignature ? "csharp" : "python"].image;
     if (!/^[a-z0-9/.-]+@sha256:[a-f0-9]{64}$/.test(image)) throw new Error("NuGet inspector image must be pinned");
+    const environment = { PATH: "/usr/local/bin:/usr/bin:/bin", HOME: directory2, LANG: "C.UTF-8" };
+    await runProcess({ command: "/usr/bin/docker", args: ["pull", image], cwd: directory2, env: environment });
     const args = [
       "run",
+      "--pull=never",
       "--rm",
       "--read-only",
       "--cap-drop=ALL",
@@ -1261,7 +1264,7 @@ async function inspectNugetArchive({
       command: "/usr/bin/docker",
       args,
       cwd: directory2,
-      env: { PATH: "/usr/local/bin:/usr/bin:/bin", HOME: directory2, LANG: "C.UTF-8" }
+      env: environment
     });
     return { ...verifySignature ? parseNugetVerification(output, fingerprints) : JSON.parse(output), inspectorImage: image };
   } finally {
@@ -1303,7 +1306,12 @@ function nugetUploader({ getCredentials, inspectArchive = inspectNugetArchive, f
     preflight: prepare,
     upload: async (input) => {
       if (typeof input.assertCurrentIntent !== "function" || typeof getCredentials !== "function") throw new Error("NuGet requires durable intent and explicit OIDC credentials");
-      await prepare(input);
+      try {
+        await prepare(input);
+      } catch (error) {
+        error.publicationDiagnostic = { stage: "nuget-preflight", reason: "Retained archive inspection failed", errorCode: error.code ?? null };
+        throw error;
+      }
       await input.assertCurrentIntent();
       const credential = await getCredentials({ registry: "nuget", packageName: "Reacon.Sdk" });
       if (credential.kind !== "trusted-publisher" || credential.registry !== "nuget" || credential.packageName !== "Reacon.Sdk" || credential.repository !== "reacon-io/reacon-csharp" || credential.workflow !== "publish.yml" || credential.environment !== "release" || typeof credential.token !== "string" || !credential.token || /\s/.test(credential.token) || !Number.isFinite(credential.expiresAt) || credential.expiresAt <= now() + 3e4 || credential.expiresAt > now() + 36e5) throw new Error("Unexpected NuGet credential binding");
@@ -1322,8 +1330,23 @@ function nugetUploader({ getCredentials, inspectArchive = inspectNugetArchive, f
       } catch {
         throw new Error("NuGet upload outcome unknown; reconcile before retry");
       }
+      if (![201, 202].includes(response.status)) {
+        const chunks = [];
+        let length = 0;
+        try {
+          for await (const chunk of response.body) {
+            length += chunk.length;
+            if (length > 16384) break;
+            chunks.push(chunk);
+          }
+        } catch {
+        }
+        const reason = Buffer.concat(chunks).toString("utf8").split(credential.token).join("[redacted]").replace(/eyJ[A-Za-z0-9_.-]+/g, "[redacted]").replace(/[A-Za-z0-9_+\/=-]{40,}/g, "[redacted]").slice(0, 2e3);
+        const error = new Error(`NuGet upload returned HTTP ${response.status}; reconcile before retry`);
+        error.publicationDiagnostic = { stage: "nuget-upload", status: response.status, reason };
+        throw error;
+      }
       await response.body?.cancel();
-      if (![201, 202].includes(response.status)) throw new Error(`NuGet upload returned HTTP ${response.status}; reconcile before retry`);
       return { uploaded: true, registryVerificationRequired: true };
     }
   };
@@ -2359,7 +2382,10 @@ async function runFilePublicationWorker({
         "Registry OIDC token request failed; details suppressed",
         "Trusted-publisher request failed; response details suppressed",
         "Invalid trusted-publisher response; details suppressed",
-        "Archive upload outcome is unknown; reconcile the registry"
+        "Archive upload outcome is unknown; reconcile the registry",
+        "NuGet upload outcome unknown; reconcile before retry",
+        "No current durable NuGet publication intent",
+        "Unexpected NuGet credential binding"
       ];
       const recognizedStatus = /^(?:Trusted-publisher request returned HTTP [1-5][0-9]{2}|Archive upload returned HTTP [1-5][0-9]{2}; reconcile the registry)$/.test(error.message);
       uploadFailure = error.publicationDiagnostic ?? { stage: "upload", reason: known.includes(error.message) || recognizedStatus ? error.message : "Unrecognized upload error; details suppressed" };
