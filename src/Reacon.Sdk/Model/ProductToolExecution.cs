@@ -518,9 +518,244 @@ namespace Reacon.Sdk.Model
         public enum ToolEnum
         {
             /// <summary>
+            /// Enum DiscoverCompanies for value: discover_companies
+            /// </summary>
+            DiscoverCompanies = 1,
+
+            /// <summary>
+            /// Enum DiscoverPeople for value: discover_people
+            /// </summary>
+            DiscoverPeople = 2,
+
+            /// <summary>
+            /// Enum DomainFinder for value: domain_finder
+            /// </summary>
+            DomainFinder = 3,
+
+            /// <summary>
+            /// Enum EmailCount for value: email_count
+            /// </summary>
+            EmailCount = 4,
+
+            /// <summary>
+            /// Enum PersonEnrich for value: person_enrich
+            /// </summary>
+            PersonEnrich = 5,
+
+            /// <summary>
+            /// Enum CompanyEnrich for value: company_enrich
+            /// </summary>
+            CompanyEnrich = 6,
+
+            /// <summary>
+            /// Enum CombinedEnrich for value: combined_enrich
+            /// </summary>
+            CombinedEnrich = 7,
+
+            /// <summary>
+            /// Enum SavedSearchesList for value: saved_searches_list
+            /// </summary>
+            SavedSearchesList = 8,
+
+            /// <summary>
+            /// Enum LeadsList for value: leads_list
+            /// </summary>
+            LeadsList = 9,
+
+            /// <summary>
+            /// Enum LeadGet for value: lead_get
+            /// </summary>
+            LeadGet = 10,
+
+            /// <summary>
+            /// Enum LeadCreate for value: lead_create
+            /// </summary>
+            LeadCreate = 11,
+
+            /// <summary>
+            /// Enum LeadUpdate for value: lead_update
+            /// </summary>
+            LeadUpdate = 12,
+
+            /// <summary>
+            /// Enum LeadUpsert for value: lead_upsert
+            /// </summary>
+            LeadUpsert = 13,
+
+            /// <summary>
+            /// Enum LeadDelete for value: lead_delete
+            /// </summary>
+            LeadDelete = 14,
+
+            /// <summary>
+            /// Enum LeadEnrich for value: lead_enrich
+            /// </summary>
+            LeadEnrich = 15,
+
+            /// <summary>
+            /// Enum LeadBulkDelete for value: lead_bulk_delete
+            /// </summary>
+            LeadBulkDelete = 16,
+
+            /// <summary>
+            /// Enum LeadTagsList for value: lead_tags_list
+            /// </summary>
+            LeadTagsList = 17,
+
+            /// <summary>
+            /// Enum LeadTagCreate for value: lead_tag_create
+            /// </summary>
+            LeadTagCreate = 18,
+
+            /// <summary>
+            /// Enum LeadTagAssign for value: lead_tag_assign
+            /// </summary>
+            LeadTagAssign = 19,
+
+            /// <summary>
+            /// Enum LeadTagRemove for value: lead_tag_remove
+            /// </summary>
+            LeadTagRemove = 20,
+
+            /// <summary>
+            /// Enum CustomAttributesList for value: custom_attributes_list
+            /// </summary>
+            CustomAttributesList = 21,
+
+            /// <summary>
+            /// Enum CustomAttributeCreate for value: custom_attribute_create
+            /// </summary>
+            CustomAttributeCreate = 22,
+
+            /// <summary>
+            /// Enum LeadListsList for value: lead_lists_list
+            /// </summary>
+            LeadListsList = 23,
+
+            /// <summary>
+            /// Enum LeadListCreate for value: lead_list_create
+            /// </summary>
+            LeadListCreate = 24,
+
+            /// <summary>
+            /// Enum LeadListUpdate for value: lead_list_update
+            /// </summary>
+            LeadListUpdate = 25,
+
+            /// <summary>
+            /// Enum LeadListDelete for value: lead_list_delete
+            /// </summary>
+            LeadListDelete = 26,
+
+            /// <summary>
+            /// Enum LeadListAddLead for value: lead_list_add_lead
+            /// </summary>
+            LeadListAddLead = 27,
+
+            /// <summary>
+            /// Enum LeadListRemoveLead for value: lead_list_remove_lead
+            /// </summary>
+            LeadListRemoveLead = 28,
+
+            /// <summary>
+            /// Enum CompaniesList for value: companies_list
+            /// </summary>
+            CompaniesList = 29,
+
+            /// <summary>
+            /// Enum CompanyTrack for value: company_track
+            /// </summary>
+            CompanyTrack = 30,
+
+            /// <summary>
+            /// Enum CompanyUpdate for value: company_update
+            /// </summary>
+            CompanyUpdate = 31,
+
+            /// <summary>
+            /// Enum CompanyDelete for value: company_delete
+            /// </summary>
+            CompanyDelete = 32,
+
+            /// <summary>
+            /// Enum CompanyListsList for value: company_lists_list
+            /// </summary>
+            CompanyListsList = 33,
+
+            /// <summary>
+            /// Enum CompanyListCreate for value: company_list_create
+            /// </summary>
+            CompanyListCreate = 34,
+
+            /// <summary>
+            /// Enum CompanyListAdd for value: company_list_add
+            /// </summary>
+            CompanyListAdd = 35,
+
+            /// <summary>
+            /// Enum CompanyListRemove for value: company_list_remove
+            /// </summary>
+            CompanyListRemove = 36,
+
+            /// <summary>
+            /// Enum SequencesList for value: sequences_list
+            /// </summary>
+            SequencesList = 37,
+
+            /// <summary>
+            /// Enum SequenceRecipientsList for value: sequence_recipients_list
+            /// </summary>
+            SequenceRecipientsList = 38,
+
+            /// <summary>
+            /// Enum SequenceRecipientsAdd for value: sequence_recipients_add
+            /// </summary>
+            SequenceRecipientsAdd = 39,
+
+            /// <summary>
+            /// Enum SequenceRecipientAdd for value: sequence_recipient_add
+            /// </summary>
+            SequenceRecipientAdd = 40,
+
+            /// <summary>
+            /// Enum SequenceRecipientCancel for value: sequence_recipient_cancel
+            /// </summary>
+            SequenceRecipientCancel = 41,
+
+            /// <summary>
+            /// Enum SequenceStart for value: sequence_start
+            /// </summary>
+            SequenceStart = 42,
+
+            /// <summary>
+            /// Enum AccountInfo for value: account_info
+            /// </summary>
+            AccountInfo = 43,
+
+            /// <summary>
+            /// Enum Usage for value: usage
+            /// </summary>
+            Usage = 44,
+
+            /// <summary>
+            /// Enum UsageHistory for value: usage_history
+            /// </summary>
+            UsageHistory = 45,
+
+            /// <summary>
+            /// Enum TeamMembers for value: team_members
+            /// </summary>
+            TeamMembers = 46,
+
+            /// <summary>
+            /// Enum ConnectedApps for value: connected_apps
+            /// </summary>
+            ConnectedApps = 47,
+
+            /// <summary>
             /// Enum ConnectedAppPush for value: connected_app_push
             /// </summary>
-            ConnectedAppPush = 1
+            ConnectedAppPush = 48
         }
 
         /// <summary>
@@ -531,6 +766,147 @@ namespace Reacon.Sdk.Model
         /// <exception cref="NotImplementedException"></exception>
         public static ToolEnum ToolEnumFromString(string value)
         {
+            if (value.Equals("discover_companies"))
+                return ToolEnum.DiscoverCompanies;
+
+            if (value.Equals("discover_people"))
+                return ToolEnum.DiscoverPeople;
+
+            if (value.Equals("domain_finder"))
+                return ToolEnum.DomainFinder;
+
+            if (value.Equals("email_count"))
+                return ToolEnum.EmailCount;
+
+            if (value.Equals("person_enrich"))
+                return ToolEnum.PersonEnrich;
+
+            if (value.Equals("company_enrich"))
+                return ToolEnum.CompanyEnrich;
+
+            if (value.Equals("combined_enrich"))
+                return ToolEnum.CombinedEnrich;
+
+            if (value.Equals("saved_searches_list"))
+                return ToolEnum.SavedSearchesList;
+
+            if (value.Equals("leads_list"))
+                return ToolEnum.LeadsList;
+
+            if (value.Equals("lead_get"))
+                return ToolEnum.LeadGet;
+
+            if (value.Equals("lead_create"))
+                return ToolEnum.LeadCreate;
+
+            if (value.Equals("lead_update"))
+                return ToolEnum.LeadUpdate;
+
+            if (value.Equals("lead_upsert"))
+                return ToolEnum.LeadUpsert;
+
+            if (value.Equals("lead_delete"))
+                return ToolEnum.LeadDelete;
+
+            if (value.Equals("lead_enrich"))
+                return ToolEnum.LeadEnrich;
+
+            if (value.Equals("lead_bulk_delete"))
+                return ToolEnum.LeadBulkDelete;
+
+            if (value.Equals("lead_tags_list"))
+                return ToolEnum.LeadTagsList;
+
+            if (value.Equals("lead_tag_create"))
+                return ToolEnum.LeadTagCreate;
+
+            if (value.Equals("lead_tag_assign"))
+                return ToolEnum.LeadTagAssign;
+
+            if (value.Equals("lead_tag_remove"))
+                return ToolEnum.LeadTagRemove;
+
+            if (value.Equals("custom_attributes_list"))
+                return ToolEnum.CustomAttributesList;
+
+            if (value.Equals("custom_attribute_create"))
+                return ToolEnum.CustomAttributeCreate;
+
+            if (value.Equals("lead_lists_list"))
+                return ToolEnum.LeadListsList;
+
+            if (value.Equals("lead_list_create"))
+                return ToolEnum.LeadListCreate;
+
+            if (value.Equals("lead_list_update"))
+                return ToolEnum.LeadListUpdate;
+
+            if (value.Equals("lead_list_delete"))
+                return ToolEnum.LeadListDelete;
+
+            if (value.Equals("lead_list_add_lead"))
+                return ToolEnum.LeadListAddLead;
+
+            if (value.Equals("lead_list_remove_lead"))
+                return ToolEnum.LeadListRemoveLead;
+
+            if (value.Equals("companies_list"))
+                return ToolEnum.CompaniesList;
+
+            if (value.Equals("company_track"))
+                return ToolEnum.CompanyTrack;
+
+            if (value.Equals("company_update"))
+                return ToolEnum.CompanyUpdate;
+
+            if (value.Equals("company_delete"))
+                return ToolEnum.CompanyDelete;
+
+            if (value.Equals("company_lists_list"))
+                return ToolEnum.CompanyListsList;
+
+            if (value.Equals("company_list_create"))
+                return ToolEnum.CompanyListCreate;
+
+            if (value.Equals("company_list_add"))
+                return ToolEnum.CompanyListAdd;
+
+            if (value.Equals("company_list_remove"))
+                return ToolEnum.CompanyListRemove;
+
+            if (value.Equals("sequences_list"))
+                return ToolEnum.SequencesList;
+
+            if (value.Equals("sequence_recipients_list"))
+                return ToolEnum.SequenceRecipientsList;
+
+            if (value.Equals("sequence_recipients_add"))
+                return ToolEnum.SequenceRecipientsAdd;
+
+            if (value.Equals("sequence_recipient_add"))
+                return ToolEnum.SequenceRecipientAdd;
+
+            if (value.Equals("sequence_recipient_cancel"))
+                return ToolEnum.SequenceRecipientCancel;
+
+            if (value.Equals("sequence_start"))
+                return ToolEnum.SequenceStart;
+
+            if (value.Equals("account_info"))
+                return ToolEnum.AccountInfo;
+
+            if (value.Equals("usage"))
+                return ToolEnum.Usage;
+
+            if (value.Equals("usage_history"))
+                return ToolEnum.UsageHistory;
+
+            if (value.Equals("team_members"))
+                return ToolEnum.TeamMembers;
+
+            if (value.Equals("connected_apps"))
+                return ToolEnum.ConnectedApps;
+
             if (value.Equals("connected_app_push"))
                 return ToolEnum.ConnectedAppPush;
 
@@ -544,6 +920,147 @@ namespace Reacon.Sdk.Model
         /// <returns></returns>
         public static ToolEnum? ToolEnumFromStringOrDefault(string value)
         {
+            if (value.Equals("discover_companies"))
+                return ToolEnum.DiscoverCompanies;
+
+            if (value.Equals("discover_people"))
+                return ToolEnum.DiscoverPeople;
+
+            if (value.Equals("domain_finder"))
+                return ToolEnum.DomainFinder;
+
+            if (value.Equals("email_count"))
+                return ToolEnum.EmailCount;
+
+            if (value.Equals("person_enrich"))
+                return ToolEnum.PersonEnrich;
+
+            if (value.Equals("company_enrich"))
+                return ToolEnum.CompanyEnrich;
+
+            if (value.Equals("combined_enrich"))
+                return ToolEnum.CombinedEnrich;
+
+            if (value.Equals("saved_searches_list"))
+                return ToolEnum.SavedSearchesList;
+
+            if (value.Equals("leads_list"))
+                return ToolEnum.LeadsList;
+
+            if (value.Equals("lead_get"))
+                return ToolEnum.LeadGet;
+
+            if (value.Equals("lead_create"))
+                return ToolEnum.LeadCreate;
+
+            if (value.Equals("lead_update"))
+                return ToolEnum.LeadUpdate;
+
+            if (value.Equals("lead_upsert"))
+                return ToolEnum.LeadUpsert;
+
+            if (value.Equals("lead_delete"))
+                return ToolEnum.LeadDelete;
+
+            if (value.Equals("lead_enrich"))
+                return ToolEnum.LeadEnrich;
+
+            if (value.Equals("lead_bulk_delete"))
+                return ToolEnum.LeadBulkDelete;
+
+            if (value.Equals("lead_tags_list"))
+                return ToolEnum.LeadTagsList;
+
+            if (value.Equals("lead_tag_create"))
+                return ToolEnum.LeadTagCreate;
+
+            if (value.Equals("lead_tag_assign"))
+                return ToolEnum.LeadTagAssign;
+
+            if (value.Equals("lead_tag_remove"))
+                return ToolEnum.LeadTagRemove;
+
+            if (value.Equals("custom_attributes_list"))
+                return ToolEnum.CustomAttributesList;
+
+            if (value.Equals("custom_attribute_create"))
+                return ToolEnum.CustomAttributeCreate;
+
+            if (value.Equals("lead_lists_list"))
+                return ToolEnum.LeadListsList;
+
+            if (value.Equals("lead_list_create"))
+                return ToolEnum.LeadListCreate;
+
+            if (value.Equals("lead_list_update"))
+                return ToolEnum.LeadListUpdate;
+
+            if (value.Equals("lead_list_delete"))
+                return ToolEnum.LeadListDelete;
+
+            if (value.Equals("lead_list_add_lead"))
+                return ToolEnum.LeadListAddLead;
+
+            if (value.Equals("lead_list_remove_lead"))
+                return ToolEnum.LeadListRemoveLead;
+
+            if (value.Equals("companies_list"))
+                return ToolEnum.CompaniesList;
+
+            if (value.Equals("company_track"))
+                return ToolEnum.CompanyTrack;
+
+            if (value.Equals("company_update"))
+                return ToolEnum.CompanyUpdate;
+
+            if (value.Equals("company_delete"))
+                return ToolEnum.CompanyDelete;
+
+            if (value.Equals("company_lists_list"))
+                return ToolEnum.CompanyListsList;
+
+            if (value.Equals("company_list_create"))
+                return ToolEnum.CompanyListCreate;
+
+            if (value.Equals("company_list_add"))
+                return ToolEnum.CompanyListAdd;
+
+            if (value.Equals("company_list_remove"))
+                return ToolEnum.CompanyListRemove;
+
+            if (value.Equals("sequences_list"))
+                return ToolEnum.SequencesList;
+
+            if (value.Equals("sequence_recipients_list"))
+                return ToolEnum.SequenceRecipientsList;
+
+            if (value.Equals("sequence_recipients_add"))
+                return ToolEnum.SequenceRecipientsAdd;
+
+            if (value.Equals("sequence_recipient_add"))
+                return ToolEnum.SequenceRecipientAdd;
+
+            if (value.Equals("sequence_recipient_cancel"))
+                return ToolEnum.SequenceRecipientCancel;
+
+            if (value.Equals("sequence_start"))
+                return ToolEnum.SequenceStart;
+
+            if (value.Equals("account_info"))
+                return ToolEnum.AccountInfo;
+
+            if (value.Equals("usage"))
+                return ToolEnum.Usage;
+
+            if (value.Equals("usage_history"))
+                return ToolEnum.UsageHistory;
+
+            if (value.Equals("team_members"))
+                return ToolEnum.TeamMembers;
+
+            if (value.Equals("connected_apps"))
+                return ToolEnum.ConnectedApps;
+
             if (value.Equals("connected_app_push"))
                 return ToolEnum.ConnectedAppPush;
 
@@ -558,6 +1075,147 @@ namespace Reacon.Sdk.Model
         /// <exception cref="NotImplementedException"></exception>
         public static string ToolEnumToJsonValue(ToolEnum value)
         {
+            if (value == ToolEnum.DiscoverCompanies)
+                return "discover_companies";
+
+            if (value == ToolEnum.DiscoverPeople)
+                return "discover_people";
+
+            if (value == ToolEnum.DomainFinder)
+                return "domain_finder";
+
+            if (value == ToolEnum.EmailCount)
+                return "email_count";
+
+            if (value == ToolEnum.PersonEnrich)
+                return "person_enrich";
+
+            if (value == ToolEnum.CompanyEnrich)
+                return "company_enrich";
+
+            if (value == ToolEnum.CombinedEnrich)
+                return "combined_enrich";
+
+            if (value == ToolEnum.SavedSearchesList)
+                return "saved_searches_list";
+
+            if (value == ToolEnum.LeadsList)
+                return "leads_list";
+
+            if (value == ToolEnum.LeadGet)
+                return "lead_get";
+
+            if (value == ToolEnum.LeadCreate)
+                return "lead_create";
+
+            if (value == ToolEnum.LeadUpdate)
+                return "lead_update";
+
+            if (value == ToolEnum.LeadUpsert)
+                return "lead_upsert";
+
+            if (value == ToolEnum.LeadDelete)
+                return "lead_delete";
+
+            if (value == ToolEnum.LeadEnrich)
+                return "lead_enrich";
+
+            if (value == ToolEnum.LeadBulkDelete)
+                return "lead_bulk_delete";
+
+            if (value == ToolEnum.LeadTagsList)
+                return "lead_tags_list";
+
+            if (value == ToolEnum.LeadTagCreate)
+                return "lead_tag_create";
+
+            if (value == ToolEnum.LeadTagAssign)
+                return "lead_tag_assign";
+
+            if (value == ToolEnum.LeadTagRemove)
+                return "lead_tag_remove";
+
+            if (value == ToolEnum.CustomAttributesList)
+                return "custom_attributes_list";
+
+            if (value == ToolEnum.CustomAttributeCreate)
+                return "custom_attribute_create";
+
+            if (value == ToolEnum.LeadListsList)
+                return "lead_lists_list";
+
+            if (value == ToolEnum.LeadListCreate)
+                return "lead_list_create";
+
+            if (value == ToolEnum.LeadListUpdate)
+                return "lead_list_update";
+
+            if (value == ToolEnum.LeadListDelete)
+                return "lead_list_delete";
+
+            if (value == ToolEnum.LeadListAddLead)
+                return "lead_list_add_lead";
+
+            if (value == ToolEnum.LeadListRemoveLead)
+                return "lead_list_remove_lead";
+
+            if (value == ToolEnum.CompaniesList)
+                return "companies_list";
+
+            if (value == ToolEnum.CompanyTrack)
+                return "company_track";
+
+            if (value == ToolEnum.CompanyUpdate)
+                return "company_update";
+
+            if (value == ToolEnum.CompanyDelete)
+                return "company_delete";
+
+            if (value == ToolEnum.CompanyListsList)
+                return "company_lists_list";
+
+            if (value == ToolEnum.CompanyListCreate)
+                return "company_list_create";
+
+            if (value == ToolEnum.CompanyListAdd)
+                return "company_list_add";
+
+            if (value == ToolEnum.CompanyListRemove)
+                return "company_list_remove";
+
+            if (value == ToolEnum.SequencesList)
+                return "sequences_list";
+
+            if (value == ToolEnum.SequenceRecipientsList)
+                return "sequence_recipients_list";
+
+            if (value == ToolEnum.SequenceRecipientsAdd)
+                return "sequence_recipients_add";
+
+            if (value == ToolEnum.SequenceRecipientAdd)
+                return "sequence_recipient_add";
+
+            if (value == ToolEnum.SequenceRecipientCancel)
+                return "sequence_recipient_cancel";
+
+            if (value == ToolEnum.SequenceStart)
+                return "sequence_start";
+
+            if (value == ToolEnum.AccountInfo)
+                return "account_info";
+
+            if (value == ToolEnum.Usage)
+                return "usage";
+
+            if (value == ToolEnum.UsageHistory)
+                return "usage_history";
+
+            if (value == ToolEnum.TeamMembers)
+                return "team_members";
+
+            if (value == ToolEnum.ConnectedApps)
+                return "connected_apps";
+
             if (value == ToolEnum.ConnectedAppPush)
                 return "connected_app_push";
 

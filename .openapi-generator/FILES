@@ -168,6 +168,7 @@ src/Reacon.Sdk/Model/InspectExcelWorkbookRequest.cs
 src/Reacon.Sdk/Model/InspectGoogleSheetRequest.cs
 src/Reacon.Sdk/Model/IntegrationCapabilityResponse.cs
 src/Reacon.Sdk/Model/IntegrationCapabilityResponseOutput.cs
+src/Reacon.Sdk/Model/IntegrationCapabilityResponseOutputNonNull.cs
 src/Reacon.Sdk/Model/IntegrationConnection.cs
 src/Reacon.Sdk/Model/IntegrationConnectionHealth.cs
 src/Reacon.Sdk/Model/IntegrationConnectionList.cs

@@ -33,64 +33,40 @@ namespace Reacon.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="IntegrationCapabilityResponseOutput" /> class.
         /// </summary>
-        /// <param name="capabilityEmailFound"></param>
-        internal IntegrationCapabilityResponseOutput(CapabilityEmailFound capabilityEmailFound)
-        {
-            CapabilityEmailFound = capabilityEmailFound;
-            OnCreated();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IntegrationCapabilityResponseOutput" /> class.
-        /// </summary>
-        /// <param name="capabilityEmailVerified"></param>
-        internal IntegrationCapabilityResponseOutput(CapabilityEmailVerified capabilityEmailVerified)
-        {
-            CapabilityEmailVerified = capabilityEmailVerified;
-            OnCreated();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IntegrationCapabilityResponseOutput" /> class.
-        /// </summary>
-        /// <param name="capabilityDomainSearch"></param>
-        internal IntegrationCapabilityResponseOutput(CapabilityDomainSearch capabilityDomainSearch)
-        {
-            CapabilityDomainSearch = capabilityDomainSearch;
-            OnCreated();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IntegrationCapabilityResponseOutput" /> class.
-        /// </summary>
+        /// <param name="integrationCapabilityResponseOutputNonNull"></param>
         /// <param name="object"></param>
-        internal IntegrationCapabilityResponseOutput(Object @object)
+        public IntegrationCapabilityResponseOutput(Option<IntegrationCapabilityResponseOutputNonNull?> integrationCapabilityResponseOutputNonNull, Option<Object?> @object)
         {
-            Object = @object;
+            IntegrationCapabilityResponseOutputNonNullOption = integrationCapabilityResponseOutputNonNull;
+            ObjectOption = @object;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Gets or Sets CapabilityEmailFound
+        /// Used to track the state of IntegrationCapabilityResponseOutputNonNull
         /// </summary>
-        public CapabilityEmailFound? CapabilityEmailFound { get; set; }
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<IntegrationCapabilityResponseOutputNonNull?> IntegrationCapabilityResponseOutputNonNullOption { get; private set; }
 
         /// <summary>
-        /// Gets or Sets CapabilityEmailVerified
+        /// Gets or Sets IntegrationCapabilityResponseOutputNonNull
         /// </summary>
-        public CapabilityEmailVerified? CapabilityEmailVerified { get; set; }
+        public IntegrationCapabilityResponseOutputNonNull? IntegrationCapabilityResponseOutputNonNull { get { return this.IntegrationCapabilityResponseOutputNonNullOption.Value; } set { this.IntegrationCapabilityResponseOutputNonNullOption = new(value); } }
 
         /// <summary>
-        /// Gets or Sets CapabilityDomainSearch
+        /// Used to track the state of Object
         /// </summary>
-        public CapabilityDomainSearch? CapabilityDomainSearch { get; set; }
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<Object?> ObjectOption { get; private set; }
 
         /// <summary>
         /// Gets or Sets Object
         /// </summary>
-        public Object? Object { get; set; }
+        public Object? Object { get { return this.ObjectOption.Value; } set { this.ObjectOption = new(value); } }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -154,30 +130,22 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            CapabilityEmailFound? capabilityEmailFound = default;
-            CapabilityEmailVerified? capabilityEmailVerified = default;
-            CapabilityDomainSearch? capabilityDomainSearch = default;
+            IntegrationCapabilityResponseOutputNonNull? integrationCapabilityResponseOutputNonNull = default;
             Object? varObject = default;
 
-            Utf8JsonReader utf8JsonReaderOneOf = utf8JsonReader;
-            while (utf8JsonReaderOneOf.Read())
+            Utf8JsonReader utf8JsonReaderAnyOf = utf8JsonReader;
+            while (utf8JsonReaderAnyOf.Read())
             {
-                if (startingTokenType == JsonTokenType.StartObject && utf8JsonReaderOneOf.TokenType == JsonTokenType.EndObject && currentDepth == utf8JsonReaderOneOf.CurrentDepth)
+                if (startingTokenType == JsonTokenType.StartObject && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndObject && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
                     break;
 
-                if (startingTokenType == JsonTokenType.StartArray && utf8JsonReaderOneOf.TokenType == JsonTokenType.EndArray && currentDepth == utf8JsonReaderOneOf.CurrentDepth)
+                if (startingTokenType == JsonTokenType.StartArray && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndArray && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
                     break;
 
-                if (utf8JsonReaderOneOf.TokenType == JsonTokenType.PropertyName && currentDepth == utf8JsonReaderOneOf.CurrentDepth - 1)
+                if (utf8JsonReaderAnyOf.TokenType == JsonTokenType.PropertyName && currentDepth == utf8JsonReaderAnyOf.CurrentDepth - 1)
                 {
-                    Utf8JsonReader utf8JsonReaderCapabilityEmailFound = utf8JsonReader;
-                    ClientUtils.TryDeserialize<CapabilityEmailFound?>(ref utf8JsonReaderCapabilityEmailFound, jsonSerializerOptions, out capabilityEmailFound);
-
-                    Utf8JsonReader utf8JsonReaderCapabilityEmailVerified = utf8JsonReader;
-                    ClientUtils.TryDeserialize<CapabilityEmailVerified?>(ref utf8JsonReaderCapabilityEmailVerified, jsonSerializerOptions, out capabilityEmailVerified);
-
-                    Utf8JsonReader utf8JsonReaderCapabilityDomainSearch = utf8JsonReader;
-                    ClientUtils.TryDeserialize<CapabilityDomainSearch?>(ref utf8JsonReaderCapabilityDomainSearch, jsonSerializerOptions, out capabilityDomainSearch);
+                    Utf8JsonReader utf8JsonReaderIntegrationCapabilityResponseOutputNonNull = utf8JsonReader;
+                    ClientUtils.TryDeserialize<IntegrationCapabilityResponseOutputNonNull?>(ref utf8JsonReaderIntegrationCapabilityResponseOutputNonNull, jsonSerializerOptions, out integrationCapabilityResponseOutputNonNull);
 
                     Utf8JsonReader utf8JsonReaderObject = utf8JsonReader;
                     ClientUtils.TryDeserialize<Object?>(ref utf8JsonReaderObject, jsonSerializerOptions, out varObject);
@@ -205,19 +173,14 @@ namespace Reacon.Sdk.Model
                 }
             }
 
-            if (capabilityEmailFound != null)
-                return new IntegrationCapabilityResponseOutput(capabilityEmailFound);
+            Option<IntegrationCapabilityResponseOutputNonNull?> integrationCapabilityResponseOutputNonNullParsedValue = integrationCapabilityResponseOutputNonNull == null
+                ? default
+                : new Option<IntegrationCapabilityResponseOutputNonNull?>(integrationCapabilityResponseOutputNonNull);
+            Option<Object?> varObjectParsedValue = varObject == null
+                ? default
+                : new Option<Object?>(varObject);
 
-            if (capabilityEmailVerified != null)
-                return new IntegrationCapabilityResponseOutput(capabilityEmailVerified);
-
-            if (capabilityDomainSearch != null)
-                return new IntegrationCapabilityResponseOutput(capabilityDomainSearch);
-
-            if (varObject != null)
-                return new IntegrationCapabilityResponseOutput(varObject);
-
-            throw new JsonException();
+            return new IntegrationCapabilityResponseOutput(integrationCapabilityResponseOutputNonNullParsedValue, varObjectParsedValue);
         }
 
         /// <summary>
@@ -230,6 +193,14 @@ namespace Reacon.Sdk.Model
         public override void Write(Utf8JsonWriter writer, IntegrationCapabilityResponseOutput integrationCapabilityResponseOutput, JsonSerializerOptions jsonSerializerOptions)
         {
             writer.WriteStartObject();
+
+            if (integrationCapabilityResponseOutput.IntegrationCapabilityResponseOutputNonNullOption.IsSet && integrationCapabilityResponseOutput.IntegrationCapabilityResponseOutputNonNullOption.Value != null)
+            {
+                IntegrationCapabilityResponseOutputNonNullJsonConverter integrationCapabilityResponseOutputNonNullJsonConverter = (IntegrationCapabilityResponseOutputNonNullJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(integrationCapabilityResponseOutput.IntegrationCapabilityResponseOutputNonNullOption.Value.GetType()));
+                integrationCapabilityResponseOutputNonNullJsonConverter.WriteProperties(writer, integrationCapabilityResponseOutput.IntegrationCapabilityResponseOutputNonNullOption.Value, jsonSerializerOptions);
+            }
+
+            if (integrationCapabilityResponseOutput.ObjectOption.IsSet && integrationCapabilityResponseOutput.ObjectOption.Value != null)
 
             WriteProperties(writer, integrationCapabilityResponseOutput, jsonSerializerOptions);
             writer.WriteEndObject();
