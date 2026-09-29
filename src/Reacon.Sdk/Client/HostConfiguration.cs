@@ -165,6 +165,7 @@ namespace Reacon.Sdk.Client
             _jsonOptions.Converters.Add(new InspectGoogleSheetRequestJsonConverter());
             _jsonOptions.Converters.Add(new IntegrationCapabilityResponseJsonConverter());
             _jsonOptions.Converters.Add(new IntegrationCapabilityResponseOutputJsonConverter());
+            _jsonOptions.Converters.Add(new IntegrationCapabilityResponseOutputNonNullJsonConverter());
             _jsonOptions.Converters.Add(new IntegrationConnectionJsonConverter());
             _jsonOptions.Converters.Add(new IntegrationConnectionHealthJsonConverter());
             _jsonOptions.Converters.Add(new IntegrationConnectionListJsonConverter());

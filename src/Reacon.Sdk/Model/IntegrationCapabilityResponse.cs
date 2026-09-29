@@ -43,7 +43,7 @@ namespace Reacon.Sdk.Model
         /// <param name="output">output</param>
         /// <param name="replay">replay</param>
         [JsonConstructor]
-        public IntegrationCapabilityResponse(int actualCredits, string capability, bool charged, bool emulated, int estimatedCredits, string executionId, string mode, IntegrationCapabilityResponseOutput output, bool replay)
+        public IntegrationCapabilityResponse(int actualCredits, string capability, bool charged, bool emulated, int estimatedCredits, string executionId, string mode, IntegrationCapabilityResponseOutputNonNull output, bool replay)
         {
             ActualCredits = actualCredits;
             Capability = capability;
@@ -107,7 +107,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Output
         /// </summary>
         [JsonPropertyName("output")]
-        public IntegrationCapabilityResponseOutput Output { get; set; }
+        public IntegrationCapabilityResponseOutputNonNull? Output { get; set; }
 
         /// <summary>
         /// Gets or Sets Replay
@@ -194,7 +194,7 @@ namespace Reacon.Sdk.Model
             Option<int?> estimatedCredits = default;
             Option<string?> executionId = default;
             Option<string?> mode = default;
-            Option<IntegrationCapabilityResponseOutput?> output = default;
+            Option<IntegrationCapabilityResponseOutputNonNull?> output = default;
             Option<bool?> replay = default;
 
             while (utf8JsonReader.Read())
@@ -234,7 +234,7 @@ namespace Reacon.Sdk.Model
                             mode = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "output":
-                            output = new Option<IntegrationCapabilityResponseOutput?>(JsonSerializer.Deserialize<IntegrationCapabilityResponseOutput>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            output = new Option<IntegrationCapabilityResponseOutputNonNull?>(JsonSerializer.Deserialize<IntegrationCapabilityResponseOutputNonNull>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "replay":
                             replay = new Option<bool?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (bool?)null : utf8JsonReader.GetBoolean());
@@ -295,8 +295,6 @@ namespace Reacon.Sdk.Model
             if (mode.IsSet && mode.Value == null)
                 throw new ArgumentNullException(nameof(mode), "Property is not nullable for class IntegrationCapabilityResponse.");
 
-            if (output.IsSet && output.Value == null)
-                throw new ArgumentNullException(nameof(output), "Property is not nullable for class IntegrationCapabilityResponse.");
 
             if (replay.IsSet && replay.Value == null)
                 throw new ArgumentNullException(nameof(replay), "Property is not nullable for class IntegrationCapabilityResponse.");
@@ -339,8 +337,6 @@ namespace Reacon.Sdk.Model
             if (integrationCapabilityResponse.Mode == null)
                 throw new ArgumentNullException(nameof(integrationCapabilityResponse.Mode), "Property is required for class IntegrationCapabilityResponse.");
 
-            if (integrationCapabilityResponse.Output == null)
-                throw new ArgumentNullException(nameof(integrationCapabilityResponse.Output), "Property is required for class IntegrationCapabilityResponse.");
 
             writer.WriteNumber("actualCredits", integrationCapabilityResponse.ActualCredits);
 
