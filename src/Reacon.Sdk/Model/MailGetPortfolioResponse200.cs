@@ -123,64 +123,22 @@ namespace Reacon.Sdk.Model
         /// <exception cref="JsonException"></exception>
         public override MailGetPortfolioResponse200 Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
         {
-            int currentDepth = utf8JsonReader.CurrentDepth;
-
-            if (utf8JsonReader.TokenType != JsonTokenType.StartObject && utf8JsonReader.TokenType != JsonTokenType.StartArray)
-                throw new JsonException();
-
-            JsonTokenType startingTokenType = utf8JsonReader.TokenType;
-
-            MailGetPortfolioResponse200AnyOf? mailGetPortfolioResponse200AnyOf = default;
-            MailGetPortfolioResponse200AnyOf1? mailGetPortfolioResponse200AnyOf1 = default;
-
-            Utf8JsonReader utf8JsonReaderAnyOf = utf8JsonReader;
-            while (utf8JsonReaderAnyOf.Read())
+            using var document = JsonDocument.ParseValue(ref utf8JsonReader);
+            var root = document.RootElement;
+            if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("portfolio", out var portfolio) ||
+                !root.TryGetProperty("suppressions", out var suppressions) || suppressions.ValueKind != JsonValueKind.Array ||
+                !root.TryGetProperty("teams", out var teams) || teams.ValueKind != JsonValueKind.Array)
+                throw new JsonException("Portfolio response requires portfolio, suppressions and teams");
+            if (portfolio.ValueKind == JsonValueKind.Null)
             {
-                if (startingTokenType == JsonTokenType.StartObject && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndObject && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
-                    break;
-
-                if (startingTokenType == JsonTokenType.StartArray && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndArray && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
-                    break;
-
-                if (utf8JsonReaderAnyOf.TokenType == JsonTokenType.PropertyName && currentDepth == utf8JsonReaderAnyOf.CurrentDepth - 1)
-                {
-                    Utf8JsonReader utf8JsonReaderMailGetPortfolioResponse200AnyOf = utf8JsonReader;
-                    ClientUtils.TryDeserialize<MailGetPortfolioResponse200AnyOf?>(ref utf8JsonReaderMailGetPortfolioResponse200AnyOf, jsonSerializerOptions, out mailGetPortfolioResponse200AnyOf);
-
-                    Utf8JsonReader utf8JsonReaderMailGetPortfolioResponse200AnyOf1 = utf8JsonReader;
-                    ClientUtils.TryDeserialize<MailGetPortfolioResponse200AnyOf1?>(ref utf8JsonReaderMailGetPortfolioResponse200AnyOf1, jsonSerializerOptions, out mailGetPortfolioResponse200AnyOf1);
-                }
+                if (suppressions.GetArrayLength() != 0 || teams.GetArrayLength() != 0)
+                    throw new JsonException("An absent portfolio requires empty teams and suppressions");
+                var value = JsonSerializer.Deserialize<MailGetPortfolioResponse200AnyOf>(root.GetRawText(), jsonSerializerOptions)!;
+                return new MailGetPortfolioResponse200(new Option<MailGetPortfolioResponse200AnyOf?>(value), default);
             }
-
-            while (utf8JsonReader.Read())
-            {
-                if (startingTokenType == JsonTokenType.StartObject && utf8JsonReader.TokenType == JsonTokenType.EndObject && currentDepth == utf8JsonReader.CurrentDepth)
-                    break;
-
-                if (startingTokenType == JsonTokenType.StartArray && utf8JsonReader.TokenType == JsonTokenType.EndArray && currentDepth == utf8JsonReader.CurrentDepth)
-                    break;
-
-                if (utf8JsonReader.TokenType == JsonTokenType.PropertyName && currentDepth == utf8JsonReader.CurrentDepth - 1)
-                {
-                    string? localVarJsonPropertyName = utf8JsonReader.GetString();
-                    utf8JsonReader.Read();
-
-                    switch (localVarJsonPropertyName)
-                    {
-                        default:
-                            break;
-                    }
-                }
-            }
-
-            Option<MailGetPortfolioResponse200AnyOf?> mailGetPortfolioResponse200AnyOfParsedValue = mailGetPortfolioResponse200AnyOf == null
-                ? default
-                : new Option<MailGetPortfolioResponse200AnyOf?>(mailGetPortfolioResponse200AnyOf);
-            Option<MailGetPortfolioResponse200AnyOf1?> mailGetPortfolioResponse200AnyOf1ParsedValue = mailGetPortfolioResponse200AnyOf1 == null
-                ? default
-                : new Option<MailGetPortfolioResponse200AnyOf1?>(mailGetPortfolioResponse200AnyOf1);
-
-            return new MailGetPortfolioResponse200(mailGetPortfolioResponse200AnyOfParsedValue, mailGetPortfolioResponse200AnyOf1ParsedValue);
+            if (portfolio.ValueKind != JsonValueKind.Object) throw new JsonException("Expected a portfolio object or null");
+            var populated = JsonSerializer.Deserialize<MailGetPortfolioResponse200AnyOf1>(root.GetRawText(), jsonSerializerOptions)!;
+            return new MailGetPortfolioResponse200(default, new Option<MailGetPortfolioResponse200AnyOf1?>(populated));
         }
 
         /// <summary>
@@ -192,21 +150,26 @@ namespace Reacon.Sdk.Model
         /// <exception cref="NotImplementedException"></exception>
         public override void Write(Utf8JsonWriter writer, MailGetPortfolioResponse200 mailGetPortfolioResponse200, JsonSerializerOptions jsonSerializerOptions)
         {
+            var value = mailGetPortfolioResponse200;
+            bool empty = value.MailGetPortfolioResponse200AnyOfOption.IsSet && value.MailGetPortfolioResponse200AnyOfOption.Value != null;
+            bool populated = value.MailGetPortfolioResponse200AnyOf1Option.IsSet && value.MailGetPortfolioResponse200AnyOf1Option.Value != null;
+            if (empty == populated) throw new JsonException("Select exactly one portfolio response alternative");
+            JsonElement payload;
+            if (empty)
+            {
+                var branch = value.MailGetPortfolioResponse200AnyOfOption.Value!;
+                if (branch.Portfolio != null || branch.Suppressions == null || branch.Suppressions.Count != 0 || branch.Teams == null || branch.Teams.Count != 0)
+                    throw new JsonException("An absent portfolio requires null portfolio and empty collections");
+                payload = JsonSerializer.SerializeToElement(branch, jsonSerializerOptions);
+            }
+            else payload = JsonSerializer.SerializeToElement(value.MailGetPortfolioResponse200AnyOf1Option.Value!, jsonSerializerOptions);
             writer.WriteStartObject();
-
-            if (mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOfOption.IsSet && mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOfOption.Value != null)
+            foreach (var property in payload.EnumerateObject()) property.WriteTo(writer);
+            foreach (var property in value.AdditionalProperties)
             {
-                MailGetPortfolioResponse200AnyOfJsonConverter mailGetPortfolioResponse200AnyOfJsonConverter = (MailGetPortfolioResponse200AnyOfJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOfOption.Value.GetType()));
-                mailGetPortfolioResponse200AnyOfJsonConverter.WriteProperties(writer, mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOfOption.Value, jsonSerializerOptions);
+                if (payload.TryGetProperty(property.Key, out _)) throw new JsonException("Additional properties cannot override the selected branch");
+                writer.WritePropertyName(property.Key); property.Value.WriteTo(writer);
             }
-
-            if (mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOf1Option.IsSet && mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOf1Option.Value != null)
-            {
-                MailGetPortfolioResponse200AnyOf1JsonConverter mailGetPortfolioResponse200AnyOf1JsonConverter = (MailGetPortfolioResponse200AnyOf1JsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOf1Option.Value.GetType()));
-                mailGetPortfolioResponse200AnyOf1JsonConverter.WriteProperties(writer, mailGetPortfolioResponse200.MailGetPortfolioResponse200AnyOf1Option.Value, jsonSerializerOptions);
-            }
-
-            WriteProperties(writer, mailGetPortfolioResponse200, jsonSerializerOptions);
             writer.WriteEndObject();
         }
 
