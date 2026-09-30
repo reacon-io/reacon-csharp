@@ -285,6 +285,12 @@ var PUBLICATION_UNITS = {
   kotlin: ["central"],
   csharp: ["nuget"]
 };
+function publicationUnitNames(family2, units2) {
+  const names2 = ["java", "kotlin"].includes(family2) && Object.hasOwn(units2 ?? {}, "maven") ? ["maven"] : PUBLICATION_UNITS[family2];
+  if (!names2 || !units2 || JSON.stringify(Object.keys(units2).sort()) !== JSON.stringify([...names2].sort()))
+    throw Error("Invalid publication unit set (incomplete or conflicting)");
+  return names2;
+}
 var hash2 = (value) => {
   if (!/^[a-f0-9]{64}$/.test(value ?? "")) throw new Error("Checksummed evidence is required");
   return value;
@@ -362,7 +368,7 @@ function validateReleaseState(state) {
         hash2(pkg.artifactManifestSha256);
         hash2(pkg.sourceSha256);
         hash2(pkg.testEvidenceSha256);
-        if (JSON.stringify(Object.keys(pkg.units).sort()) !== JSON.stringify([...PUBLICATION_UNITS[family2]].sort())) throw new Error("Invalid publication unit set");
+        publicationUnitNames(family2, pkg.units);
         for (const unit of Object.values(pkg.units)) {
           keys(unit, ["identitySha256", "state", "attempts", "observation", "centralDeployment"]);
           hash2(unit.identitySha256);
@@ -537,7 +543,8 @@ async function gitReleaseStateStore({ directory: directory2, remote, runGit = de
         if (observed2.commit === nextCommit) return observed2;
         if (observed2.commit !== expectedCommit) throw new ConcurrentReleaseState();
         if (attempt === 0 && ["repository-unavailable", "transport", "timeout"].includes(error.gitFailureCategory)) continue;
-        throw new Error("Release state push was rejected; do not start publication");
+        const category = ["repository-unavailable", "transport", "timeout", "authentication", "dns", "tls", "other"].includes(error.gitFailureCategory) ? error.gitFailureCategory : "unknown";
+        throw new Error(`Release state push was rejected (${category}); do not start publication`);
       }
     }
     let observed;
@@ -550,6 +557,9 @@ async function gitReleaseStateStore({ directory: directory2, remote, runGit = de
     return observed;
   }
   return { read, commit, remote, directory: directory2 };
+}
+function classifyGitFailure(detail, timedOut = false) {
+  return timedOut ? "timeout" : /authentication failed|invalid username|could not read Username|error: 401|error: 403/i.test(detail) ? "authentication" : /Could not resolve host/i.test(detail) ? "dns" : /SSL certificate|certificate verify/i.test(detail) ? "tls" : /repository not found|repository .* not found/i.test(detail) ? "repository-unavailable" : /RPC failed|HTTP\/2|remote end hung up|connection reset|Failed to connect|error: 50[0234]/i.test(detail) ? "transport" : "other";
 }
 async function defaultRunGit(args, input, env) {
   const { spawn: spawn2 } = await import("node:child_process");
@@ -583,7 +593,7 @@ async function defaultRunGit(args, input, env) {
       clearTimeout(timeout);
       if (code === 0 && size <= 16 * 1024 * 1024) return resolveRun(Buffer.concat(chunks));
       const detail = Buffer.concat(diagnostics).toString("utf8");
-      const category = timedOut ? "timeout" : /authentication failed|invalid username|could not read Username|error: 401|error: 403/i.test(detail) ? "authentication" : /Could not resolve host/i.test(detail) ? "dns" : /SSL certificate|certificate verify/i.test(detail) ? "tls" : /repository not found|repository .* not found/i.test(detail) ? "repository-unavailable" : /RPC failed|HTTP\/2|remote end hung up|connection reset|Failed to connect|error: 50[234]/i.test(detail) ? "transport" : "other";
+      const category = classifyGitFailure(detail, timedOut);
       const error = new Error(`Git state command failed (${category})`);
       error.gitFailureCategory = category;
       reject(error);
@@ -619,9 +629,24 @@ function appJwt(clientId, privateKey, now = Date.now()) {
   return `${input}.${sign("RSA-SHA256", Buffer.from(input), key2).toString("base64url")}`;
 }
 async function githubRequest(fetchImpl, token, path, { method = "GET", body, expectedStatus = 200 } = {}) {
-  const validatedPath = path.replace(/(\/compare\/[a-f0-9]{40})\.\.\.([a-f0-9]{40})(?=\?|$)/, "$1-to-$2");
-  if (!/^\/[A-Za-z0-9_/?=&.-]+$/.test(path) || path.startsWith("//") || validatedPath.includes("..")) throw new Error("Invalid GitHub API path");
+  if (typeof path !== "string") throw new Error("Invalid GitHub API path");
+  const [pathname, query, ...extra] = path.split("?");
+  const validatedPath = pathname.replace(/(\/compare\/[a-f0-9]{40})\.\.\.([a-f0-9]{40})$/, "$1-to-$2");
+  if (!/^\/[A-Za-z0-9_/.-]+$/.test(pathname) || pathname.startsWith("//") || validatedPath.includes("..") || extra.length)
+    throw new Error("Invalid GitHub API path");
+  if (query !== void 0) {
+    let decoded;
+    try {
+      decoded = decodeURIComponent(query);
+    } catch {
+      throw new Error("Invalid GitHub API path");
+    }
+    if (!/^[A-Za-z0-9_=&.:%/-]+$/.test(query) || !/^[A-Za-z0-9_=&.:/-]+$/.test(decoded) || decoded.includes(".."))
+      throw new Error("Invalid GitHub API path");
+  }
   let response;
+  const readLease = method === "POST" && /^\/app\/installations\/[0-9]+\/access_tokens$/.test(path) && expectedStatus === 201 && Array.isArray(body?.repositories) && body.repositories.length === 1 && body.permissions && Object.keys(body.permissions).length > 0 && Object.values(body.permissions).every((value) => value === "read");
+  const retryable = method === "GET" || readLease;
   for (let attempt = 0; ; attempt++) {
     try {
       response = await fetchImpl(`${API}${path}`, {
@@ -640,7 +665,7 @@ async function githubRequest(fetchImpl, token, path, { method = "GET", body, exp
     } catch {
       throw new Error("GitHub API transport failed (details suppressed to protect credentials)");
     }
-    if (method !== "GET" || ![502, 503, 504].includes(response.status) || attempt >= 2) break;
+    if (!retryable || ![500, 502, 503, 504].includes(response.status) || attempt >= 2) break;
     await response.body?.cancel();
     await delay(1e3 * (attempt + 1));
   }
@@ -682,7 +707,7 @@ function githubReleaseStateCredentials(options) {
 }
 function repositoryCredentials({ inventory, packages, clientId, privateKey, fetchImpl = fetch, now = Date.now, visibility }, purpose, access) {
   validateRepositoryInventory(inventory, packages);
-  const expectedVisibility = purpose === "sdk" ? "public" : ["actions", "dispatch"].includes(purpose) ? visibility : "private";
+  const expectedVisibility = purpose === "sdk" ? "public" : ["actions", "dispatch", "review"].includes(purpose) ? visibility : "private";
   const selected = purpose === "state" ? [inventory.releaseStateRepository] : inventory.sdkRepositories;
   const allowed = new Map(selected.map((repo) => [`${OWNER}/${repo.name}`, repo.repositoryId]));
   return async ({ repository }) => {
@@ -739,6 +764,7 @@ function repositoryCredentials({ inventory, packages, clientId, privateKey, fetc
 
 // scripts/public-api/lib/github-release-state.mjs
 import { setTimeout as delay2 } from "node:timers/promises";
+import { AsyncLocalStorage } from "node:async_hooks";
 var RELEASE_STATE_REPOSITORY = "reacon-io/reacon-sdk-releases";
 var REMOTE = `https://github.com/${RELEASE_STATE_REPOSITORY}.git`;
 async function githubReleaseStateStore({
@@ -750,7 +776,8 @@ async function githubReleaseStateStore({
   privateKey,
   fetchImpl = fetch,
   now = Date.now,
-  runGit = defaultRunGit
+  runGit = defaultRunGit,
+  waitImpl = delay2
 }) {
   if (!["read", "write"].includes(access)) throw new Error("State access must be read or write");
   const getCredentials = githubReleaseStateCredentials({ inventory, packages, clientId, privateKey, fetchImpl, now, access });
@@ -759,6 +786,22 @@ async function githubReleaseStateStore({
   if (await realpath2(parent) !== parent) throw new Error("State cache parent cannot use symlinks");
   const cache = await mkdtemp(join2(parent, "github-state-"));
   let closed = false, credentialCleanupFailed = false;
+  const transactions = new AsyncLocalStorage();
+  const transaction = async (operation) => {
+    if (closed) throw new Error("GitHub state store is closed");
+    if (credentialCleanupFailed) throw new Error("GitHub state token revocation failed; stop and reconcile");
+    const context = { lease: null };
+    try {
+      return await transactions.run(context, operation);
+    } finally {
+      if (context.lease) try {
+        await context.lease.revoke();
+      } catch {
+        credentialCleanupFailed = true;
+        throw new Error("GitHub state token revocation failed; stop and reconcile");
+      }
+    }
+  };
   const execute = async (args, input, env) => {
     if (closed) throw new Error("GitHub state store is closed");
     if (credentialCleanupFailed) throw new Error("GitHub state token revocation failed; stop and reconcile");
@@ -790,8 +833,11 @@ async function githubReleaseStateStore({
     if (!args.includes("fetch") && !args.includes("push") || access === "read" && args.includes("push")) {
       throw new Error("Unexpected GitHub state transport operation");
     }
+    const context = transactions.getStore();
+    if (!context) throw new Error("GitHub state transport requires a scoped transaction");
+    context.lease ??= await getCredentials({ repository: RELEASE_STATE_REPOSITORY });
+    const lease = context.lease;
     for (let attempt = 0; ; attempt++) {
-      const lease = await getCredentials({ repository: RELEASE_STATE_REPOSITORY });
       try {
         const authorization = `AUTHORIZATION: basic ${Buffer.from(`x-access-token:${lease.token}`).toString("base64")}`;
         return await runGit([...options, ...args], input, {
@@ -801,16 +847,9 @@ async function githubReleaseStateStore({
           GIT_CONFIG_VALUE_0: authorization
         });
       } catch (error) {
-        if (!args.includes("fetch") || attempt >= 2 || error.gitFailureCategory !== "repository-unavailable") throw error;
-      } finally {
-        try {
-          await lease.revoke();
-        } catch {
-          credentialCleanupFailed = true;
-          throw new Error("GitHub state token revocation failed; stop and reconcile");
-        }
+        if (!args.includes("fetch") || attempt >= 4 || !["repository-unavailable", "transport", "timeout"].includes(error.gitFailureCategory)) throw error;
       }
-      await delay2(1e3);
+      await waitImpl(1e3 * 2 ** attempt);
     }
   };
   try {
@@ -823,12 +862,14 @@ async function githubReleaseStateStore({
       return snapshot;
     };
     return {
-      read,
+      read: () => transaction(read),
       async commit(request) {
         if (access !== "write") throw new Error("Read-only GitHub state store cannot commit");
-        const before = await read();
-        if (before.commit !== request.expectedCommit) throw new ConcurrentReleaseState();
-        return store2.commit(request);
+        return transaction(async () => {
+          const before = await read();
+          if (before.commit !== request.expectedCommit) throw new ConcurrentReleaseState();
+          return store2.commit(request);
+        });
       },
       remote: REMOTE,
       access,
@@ -1601,6 +1642,35 @@ function registryOidcCredentials({ family: family2, environment, nugetUsername, 
       } } : {}
     };
   };
+}
+async function qualifyRegistryOidc({ maskCredential, ...options }) {
+  if (!["python", "ruby", "rust", "csharp"].includes(options.family) || typeof maskCredential !== "function")
+    throw new Error("Explicit supported registry qualification and credential masking are required");
+  const request = {
+    registry: REGISTRIES[options.family].name,
+    packageName: options.family === "csharp" ? "Reacon.Sdk" : "reacon-sdk"
+  };
+  const credential = await registryOidcCredentials(options)(request);
+  try {
+    maskCredential(credential.token);
+    return {
+      registry: credential.registry,
+      packageName: credential.packageName,
+      repository: credential.repository,
+      workflow: credential.workflow,
+      environment: credential.environment,
+      expiresAt: new Date(credential.expiresAt).toISOString(),
+      credentialPersisted: false,
+      packageUploaded: false,
+      ...options.family === "rust" ? { temporaryTokenRevoked: true } : {}
+    };
+  } finally {
+    try {
+      if (typeof credential.revoke === "function") await credential.revoke();
+    } finally {
+      credential.token = void 0;
+    }
+  }
 }
 
 // sdk-generation/release/github-bootstrap.json
@@ -2439,6 +2509,19 @@ var attemptPrefix = process.env.REACON_ATTEMPT_ID;
 if (!/^[a-z0-9][a-z0-9-]{0,69}$/.test(attemptPrefix ?? "")) throw Error("Bounded unique attempt prefix required");
 await mkdir3("sdk-release-results", { recursive: true });
 await writeFile3("sdk-release-results/identity.json", JSON.stringify(identity, null, 2) + "\n");
+if (process.env.REACON_QUALIFY_ONLY === "true") {
+  const report = await qualifyRegistryOidc({
+    family,
+    nugetUsername: configuration.nugetUsername,
+    environment: process.env,
+    tokenProvider: getIDToken,
+    maskCredential: setSecret
+  });
+  await writeFile3("sdk-release-results/registry-qualification.json", JSON.stringify(report, null, 2) + "\n");
+  console.log("Registry trusted publisher verified; no package uploaded.");
+  process.exit(0);
+}
+if (process.env.REACON_QUALIFY_ONLY && process.env.REACON_QUALIFY_ONLY !== "false") throw Error("Invalid qualification mode");
 var artifactId = Number(process.env.REACON_CI_ARTIFACT_ID);
 if (!Number.isSafeInteger(artifactId) || artifactId <= 0 || !process.env.GITHUB_TOKEN) throw Error("Retained CI artifact required");
 var key = Buffer.from(process.env.REACON_GITHUB_APP_PRIVATE_KEY ?? "");
