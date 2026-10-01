@@ -698,12 +698,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/emails/{email}"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/emails/{email}");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/emails/{email}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7Bemail%7D", Uri.EscapeDataString(email.ToString()));
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
@@ -1292,12 +1292,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/emails/{email}/mentions"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/emails/{email}/mentions");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/emails/{email}/mentions");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7Bemail%7D", Uri.EscapeDataString(email.ToString()));
 
                     System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
@@ -1944,12 +1944,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/emails"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/emails");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/emails");
 
                     System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
 
@@ -2564,12 +2564,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/emails/{email}"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/emails/{email}");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/emails/{email}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7Bemail%7D", Uri.EscapeDataString(email.ToString()));
 
                     System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
@@ -3258,12 +3258,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/emails/id/{id}"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/emails/id/{id}");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/emails/id/{id}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7Bid%7D", Uri.EscapeDataString(id.ToString()));
 
                     System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);

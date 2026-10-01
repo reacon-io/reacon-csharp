@@ -51,10 +51,10 @@ public sealed class VerificationStreamClient : IDisposable
     private readonly bool _owned;
     private readonly ServiceProvider _services;
     private readonly JsonSerializerOptions _json;
-    public VerificationStreamClient(string apiKey, string baseUrl = "https://api.reacon.io", HttpClient? httpClient = null)
+    public VerificationStreamClient(string apiKey, HttpClient? httpClient = null)
     {
         if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentException("apiKey is required", nameof(apiKey));
-        _key = apiKey; _baseUrl = baseUrl.TrimEnd('/'); _owned = httpClient is null;
+        _key = apiKey; _baseUrl = "https://api.reacon.io"; _owned = httpClient is null;
         // An unfinished SSE body cannot be drained for connection reuse: the server may
         // intentionally keep it open after the final event. Close it immediately.
         _http = httpClient ?? new HttpClient(new SocketsHttpHandler { AllowAutoRedirect = false, MaxResponseDrainSize = 0 }) { Timeout = Timeout.InfiniteTimeSpan };

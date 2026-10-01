@@ -547,12 +547,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/hooks"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/hooks");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/hooks");
 
                     httpRequestMessageLocalVar.Content = (createAutomationHookRequest as object) is Reacon.Sdk.Client.FileParameter fileParameterLocalVar
                         ? httpRequestMessageLocalVar.Content = new StreamContent(fileParameterLocalVar.Content)
@@ -1121,12 +1121,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/origin-installations/segment"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/origin-installations/segment");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/origin-installations/segment");
 
                     httpRequestMessageLocalVar.Content = (createSegmentInstallationRequest as object) is Reacon.Sdk.Client.FileParameter fileParameterLocalVar
                         ? httpRequestMessageLocalVar.Content = new StreamContent(fileParameterLocalVar.Content)
@@ -1645,12 +1645,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/hooks/{hookId}"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/hooks/{hookId}");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/hooks/{hookId}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BhookId%7D", Uri.EscapeDataString(hookId.ToString()));
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
@@ -2163,12 +2163,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/origin-installations/segment/{installationId}"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/origin-installations/segment/{installationId}");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/origin-installations/segment/{installationId}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BinstallationId%7D", Uri.EscapeDataString(installationId.ToString()));
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();

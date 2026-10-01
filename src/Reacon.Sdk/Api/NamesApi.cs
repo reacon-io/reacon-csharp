@@ -415,12 +415,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/name/schemas"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/name/schemas");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/name/schemas");
 
                     System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
 
@@ -1028,12 +1028,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/name/verify"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/name/verify");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/name/verify");
 
                     System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
 
