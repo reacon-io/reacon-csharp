@@ -63,7 +63,7 @@ namespace Reacon.Sdk.Model
         /// <param name="sequenceStepIndex">sequenceStepIndex</param>
         /// <param name="variantId">variantId</param>
         [JsonConstructor]
-        public MailMessageRecord(decimal attemptCount, List<MailMailAddress> bcc, List<MailMailAddress> cc, DateTimeOffset createdAt, string id, string idempotencyKey, string mailboxId, Object metadata, DateTimeOffset nextAttemptAt, MailMessagePolicy policy, MailRenderedMessage rendered, MailMailAddress replyTo, DateTimeOffset scheduledAt, string status, string tenantId, List<MailMailAddress> to, DateTimeOffset updatedAt, decimal varVersion, Option<DateTimeOffset?> acceptedAt = default, Option<string?> internetMessageId = default, Option<MailProviderFailure?> lastError = default, Option<DateTimeOffset?> leaseExpiresAt = default, Option<string?> leaseOwner = default, Option<string?> parentMessageId = default, Option<string?> providerMessageId = default, Option<string?> providerThreadId = default, Option<string?> sequenceRunId = default, Option<decimal?> sequenceStepIndex = default, Option<string?> variantId = default)
+        public MailMessageRecord(decimal attemptCount, List<MailMailAddress> bcc, List<MailMailAddress> cc, DateTimeOffset createdAt, string id, string idempotencyKey, string mailboxId, Dictionary<string, string> metadata, DateTimeOffset nextAttemptAt, MailMessagePolicy policy, MailRenderedMessage rendered, MailMailAddress replyTo, DateTimeOffset scheduledAt, string status, string tenantId, List<MailMailAddress> to, DateTimeOffset updatedAt, decimal varVersion, Option<DateTimeOffset?> acceptedAt = default, Option<string?> internetMessageId = default, Option<MailProviderFailure?> lastError = default, Option<DateTimeOffset?> leaseExpiresAt = default, Option<string?> leaseOwner = default, Option<string?> parentMessageId = default, Option<string?> providerMessageId = default, Option<string?> providerThreadId = default, Option<string?> sequenceRunId = default, Option<decimal?> sequenceStepIndex = default, Option<string?> variantId = default)
         {
             AttemptCount = attemptCount;
             Bcc = bcc;
@@ -145,7 +145,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Metadata
         /// </summary>
         [JsonPropertyName("metadata")]
-        public Object Metadata { get; set; }
+        public Dictionary<string, string> Metadata { get; set; }
 
         /// <summary>
         /// Gets or Sets NextAttemptAt
@@ -479,7 +479,7 @@ namespace Reacon.Sdk.Model
             Option<string?> id = default;
             Option<string?> idempotencyKey = default;
             Option<string?> mailboxId = default;
-            Option<Object?> metadata = default;
+            Option<Dictionary<string, string>?> metadata = default;
             Option<DateTimeOffset?> nextAttemptAt = default;
             Option<MailMessagePolicy?> policy = default;
             Option<MailRenderedMessage?> rendered = default;
@@ -539,7 +539,7 @@ namespace Reacon.Sdk.Model
                             mailboxId = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "metadata":
-                            metadata = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            metadata = new Option<Dictionary<string, string>?>(JsonSerializer.Deserialize<Dictionary<string, string>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "nextAttemptAt":
                             nextAttemptAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));

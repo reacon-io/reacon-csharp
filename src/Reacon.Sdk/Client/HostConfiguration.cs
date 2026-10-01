@@ -292,6 +292,7 @@ namespace Reacon.Sdk.Client
             _jsonOptions.Converters.Add(new MailGetTrackingDomainResponse200DomainJsonConverter());
             _jsonOptions.Converters.Add(new MailGetWebhooksResponse200JsonConverter());
             _jsonOptions.Converters.Add(new MailGetWebhooksResponse200SubscriptionsInnerJsonConverter());
+            _jsonOptions.Converters.Add(new MailImapCursorJsonConverter());
             _jsonOptions.Converters.Add(new MailInboxMessageRecordJsonConverter());
             _jsonOptions.Converters.Add(new MailMailAddressJsonConverter());
             _jsonOptions.Converters.Add(new MailMailPortfolioJsonConverter());
@@ -362,8 +363,6 @@ namespace Reacon.Sdk.Client
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdDuplicateResponse201JsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchRequestJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200JsonConverter());
-            _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200AnyOfJsonConverter());
-            _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1JsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdLaunchResponse200CampaignJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdStateRequestJsonConverter());
             _jsonOptions.Converters.Add(new MailPostCampaignsByCampaignIdStateResponse200JsonConverter());

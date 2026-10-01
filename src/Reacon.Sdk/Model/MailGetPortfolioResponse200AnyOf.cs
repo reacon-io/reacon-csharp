@@ -37,7 +37,7 @@ namespace Reacon.Sdk.Model
         /// <param name="teams">teams</param>
         /// <param name="portfolio">portfolio</param>
         [JsonConstructor]
-        public MailGetPortfolioResponse200AnyOf(List<Object> suppressions, List<Object> teams, Object? portfolio = default)
+        public MailGetPortfolioResponse200AnyOf(List<MailMailPortfolioSuppression> suppressions, List<MailMailPortfolioTeam> teams, Object? portfolio = default)
         {
             Suppressions = suppressions;
             Teams = teams;
@@ -51,13 +51,13 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Suppressions
         /// </summary>
         [JsonPropertyName("suppressions")]
-        public List<Object> Suppressions { get; set; }
+        public List<MailMailPortfolioSuppression> Suppressions { get; set; }
 
         /// <summary>
         /// Gets or Sets Teams
         /// </summary>
         [JsonPropertyName("teams")]
-        public List<Object> Teams { get; set; }
+        public List<MailMailPortfolioTeam> Teams { get; set; }
 
         /// <summary>
         /// Gets or Sets Portfolio
@@ -131,8 +131,8 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            Option<List<Object>?> suppressions = default;
-            Option<List<Object>?> teams = default;
+            Option<List<MailMailPortfolioSuppression>?> suppressions = default;
+            Option<List<MailMailPortfolioTeam>?> teams = default;
             Option<Object?> portfolio = default;
 
             while (utf8JsonReader.Read())
@@ -151,10 +151,10 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "suppressions":
-                            suppressions = new Option<List<Object>?>(JsonSerializer.Deserialize<List<Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            suppressions = new Option<List<MailMailPortfolioSuppression>?>(JsonSerializer.Deserialize<List<MailMailPortfolioSuppression>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "teams":
-                            teams = new Option<List<Object>?>(JsonSerializer.Deserialize<List<Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            teams = new Option<List<MailMailPortfolioTeam>?>(JsonSerializer.Deserialize<List<MailMailPortfolioTeam>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "portfolio":
                             portfolio = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions));

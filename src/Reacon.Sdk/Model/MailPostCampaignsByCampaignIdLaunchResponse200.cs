@@ -33,40 +33,37 @@ namespace Reacon.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MailPostCampaignsByCampaignIdLaunchResponse200" /> class.
         /// </summary>
-        /// <param name="mailPostCampaignsByCampaignIdLaunchResponse200AnyOf"></param>
-        /// <param name="mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1"></param>
-        public MailPostCampaignsByCampaignIdLaunchResponse200(Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf?> mailPostCampaignsByCampaignIdLaunchResponse200AnyOf, Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1?> mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1)
+        /// <param name="campaign">campaign</param>
+        /// <param name="draft">draft</param>
+        /// <param name="sequences">sequences</param>
+        [JsonConstructor]
+        public MailPostCampaignsByCampaignIdLaunchResponse200(MailCampaignProgress campaign, MailCampaignDraftRecord draft, List<MailSequenceRunRecord> sequences)
         {
-            MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption = mailPostCampaignsByCampaignIdLaunchResponse200AnyOf;
-            MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option = mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1;
+            Campaign = campaign;
+            Draft = draft;
+            Sequences = sequences;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Used to track the state of MailPostCampaignsByCampaignIdLaunchResponse200AnyOf
+        /// Gets or Sets Campaign
         /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf?> MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption { get; private set; }
+        [JsonPropertyName("campaign")]
+        public MailCampaignProgress? Campaign { get; set; }
 
         /// <summary>
-        /// Gets or Sets MailPostCampaignsByCampaignIdLaunchResponse200AnyOf
+        /// Gets or Sets Draft
         /// </summary>
-        public MailPostCampaignsByCampaignIdLaunchResponse200AnyOf? MailPostCampaignsByCampaignIdLaunchResponse200AnyOf { get { return this.MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption.Value; } set { this.MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption = new(value); } }
+        [JsonPropertyName("draft")]
+        public MailCampaignDraftRecord Draft { get; set; }
 
         /// <summary>
-        /// Used to track the state of MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1
+        /// Gets or Sets Sequences
         /// </summary>
-        [JsonIgnore]
-        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1?> MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option { get; private set; }
-
-        /// <summary>
-        /// Gets or Sets MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1
-        /// </summary>
-        public MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1? MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1 { get { return this.MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option.Value; } set { this.MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option = new(value); } }
+        [JsonPropertyName("sequences")]
+        public List<MailSequenceRunRecord> Sequences { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -82,6 +79,9 @@ namespace Reacon.Sdk.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class MailPostCampaignsByCampaignIdLaunchResponse200 {\n");
+            sb.Append("  Campaign: ").Append(Campaign).Append("\n");
+            sb.Append("  Draft: ").Append(Draft).Append("\n");
+            sb.Append("  Sequences: ").Append(Sequences).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -124,33 +124,16 @@ namespace Reacon.Sdk.Model
         public override MailPostCampaignsByCampaignIdLaunchResponse200 Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
         {
             int currentDepth = utf8JsonReader.CurrentDepth;
+            var additionalProperties = new Dictionary<string, JsonElement>();
 
-            if (utf8JsonReader.TokenType != JsonTokenType.StartObject && utf8JsonReader.TokenType != JsonTokenType.StartArray)
+            if (utf8JsonReader.TokenType != JsonTokenType.StartObject)
                 throw new JsonException();
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            MailPostCampaignsByCampaignIdLaunchResponse200AnyOf? mailPostCampaignsByCampaignIdLaunchResponse200AnyOf = default;
-            MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1? mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1 = default;
-
-            Utf8JsonReader utf8JsonReaderAnyOf = utf8JsonReader;
-            while (utf8JsonReaderAnyOf.Read())
-            {
-                if (startingTokenType == JsonTokenType.StartObject && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndObject && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
-                    break;
-
-                if (startingTokenType == JsonTokenType.StartArray && utf8JsonReaderAnyOf.TokenType == JsonTokenType.EndArray && currentDepth == utf8JsonReaderAnyOf.CurrentDepth)
-                    break;
-
-                if (utf8JsonReaderAnyOf.TokenType == JsonTokenType.PropertyName && currentDepth == utf8JsonReaderAnyOf.CurrentDepth - 1)
-                {
-                    Utf8JsonReader utf8JsonReaderMailPostCampaignsByCampaignIdLaunchResponse200AnyOf = utf8JsonReader;
-                    ClientUtils.TryDeserialize<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf?>(ref utf8JsonReaderMailPostCampaignsByCampaignIdLaunchResponse200AnyOf, jsonSerializerOptions, out mailPostCampaignsByCampaignIdLaunchResponse200AnyOf);
-
-                    Utf8JsonReader utf8JsonReaderMailPostCampaignsByCampaignIdLaunchResponse200AnyOf1 = utf8JsonReader;
-                    ClientUtils.TryDeserialize<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1?>(ref utf8JsonReaderMailPostCampaignsByCampaignIdLaunchResponse200AnyOf1, jsonSerializerOptions, out mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1);
-                }
-            }
+            Option<MailCampaignProgress?> campaign = default;
+            Option<MailCampaignDraftRecord?> draft = default;
+            Option<List<MailSequenceRunRecord>?> sequences = default;
 
             while (utf8JsonReader.Read())
             {
@@ -167,20 +150,42 @@ namespace Reacon.Sdk.Model
 
                     switch (localVarJsonPropertyName)
                     {
+                        case "campaign":
+                            campaign = new Option<MailCampaignProgress?>(JsonSerializer.Deserialize<MailCampaignProgress>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "draft":
+                            draft = new Option<MailCampaignDraftRecord?>(JsonSerializer.Deserialize<MailCampaignDraftRecord>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "sequences":
+                            sequences = new Option<List<MailSequenceRunRecord>?>(JsonSerializer.Deserialize<List<MailSequenceRunRecord>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
                         default:
+                            using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
+                                additionalProperties[localVarJsonPropertyName!] = reaconUnknownValue.RootElement.Clone();
                             break;
                     }
                 }
             }
 
-            Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf?> mailPostCampaignsByCampaignIdLaunchResponse200AnyOfParsedValue = mailPostCampaignsByCampaignIdLaunchResponse200AnyOf == null
-                ? default
-                : new Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf?>(mailPostCampaignsByCampaignIdLaunchResponse200AnyOf);
-            Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1?> mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1ParsedValue = mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1 == null
-                ? default
-                : new Option<MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1?>(mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1);
+            if (!campaign.IsSet)
+                throw new ArgumentException("Property is required for class MailPostCampaignsByCampaignIdLaunchResponse200.", nameof(campaign));
 
-            return new MailPostCampaignsByCampaignIdLaunchResponse200(mailPostCampaignsByCampaignIdLaunchResponse200AnyOfParsedValue, mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1ParsedValue);
+            if (!draft.IsSet)
+                throw new ArgumentException("Property is required for class MailPostCampaignsByCampaignIdLaunchResponse200.", nameof(draft));
+
+            if (!sequences.IsSet)
+                throw new ArgumentException("Property is required for class MailPostCampaignsByCampaignIdLaunchResponse200.", nameof(sequences));
+
+
+            if (draft.IsSet && draft.Value == null)
+                throw new ArgumentNullException(nameof(draft), "Property is not nullable for class MailPostCampaignsByCampaignIdLaunchResponse200.");
+
+            if (sequences.IsSet && sequences.Value == null)
+                throw new ArgumentNullException(nameof(sequences), "Property is not nullable for class MailPostCampaignsByCampaignIdLaunchResponse200.");
+
+            var reaconModelResult = new MailPostCampaignsByCampaignIdLaunchResponse200(campaign.Value!, draft.Value!, sequences.Value!);
+            foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
+            return reaconModelResult;
         }
 
         /// <summary>
@@ -193,18 +198,6 @@ namespace Reacon.Sdk.Model
         public override void Write(Utf8JsonWriter writer, MailPostCampaignsByCampaignIdLaunchResponse200 mailPostCampaignsByCampaignIdLaunchResponse200, JsonSerializerOptions jsonSerializerOptions)
         {
             writer.WriteStartObject();
-
-            if (mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption.IsSet && mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption.Value != null)
-            {
-                MailPostCampaignsByCampaignIdLaunchResponse200AnyOfJsonConverter mailPostCampaignsByCampaignIdLaunchResponse200AnyOfJsonConverter = (MailPostCampaignsByCampaignIdLaunchResponse200AnyOfJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption.Value.GetType()));
-                mailPostCampaignsByCampaignIdLaunchResponse200AnyOfJsonConverter.WriteProperties(writer, mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOfOption.Value, jsonSerializerOptions);
-            }
-
-            if (mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option.IsSet && mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option.Value != null)
-            {
-                MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1JsonConverter mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1JsonConverter = (MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1JsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option.Value.GetType()));
-                mailPostCampaignsByCampaignIdLaunchResponse200AnyOf1JsonConverter.WriteProperties(writer, mailPostCampaignsByCampaignIdLaunchResponse200.MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1Option.Value, jsonSerializerOptions);
-            }
 
             WriteProperties(writer, mailPostCampaignsByCampaignIdLaunchResponse200, jsonSerializerOptions);
             writer.WriteEndObject();
@@ -220,6 +213,25 @@ namespace Reacon.Sdk.Model
         public void WriteProperties(Utf8JsonWriter writer, MailPostCampaignsByCampaignIdLaunchResponse200 mailPostCampaignsByCampaignIdLaunchResponse200, JsonSerializerOptions jsonSerializerOptions)
         {
 
+            if (mailPostCampaignsByCampaignIdLaunchResponse200.Draft == null)
+                throw new ArgumentNullException(nameof(mailPostCampaignsByCampaignIdLaunchResponse200.Draft), "Property is required for class MailPostCampaignsByCampaignIdLaunchResponse200.");
+
+            if (mailPostCampaignsByCampaignIdLaunchResponse200.Sequences == null)
+                throw new ArgumentNullException(nameof(mailPostCampaignsByCampaignIdLaunchResponse200.Sequences), "Property is required for class MailPostCampaignsByCampaignIdLaunchResponse200.");
+
+            writer.WritePropertyName("campaign");
+            JsonSerializer.Serialize(writer, mailPostCampaignsByCampaignIdLaunchResponse200.Campaign, jsonSerializerOptions);
+            writer.WritePropertyName("draft");
+            JsonSerializer.Serialize(writer, mailPostCampaignsByCampaignIdLaunchResponse200.Draft, jsonSerializerOptions);
+            writer.WritePropertyName("sequences");
+            JsonSerializer.Serialize(writer, mailPostCampaignsByCampaignIdLaunchResponse200.Sequences, jsonSerializerOptions);
+
+            foreach (var property in mailPostCampaignsByCampaignIdLaunchResponse200.AdditionalProperties)
+            {
+                if (property.Key == "campaign" || property.Key == "draft" || property.Key == "sequences") throw new JsonException("Additional properties cannot override declared properties");
+                writer.WritePropertyName(property.Key);
+                property.Value.WriteTo(writer);
+            }
         }
     }
 }
