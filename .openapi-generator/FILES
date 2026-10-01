@@ -295,6 +295,7 @@ src/Reacon.Sdk/Model/MailGetTrackingDomainResponse200.cs
 src/Reacon.Sdk/Model/MailGetTrackingDomainResponse200Domain.cs
 src/Reacon.Sdk/Model/MailGetWebhooksResponse200.cs
 src/Reacon.Sdk/Model/MailGetWebhooksResponse200SubscriptionsInner.cs
+src/Reacon.Sdk/Model/MailImapCursor.cs
 src/Reacon.Sdk/Model/MailInboxMessageRecord.cs
 src/Reacon.Sdk/Model/MailMailAddress.cs
 src/Reacon.Sdk/Model/MailMailPortfolio.cs
@@ -365,8 +366,6 @@ src/Reacon.Sdk/Model/MailPostCadencesResponse200.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdDuplicateResponse201.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchRequest.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200.cs
-src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200AnyOf.cs
-src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200AnyOf1.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdLaunchResponse200Campaign.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdStateRequest.cs
 src/Reacon.Sdk/Model/MailPostCampaignsByCampaignIdStateResponse200.cs

@@ -44,7 +44,7 @@ namespace Reacon.Sdk.Model
         /// <param name="tenantId">tenantId</param>
         /// <param name="winnerVariantId">winnerVariantId</param>
         [JsonConstructor]
-        public MailExperimentDecisionRecord(DateTimeOffset decidedAt, string decidedByActorId, string experimentKey, string id, string method, string reason, Object resultSnapshot, decimal revision, string tenantId, string winnerVariantId)
+        public MailExperimentDecisionRecord(DateTimeOffset decidedAt, string decidedByActorId, string experimentKey, string id, string method, string reason, Dictionary<string, Object> resultSnapshot, decimal revision, string tenantId, string winnerVariantId)
         {
             DecidedAt = decidedAt;
             DecidedByActorId = decidedByActorId;
@@ -101,7 +101,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets ResultSnapshot
         /// </summary>
         [JsonPropertyName("resultSnapshot")]
-        public Object ResultSnapshot { get; set; }
+        public Dictionary<string, Object> ResultSnapshot { get; set; }
 
         /// <summary>
         /// Gets or Sets Revision
@@ -205,7 +205,7 @@ namespace Reacon.Sdk.Model
             Option<string?> id = default;
             Option<string?> method = default;
             Option<string?> reason = default;
-            Option<Object?> resultSnapshot = default;
+            Option<Dictionary<string, Object>?> resultSnapshot = default;
             Option<decimal?> revision = default;
             Option<string?> tenantId = default;
             Option<string?> winnerVariantId = default;
@@ -244,7 +244,7 @@ namespace Reacon.Sdk.Model
                             reason = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "resultSnapshot":
-                            resultSnapshot = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            resultSnapshot = new Option<Dictionary<string, Object>?>(JsonSerializer.Deserialize<Dictionary<string, Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "revision":
                             revision = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());

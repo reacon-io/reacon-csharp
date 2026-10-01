@@ -50,7 +50,7 @@ namespace Reacon.Sdk.Model
         /// <param name="oauthProvider">oauthProvider</param>
         /// <param name="smtp">smtp</param>
         [JsonConstructor]
-        public MailMailboxConnectionRecord(DateTimeOffset createdAt, Object cursors, string integrationConnectionId, DateTimeOffset lastVerifiedAt, string mailboxId, DateTimeOffset nextPollAt, string status, string tenantId, DateTimeOffset updatedAt, decimal varVersion, Option<string?> credentialId = default, Option<MailStoredImapSettings?> imap = default, Option<string?> lastErrorCode = default, Option<DateTimeOffset?> lastPolledAt = default, Option<string?> oauthProvider = default, Option<MailStoredSmtpSettings?> smtp = default)
+        public MailMailboxConnectionRecord(DateTimeOffset createdAt, Dictionary<string, MailImapCursor> cursors, string integrationConnectionId, DateTimeOffset lastVerifiedAt, string mailboxId, DateTimeOffset nextPollAt, string status, string tenantId, DateTimeOffset updatedAt, decimal varVersion, Option<string?> credentialId = default, Option<MailStoredImapSettings?> imap = default, Option<string?> lastErrorCode = default, Option<DateTimeOffset?> lastPolledAt = default, Option<string?> oauthProvider = default, Option<MailStoredSmtpSettings?> smtp = default)
         {
             CreatedAt = createdAt;
             Cursors = cursors;
@@ -83,7 +83,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Cursors
         /// </summary>
         [JsonPropertyName("cursors")]
-        public Object Cursors { get; set; }
+        public Dictionary<string, MailImapCursor> Cursors { get; set; }
 
         /// <summary>
         /// Gets or Sets IntegrationConnectionId
@@ -316,7 +316,7 @@ namespace Reacon.Sdk.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<DateTimeOffset?> createdAt = default;
-            Option<Object?> cursors = default;
+            Option<Dictionary<string, MailImapCursor>?> cursors = default;
             Option<string?> integrationConnectionId = default;
             Option<DateTimeOffset?> lastVerifiedAt = default;
             Option<string?> mailboxId = default;
@@ -351,7 +351,7 @@ namespace Reacon.Sdk.Model
                             createdAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));
                             break;
                         case "cursors":
-                            cursors = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            cursors = new Option<Dictionary<string, MailImapCursor>?>(JsonSerializer.Deserialize<Dictionary<string, MailImapCursor>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "integrationConnectionId":
                             integrationConnectionId = new Option<string?>(utf8JsonReader.GetString()!);

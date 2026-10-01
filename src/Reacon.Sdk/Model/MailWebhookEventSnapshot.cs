@@ -39,7 +39,7 @@ namespace Reacon.Sdk.Model
         /// <param name="payload">payload</param>
         /// <param name="type">type</param>
         [JsonConstructor]
-        public MailWebhookEventSnapshot(string aggregateId, string id, DateTimeOffset occurredAt, Object payload, string type)
+        public MailWebhookEventSnapshot(string aggregateId, string id, DateTimeOffset occurredAt, Dictionary<string, Object> payload, string type)
         {
             AggregateId = aggregateId;
             Id = id;
@@ -73,7 +73,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Payload
         /// </summary>
         [JsonPropertyName("payload")]
-        public Object Payload { get; set; }
+        public Dictionary<string, Object> Payload { get; set; }
 
         /// <summary>
         /// Gets or Sets Type
@@ -157,7 +157,7 @@ namespace Reacon.Sdk.Model
             Option<string?> aggregateId = default;
             Option<string?> id = default;
             Option<DateTimeOffset?> occurredAt = default;
-            Option<Object?> payload = default;
+            Option<Dictionary<string, Object>?> payload = default;
             Option<string?> type = default;
 
             while (utf8JsonReader.Read())
@@ -185,7 +185,7 @@ namespace Reacon.Sdk.Model
                             occurredAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));
                             break;
                         case "payload":
-                            payload = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            payload = new Option<Dictionary<string, Object>?>(JsonSerializer.Deserialize<Dictionary<string, Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "type":
                             type = new Option<string?>(utf8JsonReader.GetString()!);

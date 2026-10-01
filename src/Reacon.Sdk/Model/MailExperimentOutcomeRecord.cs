@@ -43,7 +43,7 @@ namespace Reacon.Sdk.Model
         /// <param name="unitId">unitId</param>
         /// <param name="value">value</param>
         [JsonConstructor]
-        public MailExperimentOutcomeRecord(string experimentKey, Object metadata, DateTimeOffset occurredAt, string outcome, decimal revision, string sourceId, string tenantId, string unitId, decimal value)
+        public MailExperimentOutcomeRecord(string experimentKey, Dictionary<string, Object> metadata, DateTimeOffset occurredAt, string outcome, decimal revision, string sourceId, string tenantId, string unitId, decimal value)
         {
             ExperimentKey = experimentKey;
             Metadata = metadata;
@@ -69,7 +69,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Metadata
         /// </summary>
         [JsonPropertyName("metadata")]
-        public Object Metadata { get; set; }
+        public Dictionary<string, Object> Metadata { get; set; }
 
         /// <summary>
         /// Gets or Sets OccurredAt
@@ -191,7 +191,7 @@ namespace Reacon.Sdk.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<string?> experimentKey = default;
-            Option<Object?> metadata = default;
+            Option<Dictionary<string, Object>?> metadata = default;
             Option<DateTimeOffset?> occurredAt = default;
             Option<string?> outcome = default;
             Option<decimal?> revision = default;
@@ -219,7 +219,7 @@ namespace Reacon.Sdk.Model
                             experimentKey = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "metadata":
-                            metadata = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            metadata = new Option<Dictionary<string, Object>?>(JsonSerializer.Deserialize<Dictionary<string, Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "occurredAt":
                             occurredAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));

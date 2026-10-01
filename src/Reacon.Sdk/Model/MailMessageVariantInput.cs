@@ -40,7 +40,7 @@ namespace Reacon.Sdk.Model
         /// <param name="html">html</param>
         /// <param name="variables">variables</param>
         [JsonConstructor]
-        public MailMessageVariantInput(string id, string subject, string text, decimal weight, Option<string?> html = default, Option<Object?> variables = default)
+        public MailMessageVariantInput(string id, string subject, string text, decimal weight, Option<string?> html = default, Option<Dictionary<string, Object>?> variables = default)
         {
             Id = id;
             Subject = subject;
@@ -95,13 +95,13 @@ namespace Reacon.Sdk.Model
         /// </summary>
         [JsonIgnore]
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<Object?> VariablesOption { get; private set; }
+        public Option<Dictionary<string, Object>?> VariablesOption { get; private set; }
 
         /// <summary>
         /// Gets or Sets Variables
         /// </summary>
         [JsonPropertyName("variables")]
-        public Object? Variables { get { return this.VariablesOption.Value; } set { this.VariablesOption = new(value); } }
+        public Dictionary<string, Object>? Variables { get { return this.VariablesOption.Value; } set { this.VariablesOption = new(value); } }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -177,7 +177,7 @@ namespace Reacon.Sdk.Model
             Option<string?> text = default;
             Option<decimal?> weight = default;
             Option<string?> html = default;
-            Option<Object?> variables = default;
+            Option<Dictionary<string, Object>?> variables = default;
 
             while (utf8JsonReader.Read())
             {
@@ -210,7 +210,7 @@ namespace Reacon.Sdk.Model
                             html = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "variables":
-                            variables = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            variables = new Option<Dictionary<string, Object>?>(JsonSerializer.Deserialize<Dictionary<string, Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))

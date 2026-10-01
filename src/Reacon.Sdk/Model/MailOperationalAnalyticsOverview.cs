@@ -39,7 +39,7 @@ namespace Reacon.Sdk.Model
         /// <param name="stages">stages</param>
         /// <param name="taskOutcomes">taskOutcomes</param>
         [JsonConstructor]
-        public MailOperationalAnalyticsOverview(List<MailOperationalAnalyticsOverviewCadenceStepsInner> cadenceSteps, Object replyLabels, bool sampleLimited, Object stages, Object taskOutcomes)
+        public MailOperationalAnalyticsOverview(List<MailOperationalAnalyticsOverviewCadenceStepsInner> cadenceSteps, Dictionary<string, decimal> replyLabels, bool sampleLimited, Dictionary<string, decimal> stages, Dictionary<string, decimal> taskOutcomes)
         {
             CadenceSteps = cadenceSteps;
             ReplyLabels = replyLabels;
@@ -61,7 +61,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets ReplyLabels
         /// </summary>
         [JsonPropertyName("replyLabels")]
-        public Object ReplyLabels { get; set; }
+        public Dictionary<string, decimal> ReplyLabels { get; set; }
 
         /// <summary>
         /// Gets or Sets SampleLimited
@@ -73,13 +73,13 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Stages
         /// </summary>
         [JsonPropertyName("stages")]
-        public Object Stages { get; set; }
+        public Dictionary<string, decimal> Stages { get; set; }
 
         /// <summary>
         /// Gets or Sets TaskOutcomes
         /// </summary>
         [JsonPropertyName("taskOutcomes")]
-        public Object TaskOutcomes { get; set; }
+        public Dictionary<string, decimal> TaskOutcomes { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -150,10 +150,10 @@ namespace Reacon.Sdk.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<List<MailOperationalAnalyticsOverviewCadenceStepsInner>?> cadenceSteps = default;
-            Option<Object?> replyLabels = default;
+            Option<Dictionary<string, decimal>?> replyLabels = default;
             Option<bool?> sampleLimited = default;
-            Option<Object?> stages = default;
-            Option<Object?> taskOutcomes = default;
+            Option<Dictionary<string, decimal>?> stages = default;
+            Option<Dictionary<string, decimal>?> taskOutcomes = default;
 
             while (utf8JsonReader.Read())
             {
@@ -174,16 +174,16 @@ namespace Reacon.Sdk.Model
                             cadenceSteps = new Option<List<MailOperationalAnalyticsOverviewCadenceStepsInner>?>(JsonSerializer.Deserialize<List<MailOperationalAnalyticsOverviewCadenceStepsInner>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "replyLabels":
-                            replyLabels = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            replyLabels = new Option<Dictionary<string, decimal>?>(JsonSerializer.Deserialize<Dictionary<string, decimal>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "sampleLimited":
                             sampleLimited = new Option<bool?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (bool?)null : utf8JsonReader.GetBoolean());
                             break;
                         case "stages":
-                            stages = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            stages = new Option<Dictionary<string, decimal>?>(JsonSerializer.Deserialize<Dictionary<string, decimal>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "taskOutcomes":
-                            taskOutcomes = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            taskOutcomes = new Option<Dictionary<string, decimal>?>(JsonSerializer.Deserialize<Dictionary<string, decimal>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))

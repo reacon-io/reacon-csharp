@@ -41,7 +41,7 @@ namespace Reacon.Sdk.Model
         /// <param name="updatedAt">updatedAt</param>
         /// <param name="name">name</param>
         [JsonConstructor]
-        public MailContactRecord(DateTimeOffset createdAt, Object customFields, string email, string id, string tenantId, DateTimeOffset updatedAt, Option<string?> name = default)
+        public MailContactRecord(DateTimeOffset createdAt, Dictionary<string, string> customFields, string email, string id, string tenantId, DateTimeOffset updatedAt, Option<string?> name = default)
         {
             CreatedAt = createdAt;
             CustomFields = customFields;
@@ -65,7 +65,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets CustomFields
         /// </summary>
         [JsonPropertyName("customFields")]
-        public Object CustomFields { get; set; }
+        public Dictionary<string, string> CustomFields { get; set; }
 
         /// <summary>
         /// Gets or Sets Email
@@ -185,7 +185,7 @@ namespace Reacon.Sdk.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<DateTimeOffset?> createdAt = default;
-            Option<Object?> customFields = default;
+            Option<Dictionary<string, string>?> customFields = default;
             Option<string?> email = default;
             Option<string?> id = default;
             Option<string?> tenantId = default;
@@ -211,7 +211,7 @@ namespace Reacon.Sdk.Model
                             createdAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));
                             break;
                         case "customFields":
-                            customFields = new Option<Object?>(JsonSerializer.Deserialize<Object>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            customFields = new Option<Dictionary<string, string>?>(JsonSerializer.Deserialize<Dictionary<string, string>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "email":
                             email = new Option<string?>(utf8JsonReader.GetString()!);
