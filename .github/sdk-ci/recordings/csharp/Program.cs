@@ -64,7 +64,7 @@ foreach(var item in cases.RootElement.EnumerateArray()) {
         var record=item.GetProperty("record");var request=record.GetProperty("request");var expected=record.GetProperty("response");
         var services=new ServiceCollection();services.AddLogging();
         services.AddApi(config=>config.AddTokens(request.GetProperty("authentication").GetString()=="none"?new MissingToken():new ApiKeyToken("recording-csharp",ClientUtils.ApiKeyHeader.X_API_Key,prefix:""))
-            .AddApiHttpClients(client=>client.BaseAddress=new Uri(Environment.GetEnvironmentVariable("REACON_TEST_URL")+"/"+id)));
+            .AddApiHttpClients(builder: builder=>builder.AddHttpMessageHandler(()=>new FixtureHandler(Environment.GetEnvironmentVariable("REACON_TEST_URL")+"/"+id))));
         using var provider=services.BuildServiceProvider();
         var options=provider.GetRequiredService<JsonSerializerOptionsProvider>().Options;
         if (id==cases.RootElement[0].GetProperty("id").GetString()) {
@@ -135,7 +135,7 @@ foreach(var item in cases.RootElement.EnumerateArray()) {
             Check((bool)response.GetType().GetProperty("IsNoContent")!.GetValue(response)!,"Missing native NoContent status");
             results.Add(new{id,passed=true});passed++;continue;
         }
-        var decoder=(int)response.StatusCode switch {200=>"Ok",201=>"Created",400=>"BadRequest",401=>"Unauthorized",402=>"PaymentRequired",422=>"UnprocessableContent",404=>"NotFound",409=>"Conflict",_=>throw new Exception("Add explicit status decoder")};
+        var decoder=(int)response.StatusCode switch {200=>"Ok",201=>"Created",400=>"BadRequest",401=>"Unauthorized",402=>"PaymentRequired",422=>"UnprocessableContent",404=>"NotFound",409=>"Conflict",412=>"PreconditionFailed",_=>throw new Exception("Add explicit status decoder")};
         var body=response.GetType().GetMethod(decoder,Type.EmptyTypes)!.Invoke(response,null);
         var actual=JsonSerializer.SerializeToElement(body,body?.GetType()??typeof(object),options);
         Check(Equal(actual,expected.GetProperty("body")),"Decoded response differs: "+actual.GetRawText());
@@ -150,4 +150,16 @@ return passed==cases.RootElement.GetArrayLength()?0:1;
 sealed class MissingToken:ApiKeyToken {
     public MissingToken():base("",ClientUtils.ApiKeyHeader.X_API_Key,prefix:""){}
     public override void UseInHeader(HttpRequestMessage request){}
+}
+
+
+sealed class FixtureHandler(string target) : DelegatingHandler {
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) {
+        var original = request.RequestUri!;
+        if (original.Scheme != "https" || original.Host != "api.reacon.io") throw new InvalidOperationException("SDK changed its fixed API origin");
+        var fixture = new Uri(target);
+        if (fixture.Host != "127.0.0.1") throw new InvalidOperationException("Loopback fixtures only");
+        request.RequestUri = new Uri(target.TrimEnd('/') + original.PathAndQuery);
+        return base.SendAsync(request, cancellationToken);
+    }
 }

@@ -797,12 +797,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/teams/{teamId}/leads"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/teams/{teamId}/leads");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/teams/{teamId}/leads");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BteamId%7D", Uri.EscapeDataString(teamId.ToString()));
 
                     httpRequestMessageLocalVar.Content = (createLeadRequest as object) is Reacon.Sdk.Client.FileParameter fileParameterLocalVar
@@ -1372,12 +1372,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/leads/{leadId}"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/leads/{leadId}");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/leads/{leadId}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BleadId%7D", Uri.EscapeDataString(leadId.ToString()));
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
@@ -2011,12 +2011,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/teams/{teamId}/leads/export"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/teams/{teamId}/leads/export");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/teams/{teamId}/leads/export");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BteamId%7D", Uri.EscapeDataString(teamId.ToString()));
 
                     httpRequestMessageLocalVar.Content = (exportLeadsRequest as object) is Reacon.Sdk.Client.FileParameter fileParameterLocalVar
@@ -2634,12 +2634,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/leads/{leadId}"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/leads/{leadId}");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/leads/{leadId}");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BleadId%7D", Uri.EscapeDataString(leadId.ToString()));
 
                     List<TokenBase> tokenBaseLocalVars = new List<TokenBase>();
@@ -3338,12 +3338,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/teams/{teamId}/leads"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/teams/{teamId}/leads");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/teams/{teamId}/leads");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BteamId%7D", Uri.EscapeDataString(teamId.ToString()));
 
                     System.Collections.Specialized.NameValueCollection parseQueryStringLocalVar = System.Web.HttpUtility.ParseQueryString(string.Empty);
@@ -3944,12 +3944,12 @@ namespace Reacon.Sdk.Api
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
-                    uriBuilderLocalVar.Host = HttpClient.BaseAddress!.Host;
-                    uriBuilderLocalVar.Port = HttpClient.BaseAddress.Port;
-                    uriBuilderLocalVar.Scheme = HttpClient.BaseAddress.Scheme;
-                    uriBuilderLocalVar.Path = HttpClient.BaseAddress.AbsolutePath == "/"
+                    uriBuilderLocalVar.Host = new Uri(ClientUtils.BASE_ADDRESS).Host;
+                    uriBuilderLocalVar.Port = new Uri(ClientUtils.BASE_ADDRESS).Port;
+                    uriBuilderLocalVar.Scheme = new Uri(ClientUtils.BASE_ADDRESS).Scheme;
+                    uriBuilderLocalVar.Path = new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath == "/"
                         ? "/v1/leads/{leadId}/update"
-                        : string.Concat(HttpClient.BaseAddress.AbsolutePath.TrimEnd('/'), "/v1/leads/{leadId}/update");
+                        : string.Concat(new Uri(ClientUtils.BASE_ADDRESS).AbsolutePath.TrimEnd('/'), "/v1/leads/{leadId}/update");
                     uriBuilderLocalVar.Path = uriBuilderLocalVar.Path.Replace("%7BleadId%7D", Uri.EscapeDataString(leadId.ToString()));
 
                     if (updateLeadRequest.IsSet)

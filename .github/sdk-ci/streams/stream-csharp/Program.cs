@@ -17,8 +17,10 @@ if (retainedPackage is not null) {
         assemblyMatchedRetainedPackage = true }));
 }
 var url = Environment.GetEnvironmentVariable("REACON_TEST_URL")!;
-using var client = new VerificationStreamClient("synthetic-csharp", url);
-using var isolated = new VerificationStreamClient("isolated-csharp", url);
+using var http = new HttpClient(new FixtureHandler(url) { InnerHandler = new SocketsHttpHandler { AllowAutoRedirect = false, MaxResponseDrainSize = 0 } }) { Timeout = Timeout.InfiniteTimeSpan };
+using var client = new VerificationStreamClient("synthetic-csharp", http);
+using var other = new HttpClient(new FixtureHandler(url) { InnerHandler = new SocketsHttpHandler { AllowAutoRedirect = false, MaxResponseDrainSize = 0 } }) { Timeout = Timeout.InfiniteTimeSpan };
+using var isolated = new VerificationStreamClient("isolated-csharp", other);
 var options = new StreamOptions { OnlyIfFree = "true" };
 _ = client.StreamVerificationAsync("never@example.test");
 async Task<List<VerificationEvent>> Collect(string scenario, VerificationStreamClient? owner = null, StreamOptions? settings = null)
@@ -66,3 +68,15 @@ await foreach (var item in client.StreamVerificationAsync("early@example.test", 
 using var control = new HttpClient();
 Check((await control.GetAsync(url + "/_assert_closed")).IsSuccessStatusCode, "closure while clients remain alive");
 Console.WriteLine("C# streaming protocol, cancellation and live closure assertions passed");
+
+
+sealed class FixtureHandler(string target) : DelegatingHandler {
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) {
+        var original = request.RequestUri!;
+        if (original.Scheme != "https" || original.Host != "api.reacon.io") throw new InvalidOperationException("SDK changed its fixed API origin");
+        var fixture = new Uri(target);
+        if (fixture.Host != "127.0.0.1") throw new InvalidOperationException("Loopback fixtures only");
+        request.RequestUri = new Uri(target.TrimEnd('/') + original.PathAndQuery);
+        return base.SendAsync(request, cancellationToken);
+    }
+}
