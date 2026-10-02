@@ -50,6 +50,7 @@ namespace Reacon.Sdk.Client
             _jsonOptions.Converters.Add(new AirtableMappingOptionsResponseOptionsTablesInnerFieldsInnerJsonConverter());
             _jsonOptions.Converters.Add(new ApiErrorJsonConverter());
             _jsonOptions.Converters.Add(new ApiKeyIdentityJsonConverter());
+            _jsonOptions.Converters.Add(new ApiValidationIssueJsonConverter());
             _jsonOptions.Converters.Add(new AutomationHookCreatedJsonConverter());
             _jsonOptions.Converters.Add(new BatchVerificationErrorJsonConverter());
             _jsonOptions.Converters.Add(new BatchVerificationItemJsonConverter());
