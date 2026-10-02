@@ -43,7 +43,7 @@ namespace Reacon.Sdk.Model
         /// <param name="statusCode">statusCode</param>
         /// <param name="updatedAt">updatedAt</param>
         [JsonConstructor]
-        public ApiError(string error, Option<string?> code = default, Option<string?> details = default, Option<List<Dictionary<string, Object>>?> issues = default, Option<string?> message = default, Option<decimal?> remainingCredits = default, Option<string?> requestId = default, Option<int?> statusCode = default, Option<DateTimeOffset?> updatedAt = default)
+        public ApiError(string error, Option<string?> code = default, Option<string?> details = default, Option<List<ApiValidationIssue>?> issues = default, Option<string?> message = default, Option<decimal?> remainingCredits = default, Option<string?> requestId = default, Option<int?> statusCode = default, Option<DateTimeOffset?> updatedAt = default)
         {
             Error = error;
             CodeOption = code;
@@ -96,13 +96,13 @@ namespace Reacon.Sdk.Model
         /// </summary>
         [JsonIgnore]
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Option<List<Dictionary<string, Object>>?> IssuesOption { get; private set; }
+        public Option<List<ApiValidationIssue>?> IssuesOption { get; private set; }
 
         /// <summary>
         /// Gets or Sets Issues
         /// </summary>
         [JsonPropertyName("issues")]
-        public List<Dictionary<string, Object>>? Issues { get { return this.IssuesOption.Value; } set { this.IssuesOption = new(value); } }
+        public List<ApiValidationIssue>? Issues { get { return this.IssuesOption.Value; } set { this.IssuesOption = new(value); } }
 
         /// <summary>
         /// Used to track the state of Message
@@ -249,7 +249,7 @@ namespace Reacon.Sdk.Model
             Option<string?> error = default;
             Option<string?> code = default;
             Option<string?> details = default;
-            Option<List<Dictionary<string, Object>>?> issues = default;
+            Option<List<ApiValidationIssue>?> issues = default;
             Option<string?> message = default;
             Option<decimal?> remainingCredits = default;
             Option<string?> requestId = default;
@@ -281,7 +281,7 @@ namespace Reacon.Sdk.Model
                             details = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "issues":
-                            issues = new Option<List<Dictionary<string, Object>>?>(JsonSerializer.Deserialize<List<Dictionary<string, Object>>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            issues = new Option<List<ApiValidationIssue>?>(JsonSerializer.Deserialize<List<ApiValidationIssue>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "message":
                             message = new Option<string?>(utf8JsonReader.GetString()!);

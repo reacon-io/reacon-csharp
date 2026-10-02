@@ -53,6 +53,7 @@ src/Reacon.Sdk/Model/AirtableMappingOptionsResponseOptionsTablesInner.cs
 src/Reacon.Sdk/Model/AirtableMappingOptionsResponseOptionsTablesInnerFieldsInner.cs
 src/Reacon.Sdk/Model/ApiError.cs
 src/Reacon.Sdk/Model/ApiKeyIdentity.cs
+src/Reacon.Sdk/Model/ApiValidationIssue.cs
 src/Reacon.Sdk/Model/AutomationHookCreated.cs
 src/Reacon.Sdk/Model/BatchVerificationError.cs
 src/Reacon.Sdk/Model/BatchVerificationItem.cs
