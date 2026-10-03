@@ -8,4 +8,4 @@ A timeout or dropped connection does not prove that the server rejected a reques
 
 ## Reporting failures
 
-When reporting a failure, include the SDK package version and HTTP status. Include a request identifier if the response supplies one. Remove API keys and customer data from logs and bug reports. Redact Authorization and X-API-Key headers before sharing a request.
+When reporting a failure, include the SDK package version and HTTP status. Include a request identifier if the response supplies one. Remove API keys and customer data from logs and bug reports. Redact Authorization and X-API-Key headers before sharing a request. Never include the API key in a URL or a screenshot.
