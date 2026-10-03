@@ -1,13 +1,15 @@
 # Reacon .NET SDK
 
-Package `Reacon.Sdk`, version `2.0.7-beta.1`.
+Package `Reacon.Sdk`, version `2.0.8-beta.1`.
 
 [API reference and SDK examples](https://docs.reacon.io). Select your language on an endpoint page for SDK calls and response schemas.
+
+The SDK connects to `https://api.reacon.io`. The API address is built in and cannot be overridden. Configure your API key as shown in your language’s examples; do not pass a base URL.
 
 ## Installation
 
 ```sh
-dotnet add package Reacon.Sdk --version 2.0.7-beta.1
+dotnet add package Reacon.Sdk --version 2.0.8-beta.1
 ```
 
 The service URL is fixed to https://api.reacon.io. SDKs do not accept a service URL override.
