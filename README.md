@@ -1,5 +1,15 @@
-# Created with Openapi Generator
-See the project's [REAMDE](src/Reacon.Sdk/README.md)
+# Reacon .NET SDK
+
+Package `Reacon.Sdk`, version `2.0.6-beta.1`.
+
+[API reference and SDK examples](https://docs.reacon.io).
+
+## Installation
+
+```sh
+dotnet add package Reacon.Sdk --version 2.0.6-beta.1
+```
+
 The service URL is fixed to https://api.reacon.io. SDKs do not accept a service URL override.
 
 ## Retrying requests
