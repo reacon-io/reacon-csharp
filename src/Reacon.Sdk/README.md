@@ -1,6 +1,6 @@
 # Reacon .NET SDK
 
-Package `Reacon.Sdk`, version `2.0.9-beta.1`.
+Package `Reacon.Sdk`, version `2.0.10-beta.1`.
 
 Minimum runtime: **.NET 8.0**.
 
@@ -8,10 +8,12 @@ Minimum runtime: **.NET 8.0**.
 
 The SDK connects to `https://api.reacon.io`. The API address is built in and cannot be overridden. Configure your API key as shown in your language’s examples; do not pass a base URL.
 
+API keys are secrets. Load your key from an environment variable or secret manager and pass it through the SDK authentication configuration. Do not commit keys or include them in browser or mobile application bundles. The examples use `REACON_API_KEY`; the SDK does not load this environment variable automatically.
+
 ## Installation
 
 ```sh
-dotnet add package Reacon.Sdk --version 2.0.9-beta.1
+dotnet add package Reacon.Sdk --version 2.0.10-beta.1
 ```
 
 The service URL is fixed to https://api.reacon.io. SDKs do not accept a service URL override.
