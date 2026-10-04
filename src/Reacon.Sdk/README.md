@@ -1,6 +1,6 @@
 # Reacon .NET SDK
 
-Package `Reacon.Sdk`, version `3.0.0-beta.1`.
+Package `Reacon.Sdk`, version `4.0.0-beta.1`.
 
 Minimum runtime: **.NET 8.0**.
 
@@ -23,7 +23,7 @@ For reproducible deployments, commit your dependency lockfile or pin the package
 ## Installation
 
 ```sh
-dotnet add package Reacon.Sdk --version 3.0.0-beta.1
+dotnet add package Reacon.Sdk --version 4.0.0-beta.1
 ```
 
 The service URL is fixed to https://api.reacon.io. SDKs do not accept a service URL override.
