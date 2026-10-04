@@ -36,12 +36,14 @@ namespace Reacon.Sdk.Model
         /// <param name="emails">emails</param>
         /// <param name="mentions">mentions</param>
         /// <param name="varVersion">varVersion</param>
+        /// <param name="apiProtocolVersion">Wire protocol major version, independent of SDK and actions-package versions.</param>
         [JsonConstructor]
-        public PublicStats(int emails, int mentions, string varVersion)
+        public PublicStats(int emails, int mentions, string varVersion, Option<int?> apiProtocolVersion = default)
         {
             Emails = emails;
             Mentions = mentions;
             VarVersion = varVersion;
+            ApiProtocolVersionOption = apiProtocolVersion;
             OnCreated();
         }
 
@@ -66,6 +68,20 @@ namespace Reacon.Sdk.Model
         public string VarVersion { get; set; }
 
         /// <summary>
+        /// Used to track the state of ApiProtocolVersion
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<int?> ApiProtocolVersionOption { get; private set; }
+
+        /// <summary>
+        /// Wire protocol major version, independent of SDK and actions-package versions.
+        /// </summary>
+        /// <value>Wire protocol major version, independent of SDK and actions-package versions.</value>
+        [JsonPropertyName("apiProtocolVersion")]
+        public int? ApiProtocolVersion { get { return this.ApiProtocolVersionOption.Value; } set { this.ApiProtocolVersionOption = new(value); } }
+
+        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -82,6 +98,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  Emails: ").Append(Emails).Append("\n");
             sb.Append("  Mentions: ").Append(Mentions).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
+            sb.Append("  ApiProtocolVersion: ").Append(ApiProtocolVersion).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -94,6 +111,12 @@ namespace Reacon.Sdk.Model
         /// <returns>Validation Result</returns>
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            // ApiProtocolVersion (int) minimum
+            if (this.ApiProtocolVersionOption.IsSet && this.ApiProtocolVersionOption.Value < (int)1)
+            {
+                yield return new ValidationResult("Invalid value for ApiProtocolVersion, must be a value greater than or equal to 1.", new [] { "ApiProtocolVersion" });
+            }
+
             yield break;
         }
     }
@@ -134,6 +157,7 @@ namespace Reacon.Sdk.Model
             Option<int?> emails = default;
             Option<int?> mentions = default;
             Option<string?> varVersion = default;
+            Option<int?> apiProtocolVersion = default;
 
             while (utf8JsonReader.Read())
             {
@@ -158,6 +182,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "version":
                             varVersion = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
+                        case "apiProtocolVersion":
+                            apiProtocolVersion = new Option<int?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (int?)null : utf8JsonReader.GetInt32());
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
@@ -185,7 +212,10 @@ namespace Reacon.Sdk.Model
             if (varVersion.IsSet && varVersion.Value == null)
                 throw new ArgumentNullException(nameof(varVersion), "Property is not nullable for class PublicStats.");
 
-            var reaconModelResult = new PublicStats(emails.Value!.Value!, mentions.Value!.Value!, varVersion.Value!);
+            if (apiProtocolVersion.IsSet && apiProtocolVersion.Value == null)
+                throw new ArgumentNullException(nameof(apiProtocolVersion), "Property is not nullable for class PublicStats.");
+
+            var reaconModelResult = new PublicStats(emails.Value!.Value!, mentions.Value!.Value!, varVersion.Value!, apiProtocolVersion);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -223,9 +253,12 @@ namespace Reacon.Sdk.Model
 
             writer.WriteString("version", publicStats.VarVersion);
 
+            if (publicStats.ApiProtocolVersionOption.IsSet)
+                writer.WriteNumber("apiProtocolVersion", publicStats.ApiProtocolVersionOption.Value!.Value);
+
             foreach (var property in publicStats.AdditionalProperties)
             {
-                if (property.Key == "emails" || property.Key == "mentions" || property.Key == "version") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "emails" || property.Key == "mentions" || property.Key == "version" || property.Key == "apiProtocolVersion") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }
