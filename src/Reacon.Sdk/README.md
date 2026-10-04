@@ -1,6 +1,6 @@
 # Reacon .NET SDK
 
-Package `Reacon.Sdk`, version `2.0.12-beta.1`.
+Package `Reacon.Sdk`, version `2.0.13-beta.1`.
 
 Minimum runtime: **.NET 8.0**.
 
@@ -12,12 +12,14 @@ API keys are secrets. Load your key from an environment variable or secret manag
 
 SDK package versions and API path versions are separate. The generated methods already select their API paths; do not derive an API path such as `/v2` from the package’s major version.
 
+Prerelease packages may become available before the matching API changes are deployed. Package availability alone does not mean those changes are ready in production. Use the package versions shown in the production API documentation for the currently supported release; try newer prereleases only when their matching API changes are available.
+
 For reproducible deployments, commit your dependency lockfile or pin the package version in your build configuration. Review the API reference and run your application’s integration tests before upgrading the SDK.
 
 ## Installation
 
 ```sh
-dotnet add package Reacon.Sdk --version 2.0.12-beta.1
+dotnet add package Reacon.Sdk --version 2.0.13-beta.1
 ```
 
 The service URL is fixed to https://api.reacon.io. SDKs do not accept a service URL override.
