@@ -41,7 +41,7 @@ namespace Reacon.Sdk.Model
         /// <param name="tenantId">tenantId</param>
         /// <param name="updatedAt">updatedAt</param>
         [JsonConstructor]
-        public MailPostDeliverabilityPoolsResponse201Pool(DateTimeOffset createdAt, string id, List<Object> members, string name, string strategy, string tenantId, DateTimeOffset updatedAt)
+        public MailPostDeliverabilityPoolsResponse201Pool(DateTimeOffset createdAt, string id, List<MailMailboxPoolMember> members, string name, string strategy, string tenantId, DateTimeOffset updatedAt)
         {
             CreatedAt = createdAt;
             Id = id;
@@ -71,7 +71,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Members
         /// </summary>
         [JsonPropertyName("members")]
-        public List<Object> Members { get; set; }
+        public List<MailMailboxPoolMember> Members { get; set; }
 
         /// <summary>
         /// Gets or Sets Name
@@ -179,7 +179,7 @@ namespace Reacon.Sdk.Model
 
             Option<DateTimeOffset?> createdAt = default;
             Option<string?> id = default;
-            Option<List<Object>?> members = default;
+            Option<List<MailMailboxPoolMember>?> members = default;
             Option<string?> name = default;
             Option<string?> strategy = default;
             Option<string?> tenantId = default;
@@ -207,7 +207,7 @@ namespace Reacon.Sdk.Model
                             id = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "members":
-                            members = new Option<List<Object>?>(JsonSerializer.Deserialize<List<Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            members = new Option<List<MailMailboxPoolMember>?>(JsonSerializer.Deserialize<List<MailMailboxPoolMember>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "name":
                             name = new Option<string?>(utf8JsonReader.GetString()!);
