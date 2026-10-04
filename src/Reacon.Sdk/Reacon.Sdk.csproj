@@ -12,7 +12,7 @@
     <Description>Official Reacon API client for .NET</Description>
     <Copyright>Reacon contributors</Copyright>
     <RootNamespace>Reacon.Sdk</RootNamespace>
-    <Version>2.0.14-beta.1</Version>
+    <Version>2.0.15-beta.1</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Reacon.Sdk.xml</DocumentationFile>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/reacon-io/reacon-csharp.git</RepositoryUrl>
