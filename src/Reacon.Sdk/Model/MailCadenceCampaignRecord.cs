@@ -56,6 +56,7 @@ namespace Reacon.Sdk.Model
         /// <param name="validatedCount">validatedCount</param>
         /// <param name="varVersion">varVersion</param>
         /// <param name="activatedAt">activatedAt</param>
+        /// <param name="archivedAt">archivedAt</param>
         /// <param name="completedAt">completedAt</param>
         /// <param name="lastError">lastError</param>
         /// <param name="leaseExpiresAt">leaseExpiresAt</param>
@@ -63,7 +64,7 @@ namespace Reacon.Sdk.Model
         /// <param name="mailboxId">mailboxId</param>
         /// <param name="mailboxPoolId">mailboxPoolId</param>
         [JsonConstructor]
-        public MailCadenceCampaignRecord(string actorId, decimal attemptCount, decimal audienceCount, string audienceListId, string cadenceId, decimal cadenceVersion, DateTimeOffset createdAt, decimal enrolledCount, string enrollmentMode, decimal failedCount, string id, string idempotencyKey, decimal invalidCount, string name, DateTimeOffset nextAttemptAt, DateTimeOffset scheduledAt, decimal skippedCount, string status, string tenantId, DateTimeOffset updatedAt, decimal validatedCount, decimal varVersion, Option<DateTimeOffset?> activatedAt = default, Option<DateTimeOffset?> completedAt = default, Option<string?> lastError = default, Option<DateTimeOffset?> leaseExpiresAt = default, Option<string?> leaseOwner = default, Option<string?> mailboxId = default, Option<string?> mailboxPoolId = default)
+        public MailCadenceCampaignRecord(string actorId, decimal attemptCount, decimal audienceCount, string audienceListId, string cadenceId, decimal cadenceVersion, DateTimeOffset createdAt, decimal enrolledCount, string enrollmentMode, decimal failedCount, string id, string idempotencyKey, decimal invalidCount, string name, DateTimeOffset nextAttemptAt, DateTimeOffset scheduledAt, decimal skippedCount, string status, string tenantId, DateTimeOffset updatedAt, decimal validatedCount, decimal varVersion, Option<DateTimeOffset?> activatedAt = default, Option<DateTimeOffset?> archivedAt = default, Option<DateTimeOffset?> completedAt = default, Option<string?> lastError = default, Option<DateTimeOffset?> leaseExpiresAt = default, Option<string?> leaseOwner = default, Option<string?> mailboxId = default, Option<string?> mailboxPoolId = default)
         {
             ActorId = actorId;
             AttemptCount = attemptCount;
@@ -88,6 +89,7 @@ namespace Reacon.Sdk.Model
             ValidatedCount = validatedCount;
             VarVersion = varVersion;
             ActivatedAtOption = activatedAt;
+            ArchivedAtOption = archivedAt;
             CompletedAtOption = completedAt;
             LastErrorOption = lastError;
             LeaseExpiresAtOption = leaseExpiresAt;
@@ -245,6 +247,19 @@ namespace Reacon.Sdk.Model
         public DateTimeOffset? ActivatedAt { get { return this.ActivatedAtOption.Value; } set { this.ActivatedAtOption = new(value); } }
 
         /// <summary>
+        /// Used to track the state of ArchivedAt
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<DateTimeOffset?> ArchivedAtOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ArchivedAt
+        /// </summary>
+        [JsonPropertyName("archivedAt")]
+        public DateTimeOffset? ArchivedAt { get { return this.ArchivedAtOption.Value; } set { this.ArchivedAtOption = new(value); } }
+
+        /// <summary>
         /// Used to track the state of CompletedAt
         /// </summary>
         [JsonIgnore]
@@ -359,6 +374,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  ValidatedCount: ").Append(ValidatedCount).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
             sb.Append("  ActivatedAt: ").Append(ActivatedAt).Append("\n");
+            sb.Append("  ArchivedAt: ").Append(ArchivedAt).Append("\n");
             sb.Append("  CompletedAt: ").Append(CompletedAt).Append("\n");
             sb.Append("  LastError: ").Append(LastError).Append("\n");
             sb.Append("  LeaseExpiresAt: ").Append(LeaseExpiresAt).Append("\n");
@@ -422,6 +438,11 @@ namespace Reacon.Sdk.Model
         public string ActivatedAtFormat { get; private set; } = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
 
         /// <summary>
+        /// The format to use to serialize ArchivedAt
+        /// </summary>
+        public string ArchivedAtFormat { get; private set; } = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
+
+        /// <summary>
         /// The format to use to serialize CompletedAt
         /// </summary>
         public string CompletedAtFormat { get; private set; } = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
@@ -472,6 +493,7 @@ namespace Reacon.Sdk.Model
             Option<decimal?> validatedCount = default;
             Option<decimal?> varVersion = default;
             Option<DateTimeOffset?> activatedAt = default;
+            Option<DateTimeOffset?> archivedAt = default;
             Option<DateTimeOffset?> completedAt = default;
             Option<string?> lastError = default;
             Option<DateTimeOffset?> leaseExpiresAt = default;
@@ -562,6 +584,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "activatedAt":
                             activatedAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));
+                            break;
+                        case "archivedAt":
+                            archivedAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));
                             break;
                         case "completedAt":
                             completedAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset>(ref utf8JsonReader, jsonSerializerOptions));
@@ -724,6 +749,9 @@ namespace Reacon.Sdk.Model
             if (activatedAt.IsSet && activatedAt.Value == null)
                 throw new ArgumentNullException(nameof(activatedAt), "Property is not nullable for class MailCadenceCampaignRecord.");
 
+            if (archivedAt.IsSet && archivedAt.Value == null)
+                throw new ArgumentNullException(nameof(archivedAt), "Property is not nullable for class MailCadenceCampaignRecord.");
+
             if (completedAt.IsSet && completedAt.Value == null)
                 throw new ArgumentNullException(nameof(completedAt), "Property is not nullable for class MailCadenceCampaignRecord.");
 
@@ -742,7 +770,7 @@ namespace Reacon.Sdk.Model
             if (mailboxPoolId.IsSet && mailboxPoolId.Value == null)
                 throw new ArgumentNullException(nameof(mailboxPoolId), "Property is not nullable for class MailCadenceCampaignRecord.");
 
-            var reaconModelResult = new MailCadenceCampaignRecord(actorId.Value!, attemptCount.Value!.Value!, audienceCount.Value!.Value!, audienceListId.Value!, cadenceId.Value!, cadenceVersion.Value!.Value!, createdAt.Value!.Value!, enrolledCount.Value!.Value!, enrollmentMode.Value!, failedCount.Value!.Value!, id.Value!, idempotencyKey.Value!, invalidCount.Value!.Value!, name.Value!, nextAttemptAt.Value!.Value!, scheduledAt.Value!.Value!, skippedCount.Value!.Value!, status.Value!, tenantId.Value!, updatedAt.Value!.Value!, validatedCount.Value!.Value!, varVersion.Value!.Value!, activatedAt, completedAt, lastError, leaseExpiresAt, leaseOwner, mailboxId, mailboxPoolId);
+            var reaconModelResult = new MailCadenceCampaignRecord(actorId.Value!, attemptCount.Value!.Value!, audienceCount.Value!.Value!, audienceListId.Value!, cadenceId.Value!, cadenceVersion.Value!.Value!, createdAt.Value!.Value!, enrolledCount.Value!.Value!, enrollmentMode.Value!, failedCount.Value!.Value!, id.Value!, idempotencyKey.Value!, invalidCount.Value!.Value!, name.Value!, nextAttemptAt.Value!.Value!, scheduledAt.Value!.Value!, skippedCount.Value!.Value!, status.Value!, tenantId.Value!, updatedAt.Value!.Value!, validatedCount.Value!.Value!, varVersion.Value!.Value!, activatedAt, archivedAt, completedAt, lastError, leaseExpiresAt, leaseOwner, mailboxId, mailboxPoolId);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -857,6 +885,9 @@ namespace Reacon.Sdk.Model
             if (mailCadenceCampaignRecord.ActivatedAtOption.IsSet)
                 writer.WriteString("activatedAt", mailCadenceCampaignRecord.ActivatedAtOption.Value!.Value.ToString(ActivatedAtFormat));
 
+            if (mailCadenceCampaignRecord.ArchivedAtOption.IsSet)
+                writer.WriteString("archivedAt", mailCadenceCampaignRecord.ArchivedAtOption.Value!.Value.ToString(ArchivedAtFormat));
+
             if (mailCadenceCampaignRecord.CompletedAtOption.IsSet)
                 writer.WriteString("completedAt", mailCadenceCampaignRecord.CompletedAtOption.Value!.Value.ToString(CompletedAtFormat));
 
@@ -877,7 +908,7 @@ namespace Reacon.Sdk.Model
 
             foreach (var property in mailCadenceCampaignRecord.AdditionalProperties)
             {
-                if (property.Key == "actorId" || property.Key == "attemptCount" || property.Key == "audienceCount" || property.Key == "audienceListId" || property.Key == "cadenceId" || property.Key == "cadenceVersion" || property.Key == "createdAt" || property.Key == "enrolledCount" || property.Key == "enrollmentMode" || property.Key == "failedCount" || property.Key == "id" || property.Key == "idempotencyKey" || property.Key == "invalidCount" || property.Key == "name" || property.Key == "nextAttemptAt" || property.Key == "scheduledAt" || property.Key == "skippedCount" || property.Key == "status" || property.Key == "tenantId" || property.Key == "updatedAt" || property.Key == "validatedCount" || property.Key == "version" || property.Key == "activatedAt" || property.Key == "completedAt" || property.Key == "lastError" || property.Key == "leaseExpiresAt" || property.Key == "leaseOwner" || property.Key == "mailboxId" || property.Key == "mailboxPoolId") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "actorId" || property.Key == "attemptCount" || property.Key == "audienceCount" || property.Key == "audienceListId" || property.Key == "cadenceId" || property.Key == "cadenceVersion" || property.Key == "createdAt" || property.Key == "enrolledCount" || property.Key == "enrollmentMode" || property.Key == "failedCount" || property.Key == "id" || property.Key == "idempotencyKey" || property.Key == "invalidCount" || property.Key == "name" || property.Key == "nextAttemptAt" || property.Key == "scheduledAt" || property.Key == "skippedCount" || property.Key == "status" || property.Key == "tenantId" || property.Key == "updatedAt" || property.Key == "validatedCount" || property.Key == "version" || property.Key == "activatedAt" || property.Key == "archivedAt" || property.Key == "completedAt" || property.Key == "lastError" || property.Key == "leaseExpiresAt" || property.Key == "leaseOwner" || property.Key == "mailboxId" || property.Key == "mailboxPoolId") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

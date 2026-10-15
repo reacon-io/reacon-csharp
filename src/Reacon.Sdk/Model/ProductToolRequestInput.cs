@@ -61,8 +61,16 @@ namespace Reacon.Sdk.Model
         /// <param name="productSequenceRecipientAddInput"></param>
         /// <param name="productSequenceRecipientCancelInput"></param>
         /// <param name="productSequenceStartInput"></param>
+        /// <param name="productMailSequenceDraftSaveInput"></param>
+        /// <param name="productMailSequenceAddAudienceInput"></param>
+        /// <param name="productMailSequenceReadinessInput"></param>
+        /// <param name="productMailSequencePublishInput"></param>
+        /// <param name="productMailSequenceRecipientsListInput"></param>
+        /// <param name="productMailSequenceAddAbInput"></param>
+        /// <param name="productMailSequenceStateInput"></param>
+        /// <param name="productMailSequenceResultsInput"></param>
         /// <param name="productConnectedAppPushInput"></param>
-        public ProductToolRequestInput(Option<ProductDiscoverCompaniesInput?> productDiscoverCompaniesInput, Option<ProductDiscoverPeopleInput?> productDiscoverPeopleInput, Option<ProductDomainFinderInput?> productDomainFinderInput, Option<ProductEmailCountInput?> productEmailCountInput, Option<ProductPersonEnrichInput?> productPersonEnrichInput, Option<Object?> @object, Option<ProductLeadsListInput?> productLeadsListInput, Option<ProductLeadGetInput?> productLeadGetInput, Option<ProductLeadCreateInput?> productLeadCreateInput, Option<ProductLeadUpdateInput?> productLeadUpdateInput, Option<ProductLeadDeleteInput?> productLeadDeleteInput, Option<ProductLeadBulkDeleteInput?> productLeadBulkDeleteInput, Option<ProductLeadTagCreateInput?> productLeadTagCreateInput, Option<ProductLeadTagAssignInput?> productLeadTagAssignInput, Option<ProductCustomAttributeCreateInput?> productCustomAttributeCreateInput, Option<ProductLeadListUpdateInput?> productLeadListUpdateInput, Option<ProductLeadListDeleteInput?> productLeadListDeleteInput, Option<ProductLeadListAddLeadInput?> productLeadListAddLeadInput, Option<ProductCompaniesListInput?> productCompaniesListInput, Option<ProductCompanyTrackInput?> productCompanyTrackInput, Option<ProductCompanyUpdateInput?> productCompanyUpdateInput, Option<ProductCompanyDeleteInput?> productCompanyDeleteInput, Option<ProductCompanyListAddInput?> productCompanyListAddInput, Option<ProductSequenceRecipientsListInput?> productSequenceRecipientsListInput, Option<ProductSequenceRecipientsAddInput?> productSequenceRecipientsAddInput, Option<ProductSequenceRecipientAddInput?> productSequenceRecipientAddInput, Option<ProductSequenceRecipientCancelInput?> productSequenceRecipientCancelInput, Option<ProductSequenceStartInput?> productSequenceStartInput, Option<ProductConnectedAppPushInput?> productConnectedAppPushInput)
+        public ProductToolRequestInput(Option<ProductDiscoverCompaniesInput?> productDiscoverCompaniesInput, Option<ProductDiscoverPeopleInput?> productDiscoverPeopleInput, Option<ProductDomainFinderInput?> productDomainFinderInput, Option<ProductEmailCountInput?> productEmailCountInput, Option<ProductPersonEnrichInput?> productPersonEnrichInput, Option<Object?> @object, Option<ProductLeadsListInput?> productLeadsListInput, Option<ProductLeadGetInput?> productLeadGetInput, Option<ProductLeadCreateInput?> productLeadCreateInput, Option<ProductLeadUpdateInput?> productLeadUpdateInput, Option<ProductLeadDeleteInput?> productLeadDeleteInput, Option<ProductLeadBulkDeleteInput?> productLeadBulkDeleteInput, Option<ProductLeadTagCreateInput?> productLeadTagCreateInput, Option<ProductLeadTagAssignInput?> productLeadTagAssignInput, Option<ProductCustomAttributeCreateInput?> productCustomAttributeCreateInput, Option<ProductLeadListUpdateInput?> productLeadListUpdateInput, Option<ProductLeadListDeleteInput?> productLeadListDeleteInput, Option<ProductLeadListAddLeadInput?> productLeadListAddLeadInput, Option<ProductCompaniesListInput?> productCompaniesListInput, Option<ProductCompanyTrackInput?> productCompanyTrackInput, Option<ProductCompanyUpdateInput?> productCompanyUpdateInput, Option<ProductCompanyDeleteInput?> productCompanyDeleteInput, Option<ProductCompanyListAddInput?> productCompanyListAddInput, Option<ProductSequenceRecipientsListInput?> productSequenceRecipientsListInput, Option<ProductSequenceRecipientsAddInput?> productSequenceRecipientsAddInput, Option<ProductSequenceRecipientAddInput?> productSequenceRecipientAddInput, Option<ProductSequenceRecipientCancelInput?> productSequenceRecipientCancelInput, Option<ProductSequenceStartInput?> productSequenceStartInput, Option<ProductMailSequenceDraftSaveInput?> productMailSequenceDraftSaveInput, Option<ProductMailSequenceAddAudienceInput?> productMailSequenceAddAudienceInput, Option<ProductMailSequenceReadinessInput?> productMailSequenceReadinessInput, Option<ProductMailSequencePublishInput?> productMailSequencePublishInput, Option<ProductMailSequenceRecipientsListInput?> productMailSequenceRecipientsListInput, Option<ProductMailSequenceAddAbInput?> productMailSequenceAddAbInput, Option<ProductMailSequenceStateInput?> productMailSequenceStateInput, Option<ProductMailSequenceResultsInput?> productMailSequenceResultsInput, Option<ProductConnectedAppPushInput?> productConnectedAppPushInput)
         {
             ProductDiscoverCompaniesInputOption = productDiscoverCompaniesInput;
             ProductDiscoverPeopleInputOption = productDiscoverPeopleInput;
@@ -92,6 +100,14 @@ namespace Reacon.Sdk.Model
             ProductSequenceRecipientAddInputOption = productSequenceRecipientAddInput;
             ProductSequenceRecipientCancelInputOption = productSequenceRecipientCancelInput;
             ProductSequenceStartInputOption = productSequenceStartInput;
+            ProductMailSequenceDraftSaveInputOption = productMailSequenceDraftSaveInput;
+            ProductMailSequenceAddAudienceInputOption = productMailSequenceAddAudienceInput;
+            ProductMailSequenceReadinessInputOption = productMailSequenceReadinessInput;
+            ProductMailSequencePublishInputOption = productMailSequencePublishInput;
+            ProductMailSequenceRecipientsListInputOption = productMailSequenceRecipientsListInput;
+            ProductMailSequenceAddAbInputOption = productMailSequenceAddAbInput;
+            ProductMailSequenceStateInputOption = productMailSequenceStateInput;
+            ProductMailSequenceResultsInputOption = productMailSequenceResultsInput;
             ProductConnectedAppPushInputOption = productConnectedAppPushInput;
             OnCreated();
         }
@@ -435,6 +451,102 @@ namespace Reacon.Sdk.Model
         public ProductSequenceStartInput? ProductSequenceStartInput { get { return this.ProductSequenceStartInputOption.Value; } set { this.ProductSequenceStartInputOption = new(value); } }
 
         /// <summary>
+        /// Used to track the state of ProductMailSequenceDraftSaveInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequenceDraftSaveInput?> ProductMailSequenceDraftSaveInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceDraftSaveInput
+        /// </summary>
+        public ProductMailSequenceDraftSaveInput? ProductMailSequenceDraftSaveInput { get { return this.ProductMailSequenceDraftSaveInputOption.Value; } set { this.ProductMailSequenceDraftSaveInputOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of ProductMailSequenceAddAudienceInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequenceAddAudienceInput?> ProductMailSequenceAddAudienceInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceAddAudienceInput
+        /// </summary>
+        public ProductMailSequenceAddAudienceInput? ProductMailSequenceAddAudienceInput { get { return this.ProductMailSequenceAddAudienceInputOption.Value; } set { this.ProductMailSequenceAddAudienceInputOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of ProductMailSequenceReadinessInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequenceReadinessInput?> ProductMailSequenceReadinessInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceReadinessInput
+        /// </summary>
+        public ProductMailSequenceReadinessInput? ProductMailSequenceReadinessInput { get { return this.ProductMailSequenceReadinessInputOption.Value; } set { this.ProductMailSequenceReadinessInputOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of ProductMailSequencePublishInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequencePublishInput?> ProductMailSequencePublishInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequencePublishInput
+        /// </summary>
+        public ProductMailSequencePublishInput? ProductMailSequencePublishInput { get { return this.ProductMailSequencePublishInputOption.Value; } set { this.ProductMailSequencePublishInputOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of ProductMailSequenceRecipientsListInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequenceRecipientsListInput?> ProductMailSequenceRecipientsListInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceRecipientsListInput
+        /// </summary>
+        public ProductMailSequenceRecipientsListInput? ProductMailSequenceRecipientsListInput { get { return this.ProductMailSequenceRecipientsListInputOption.Value; } set { this.ProductMailSequenceRecipientsListInputOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of ProductMailSequenceAddAbInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequenceAddAbInput?> ProductMailSequenceAddAbInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceAddAbInput
+        /// </summary>
+        public ProductMailSequenceAddAbInput? ProductMailSequenceAddAbInput { get { return this.ProductMailSequenceAddAbInputOption.Value; } set { this.ProductMailSequenceAddAbInputOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of ProductMailSequenceStateInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequenceStateInput?> ProductMailSequenceStateInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceStateInput
+        /// </summary>
+        public ProductMailSequenceStateInput? ProductMailSequenceStateInput { get { return this.ProductMailSequenceStateInputOption.Value; } set { this.ProductMailSequenceStateInputOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of ProductMailSequenceResultsInput
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<ProductMailSequenceResultsInput?> ProductMailSequenceResultsInputOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceResultsInput
+        /// </summary>
+        public ProductMailSequenceResultsInput? ProductMailSequenceResultsInput { get { return this.ProductMailSequenceResultsInputOption.Value; } set { this.ProductMailSequenceResultsInputOption = new(value); } }
+
+        /// <summary>
         /// Used to track the state of ProductConnectedAppPushInput
         /// </summary>
         [JsonIgnore]
@@ -536,6 +648,14 @@ namespace Reacon.Sdk.Model
             ProductSequenceRecipientAddInput? productSequenceRecipientAddInput = default;
             ProductSequenceRecipientCancelInput? productSequenceRecipientCancelInput = default;
             ProductSequenceStartInput? productSequenceStartInput = default;
+            ProductMailSequenceDraftSaveInput? productMailSequenceDraftSaveInput = default;
+            ProductMailSequenceAddAudienceInput? productMailSequenceAddAudienceInput = default;
+            ProductMailSequenceReadinessInput? productMailSequenceReadinessInput = default;
+            ProductMailSequencePublishInput? productMailSequencePublishInput = default;
+            ProductMailSequenceRecipientsListInput? productMailSequenceRecipientsListInput = default;
+            ProductMailSequenceAddAbInput? productMailSequenceAddAbInput = default;
+            ProductMailSequenceStateInput? productMailSequenceStateInput = default;
+            ProductMailSequenceResultsInput? productMailSequenceResultsInput = default;
             ProductConnectedAppPushInput? productConnectedAppPushInput = default;
 
             Utf8JsonReader utf8JsonReaderAnyOf = utf8JsonReader;
@@ -632,6 +752,30 @@ namespace Reacon.Sdk.Model
 
                     Utf8JsonReader utf8JsonReaderProductSequenceStartInput = utf8JsonReader;
                     ClientUtils.TryDeserialize<ProductSequenceStartInput?>(ref utf8JsonReaderProductSequenceStartInput, jsonSerializerOptions, out productSequenceStartInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequenceDraftSaveInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequenceDraftSaveInput?>(ref utf8JsonReaderProductMailSequenceDraftSaveInput, jsonSerializerOptions, out productMailSequenceDraftSaveInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequenceAddAudienceInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequenceAddAudienceInput?>(ref utf8JsonReaderProductMailSequenceAddAudienceInput, jsonSerializerOptions, out productMailSequenceAddAudienceInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequenceReadinessInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequenceReadinessInput?>(ref utf8JsonReaderProductMailSequenceReadinessInput, jsonSerializerOptions, out productMailSequenceReadinessInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequencePublishInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequencePublishInput?>(ref utf8JsonReaderProductMailSequencePublishInput, jsonSerializerOptions, out productMailSequencePublishInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequenceRecipientsListInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequenceRecipientsListInput?>(ref utf8JsonReaderProductMailSequenceRecipientsListInput, jsonSerializerOptions, out productMailSequenceRecipientsListInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequenceAddAbInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequenceAddAbInput?>(ref utf8JsonReaderProductMailSequenceAddAbInput, jsonSerializerOptions, out productMailSequenceAddAbInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequenceStateInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequenceStateInput?>(ref utf8JsonReaderProductMailSequenceStateInput, jsonSerializerOptions, out productMailSequenceStateInput);
+
+                    Utf8JsonReader utf8JsonReaderProductMailSequenceResultsInput = utf8JsonReader;
+                    ClientUtils.TryDeserialize<ProductMailSequenceResultsInput?>(ref utf8JsonReaderProductMailSequenceResultsInput, jsonSerializerOptions, out productMailSequenceResultsInput);
 
                     Utf8JsonReader utf8JsonReaderProductConnectedAppPushInput = utf8JsonReader;
                     ClientUtils.TryDeserialize<ProductConnectedAppPushInput?>(ref utf8JsonReaderProductConnectedAppPushInput, jsonSerializerOptions, out productConnectedAppPushInput);
@@ -743,11 +887,35 @@ namespace Reacon.Sdk.Model
             Option<ProductSequenceStartInput?> productSequenceStartInputParsedValue = productSequenceStartInput == null
                 ? default
                 : new Option<ProductSequenceStartInput?>(productSequenceStartInput);
+            Option<ProductMailSequenceDraftSaveInput?> productMailSequenceDraftSaveInputParsedValue = productMailSequenceDraftSaveInput == null
+                ? default
+                : new Option<ProductMailSequenceDraftSaveInput?>(productMailSequenceDraftSaveInput);
+            Option<ProductMailSequenceAddAudienceInput?> productMailSequenceAddAudienceInputParsedValue = productMailSequenceAddAudienceInput == null
+                ? default
+                : new Option<ProductMailSequenceAddAudienceInput?>(productMailSequenceAddAudienceInput);
+            Option<ProductMailSequenceReadinessInput?> productMailSequenceReadinessInputParsedValue = productMailSequenceReadinessInput == null
+                ? default
+                : new Option<ProductMailSequenceReadinessInput?>(productMailSequenceReadinessInput);
+            Option<ProductMailSequencePublishInput?> productMailSequencePublishInputParsedValue = productMailSequencePublishInput == null
+                ? default
+                : new Option<ProductMailSequencePublishInput?>(productMailSequencePublishInput);
+            Option<ProductMailSequenceRecipientsListInput?> productMailSequenceRecipientsListInputParsedValue = productMailSequenceRecipientsListInput == null
+                ? default
+                : new Option<ProductMailSequenceRecipientsListInput?>(productMailSequenceRecipientsListInput);
+            Option<ProductMailSequenceAddAbInput?> productMailSequenceAddAbInputParsedValue = productMailSequenceAddAbInput == null
+                ? default
+                : new Option<ProductMailSequenceAddAbInput?>(productMailSequenceAddAbInput);
+            Option<ProductMailSequenceStateInput?> productMailSequenceStateInputParsedValue = productMailSequenceStateInput == null
+                ? default
+                : new Option<ProductMailSequenceStateInput?>(productMailSequenceStateInput);
+            Option<ProductMailSequenceResultsInput?> productMailSequenceResultsInputParsedValue = productMailSequenceResultsInput == null
+                ? default
+                : new Option<ProductMailSequenceResultsInput?>(productMailSequenceResultsInput);
             Option<ProductConnectedAppPushInput?> productConnectedAppPushInputParsedValue = productConnectedAppPushInput == null
                 ? default
                 : new Option<ProductConnectedAppPushInput?>(productConnectedAppPushInput);
 
-            return new ProductToolRequestInput(productDiscoverCompaniesInputParsedValue, productDiscoverPeopleInputParsedValue, productDomainFinderInputParsedValue, productEmailCountInputParsedValue, productPersonEnrichInputParsedValue, varObjectParsedValue, productLeadsListInputParsedValue, productLeadGetInputParsedValue, productLeadCreateInputParsedValue, productLeadUpdateInputParsedValue, productLeadDeleteInputParsedValue, productLeadBulkDeleteInputParsedValue, productLeadTagCreateInputParsedValue, productLeadTagAssignInputParsedValue, productCustomAttributeCreateInputParsedValue, productLeadListUpdateInputParsedValue, productLeadListDeleteInputParsedValue, productLeadListAddLeadInputParsedValue, productCompaniesListInputParsedValue, productCompanyTrackInputParsedValue, productCompanyUpdateInputParsedValue, productCompanyDeleteInputParsedValue, productCompanyListAddInputParsedValue, productSequenceRecipientsListInputParsedValue, productSequenceRecipientsAddInputParsedValue, productSequenceRecipientAddInputParsedValue, productSequenceRecipientCancelInputParsedValue, productSequenceStartInputParsedValue, productConnectedAppPushInputParsedValue);
+            return new ProductToolRequestInput(productDiscoverCompaniesInputParsedValue, productDiscoverPeopleInputParsedValue, productDomainFinderInputParsedValue, productEmailCountInputParsedValue, productPersonEnrichInputParsedValue, varObjectParsedValue, productLeadsListInputParsedValue, productLeadGetInputParsedValue, productLeadCreateInputParsedValue, productLeadUpdateInputParsedValue, productLeadDeleteInputParsedValue, productLeadBulkDeleteInputParsedValue, productLeadTagCreateInputParsedValue, productLeadTagAssignInputParsedValue, productCustomAttributeCreateInputParsedValue, productLeadListUpdateInputParsedValue, productLeadListDeleteInputParsedValue, productLeadListAddLeadInputParsedValue, productCompaniesListInputParsedValue, productCompanyTrackInputParsedValue, productCompanyUpdateInputParsedValue, productCompanyDeleteInputParsedValue, productCompanyListAddInputParsedValue, productSequenceRecipientsListInputParsedValue, productSequenceRecipientsAddInputParsedValue, productSequenceRecipientAddInputParsedValue, productSequenceRecipientCancelInputParsedValue, productSequenceStartInputParsedValue, productMailSequenceDraftSaveInputParsedValue, productMailSequenceAddAudienceInputParsedValue, productMailSequenceReadinessInputParsedValue, productMailSequencePublishInputParsedValue, productMailSequenceRecipientsListInputParsedValue, productMailSequenceAddAbInputParsedValue, productMailSequenceStateInputParsedValue, productMailSequenceResultsInputParsedValue, productConnectedAppPushInputParsedValue);
         }
 
         /// <summary>
@@ -923,6 +1091,54 @@ namespace Reacon.Sdk.Model
             {
                 ProductSequenceStartInputJsonConverter productSequenceStartInputJsonConverter = (ProductSequenceStartInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductSequenceStartInputOption.Value.GetType()));
                 productSequenceStartInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductSequenceStartInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequenceDraftSaveInputOption.IsSet && productToolRequestInput.ProductMailSequenceDraftSaveInputOption.Value != null)
+            {
+                ProductMailSequenceDraftSaveInputJsonConverter productMailSequenceDraftSaveInputJsonConverter = (ProductMailSequenceDraftSaveInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequenceDraftSaveInputOption.Value.GetType()));
+                productMailSequenceDraftSaveInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequenceDraftSaveInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequenceAddAudienceInputOption.IsSet && productToolRequestInput.ProductMailSequenceAddAudienceInputOption.Value != null)
+            {
+                ProductMailSequenceAddAudienceInputJsonConverter productMailSequenceAddAudienceInputJsonConverter = (ProductMailSequenceAddAudienceInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequenceAddAudienceInputOption.Value.GetType()));
+                productMailSequenceAddAudienceInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequenceAddAudienceInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequenceReadinessInputOption.IsSet && productToolRequestInput.ProductMailSequenceReadinessInputOption.Value != null)
+            {
+                ProductMailSequenceReadinessInputJsonConverter productMailSequenceReadinessInputJsonConverter = (ProductMailSequenceReadinessInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequenceReadinessInputOption.Value.GetType()));
+                productMailSequenceReadinessInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequenceReadinessInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequencePublishInputOption.IsSet && productToolRequestInput.ProductMailSequencePublishInputOption.Value != null)
+            {
+                ProductMailSequencePublishInputJsonConverter productMailSequencePublishInputJsonConverter = (ProductMailSequencePublishInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequencePublishInputOption.Value.GetType()));
+                productMailSequencePublishInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequencePublishInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequenceRecipientsListInputOption.IsSet && productToolRequestInput.ProductMailSequenceRecipientsListInputOption.Value != null)
+            {
+                ProductMailSequenceRecipientsListInputJsonConverter productMailSequenceRecipientsListInputJsonConverter = (ProductMailSequenceRecipientsListInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequenceRecipientsListInputOption.Value.GetType()));
+                productMailSequenceRecipientsListInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequenceRecipientsListInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequenceAddAbInputOption.IsSet && productToolRequestInput.ProductMailSequenceAddAbInputOption.Value != null)
+            {
+                ProductMailSequenceAddAbInputJsonConverter productMailSequenceAddAbInputJsonConverter = (ProductMailSequenceAddAbInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequenceAddAbInputOption.Value.GetType()));
+                productMailSequenceAddAbInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequenceAddAbInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequenceStateInputOption.IsSet && productToolRequestInput.ProductMailSequenceStateInputOption.Value != null)
+            {
+                ProductMailSequenceStateInputJsonConverter productMailSequenceStateInputJsonConverter = (ProductMailSequenceStateInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequenceStateInputOption.Value.GetType()));
+                productMailSequenceStateInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequenceStateInputOption.Value, jsonSerializerOptions);
+            }
+
+            if (productToolRequestInput.ProductMailSequenceResultsInputOption.IsSet && productToolRequestInput.ProductMailSequenceResultsInputOption.Value != null)
+            {
+                ProductMailSequenceResultsInputJsonConverter productMailSequenceResultsInputJsonConverter = (ProductMailSequenceResultsInputJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolRequestInput.ProductMailSequenceResultsInputOption.Value.GetType()));
+                productMailSequenceResultsInputJsonConverter.WriteProperties(writer, productToolRequestInput.ProductMailSequenceResultsInputOption.Value, jsonSerializerOptions);
             }
 
             if (productToolRequestInput.ProductConnectedAppPushInputOption.IsSet && productToolRequestInput.ProductConnectedAppPushInputOption.Value != null)

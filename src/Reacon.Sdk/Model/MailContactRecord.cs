@@ -40,8 +40,9 @@ namespace Reacon.Sdk.Model
         /// <param name="tenantId">tenantId</param>
         /// <param name="updatedAt">updatedAt</param>
         /// <param name="name">name</param>
+        /// <param name="verification">verification</param>
         [JsonConstructor]
-        public MailContactRecord(DateTimeOffset createdAt, Dictionary<string, string> customFields, string email, string id, string tenantId, DateTimeOffset updatedAt, Option<string?> name = default)
+        public MailContactRecord(DateTimeOffset createdAt, Dictionary<string, string> customFields, string email, string id, string tenantId, DateTimeOffset updatedAt, Option<string?> name = default, Option<MailContactRecordVerification?> verification = default)
         {
             CreatedAt = createdAt;
             CustomFields = customFields;
@@ -50,6 +51,7 @@ namespace Reacon.Sdk.Model
             TenantId = tenantId;
             UpdatedAt = updatedAt;
             NameOption = name;
+            VerificationOption = verification;
             OnCreated();
         }
 
@@ -105,6 +107,19 @@ namespace Reacon.Sdk.Model
         public string? Name { get { return this.NameOption.Value; } set { this.NameOption = new(value); } }
 
         /// <summary>
+        /// Used to track the state of Verification
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<MailContactRecordVerification?> VerificationOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Verification
+        /// </summary>
+        [JsonPropertyName("verification")]
+        public MailContactRecordVerification? Verification { get { return this.VerificationOption.Value; } set { this.VerificationOption = new(value); } }
+
+        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -125,6 +140,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  TenantId: ").Append(TenantId).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Verification: ").Append(Verification).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -191,6 +207,7 @@ namespace Reacon.Sdk.Model
             Option<string?> tenantId = default;
             Option<DateTimeOffset?> updatedAt = default;
             Option<string?> name = default;
+            Option<MailContactRecordVerification?> verification = default;
 
             while (utf8JsonReader.Read())
             {
@@ -227,6 +244,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "name":
                             name = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
+                        case "verification":
+                            verification = new Option<MailContactRecordVerification?>(JsonSerializer.Deserialize<MailContactRecordVerification>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
@@ -275,7 +295,10 @@ namespace Reacon.Sdk.Model
             if (name.IsSet && name.Value == null)
                 throw new ArgumentNullException(nameof(name), "Property is not nullable for class MailContactRecord.");
 
-            var reaconModelResult = new MailContactRecord(createdAt.Value!.Value!, customFields.Value!, email.Value!, id.Value!, tenantId.Value!, updatedAt.Value!.Value!, name);
+            if (verification.IsSet && verification.Value == null)
+                throw new ArgumentNullException(nameof(verification), "Property is not nullable for class MailContactRecord.");
+
+            var reaconModelResult = new MailContactRecord(createdAt.Value!.Value!, customFields.Value!, email.Value!, id.Value!, tenantId.Value!, updatedAt.Value!.Value!, name, verification);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -319,6 +342,9 @@ namespace Reacon.Sdk.Model
             if (mailContactRecord.NameOption.IsSet && mailContactRecord.Name == null)
                 throw new ArgumentNullException(nameof(mailContactRecord.Name), "Property is required for class MailContactRecord.");
 
+            if (mailContactRecord.VerificationOption.IsSet && mailContactRecord.Verification == null)
+                throw new ArgumentNullException(nameof(mailContactRecord.Verification), "Property is required for class MailContactRecord.");
+
             writer.WriteString("createdAt", mailContactRecord.CreatedAt.ToString(CreatedAtFormat));
 
             writer.WritePropertyName("customFields");
@@ -334,9 +360,15 @@ namespace Reacon.Sdk.Model
             if (mailContactRecord.NameOption.IsSet)
                 writer.WriteString("name", mailContactRecord.Name);
 
+            if (mailContactRecord.VerificationOption.IsSet)
+            {
+                writer.WritePropertyName("verification");
+                JsonSerializer.Serialize(writer, mailContactRecord.Verification, jsonSerializerOptions);
+            }
+
             foreach (var property in mailContactRecord.AdditionalProperties)
             {
-                if (property.Key == "createdAt" || property.Key == "customFields" || property.Key == "email" || property.Key == "id" || property.Key == "tenantId" || property.Key == "updatedAt" || property.Key == "name") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "createdAt" || property.Key == "customFields" || property.Key == "email" || property.Key == "id" || property.Key == "tenantId" || property.Key == "updatedAt" || property.Key == "name" || property.Key == "verification") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

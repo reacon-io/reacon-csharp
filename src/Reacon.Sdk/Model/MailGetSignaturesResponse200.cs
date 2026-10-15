@@ -36,7 +36,7 @@ namespace Reacon.Sdk.Model
         /// <param name="candidates">candidates</param>
         /// <param name="nextCursor">nextCursor</param>
         [JsonConstructor]
-        public MailGetSignaturesResponse200(List<MailSignatureCandidate> candidates, Option<string?> nextCursor = default)
+        public MailGetSignaturesResponse200(List<MailGetSignaturesResponse200CandidatesInner> candidates, Option<string?> nextCursor = default)
         {
             Candidates = candidates;
             NextCursorOption = nextCursor;
@@ -49,7 +49,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Candidates
         /// </summary>
         [JsonPropertyName("candidates")]
-        public List<MailSignatureCandidate> Candidates { get; set; }
+        public List<MailGetSignaturesResponse200CandidatesInner> Candidates { get; set; }
 
         /// <summary>
         /// Used to track the state of NextCursor
@@ -129,7 +129,7 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            Option<List<MailSignatureCandidate>?> candidates = default;
+            Option<List<MailGetSignaturesResponse200CandidatesInner>?> candidates = default;
             Option<string?> nextCursor = default;
 
             while (utf8JsonReader.Read())
@@ -148,7 +148,7 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "candidates":
-                            candidates = new Option<List<MailSignatureCandidate>?>(JsonSerializer.Deserialize<List<MailSignatureCandidate>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            candidates = new Option<List<MailGetSignaturesResponse200CandidatesInner>?>(JsonSerializer.Deserialize<List<MailGetSignaturesResponse200CandidatesInner>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "nextCursor":
                             nextCursor = new Option<string?>(utf8JsonReader.GetString()!);

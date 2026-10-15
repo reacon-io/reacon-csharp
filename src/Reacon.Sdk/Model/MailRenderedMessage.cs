@@ -35,12 +35,14 @@ namespace Reacon.Sdk.Model
         /// </summary>
         /// <param name="subject">subject</param>
         /// <param name="text">text</param>
+        /// <param name="attachments">attachments</param>
         /// <param name="html">html</param>
         [JsonConstructor]
-        public MailRenderedMessage(string subject, string text, Option<string?> html = default)
+        public MailRenderedMessage(string subject, string text, Option<List<MailMailAttachmentReference>?> attachments = default, Option<string?> html = default)
         {
             Subject = subject;
             Text = text;
+            AttachmentsOption = attachments;
             HtmlOption = html;
             OnCreated();
         }
@@ -58,6 +60,19 @@ namespace Reacon.Sdk.Model
         /// </summary>
         [JsonPropertyName("text")]
         public string Text { get; set; }
+
+        /// <summary>
+        /// Used to track the state of Attachments
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<MailMailAttachmentReference>?> AttachmentsOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Attachments
+        /// </summary>
+        [JsonPropertyName("attachments")]
+        public List<MailMailAttachmentReference>? Attachments { get { return this.AttachmentsOption.Value; } set { this.AttachmentsOption = new(value); } }
 
         /// <summary>
         /// Used to track the state of Html
@@ -88,6 +103,7 @@ namespace Reacon.Sdk.Model
             sb.Append("class MailRenderedMessage {\n");
             sb.Append("  Subject: ").Append(Subject).Append("\n");
             sb.Append("  Text: ").Append(Text).Append("\n");
+            sb.Append("  Attachments: ").Append(Attachments).Append("\n");
             sb.Append("  Html: ").Append(Html).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
@@ -140,6 +156,7 @@ namespace Reacon.Sdk.Model
 
             Option<string?> subject = default;
             Option<string?> text = default;
+            Option<List<MailMailAttachmentReference>?> attachments = default;
             Option<string?> html = default;
 
             while (utf8JsonReader.Read())
@@ -162,6 +179,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "text":
                             text = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
+                        case "attachments":
+                            attachments = new Option<List<MailMailAttachmentReference>?>(JsonSerializer.Deserialize<List<MailMailAttachmentReference>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "html":
                             html = new Option<string?>(utf8JsonReader.GetString()!);
@@ -186,10 +206,13 @@ namespace Reacon.Sdk.Model
             if (text.IsSet && text.Value == null)
                 throw new ArgumentNullException(nameof(text), "Property is not nullable for class MailRenderedMessage.");
 
+            if (attachments.IsSet && attachments.Value == null)
+                throw new ArgumentNullException(nameof(attachments), "Property is not nullable for class MailRenderedMessage.");
+
             if (html.IsSet && html.Value == null)
                 throw new ArgumentNullException(nameof(html), "Property is not nullable for class MailRenderedMessage.");
 
-            var reaconModelResult = new MailRenderedMessage(subject.Value!, text.Value!, html);
+            var reaconModelResult = new MailRenderedMessage(subject.Value!, text.Value!, attachments, html);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -224,6 +247,9 @@ namespace Reacon.Sdk.Model
             if (mailRenderedMessage.Text == null)
                 throw new ArgumentNullException(nameof(mailRenderedMessage.Text), "Property is required for class MailRenderedMessage.");
 
+            if (mailRenderedMessage.AttachmentsOption.IsSet && mailRenderedMessage.Attachments == null)
+                throw new ArgumentNullException(nameof(mailRenderedMessage.Attachments), "Property is required for class MailRenderedMessage.");
+
             if (mailRenderedMessage.HtmlOption.IsSet && mailRenderedMessage.Html == null)
                 throw new ArgumentNullException(nameof(mailRenderedMessage.Html), "Property is required for class MailRenderedMessage.");
 
@@ -231,12 +257,17 @@ namespace Reacon.Sdk.Model
 
             writer.WriteString("text", mailRenderedMessage.Text);
 
+            if (mailRenderedMessage.AttachmentsOption.IsSet)
+            {
+                writer.WritePropertyName("attachments");
+                JsonSerializer.Serialize(writer, mailRenderedMessage.Attachments, jsonSerializerOptions);
+            }
             if (mailRenderedMessage.HtmlOption.IsSet)
                 writer.WriteString("html", mailRenderedMessage.Html);
 
             foreach (var property in mailRenderedMessage.AdditionalProperties)
             {
-                if (property.Key == "subject" || property.Key == "text" || property.Key == "html") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "subject" || property.Key == "text" || property.Key == "attachments" || property.Key == "html") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

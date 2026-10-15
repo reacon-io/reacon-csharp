@@ -40,8 +40,9 @@ namespace Reacon.Sdk.Model
         /// <param name="ready">ready</param>
         /// <param name="requiredVariables">requiredVariables</param>
         /// <param name="senderCount">senderCount</param>
+        /// <param name="eligibility">eligibility</param>
         [JsonConstructor]
-        public MailPostCadenceRunsPreflightResponse200(decimal audienceCount, string cadenceId, decimal cadenceVersion, List<MailCadenceEnrollmentVariableGap> missingVariables, bool ready, List<string> requiredVariables, decimal senderCount)
+        public MailPostCadenceRunsPreflightResponse200(decimal audienceCount, string cadenceId, decimal cadenceVersion, List<MailCadenceEnrollmentVariableGap> missingVariables, bool ready, List<string> requiredVariables, decimal senderCount, Option<MailRecipientEligibilitySummary?> eligibility = default)
         {
             AudienceCount = audienceCount;
             CadenceId = cadenceId;
@@ -50,6 +51,7 @@ namespace Reacon.Sdk.Model
             Ready = ready;
             RequiredVariables = requiredVariables;
             SenderCount = senderCount;
+            EligibilityOption = eligibility;
             OnCreated();
         }
 
@@ -98,6 +100,19 @@ namespace Reacon.Sdk.Model
         public decimal SenderCount { get; set; }
 
         /// <summary>
+        /// Used to track the state of Eligibility
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<MailRecipientEligibilitySummary?> EligibilityOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Eligibility
+        /// </summary>
+        [JsonPropertyName("eligibility")]
+        public MailRecipientEligibilitySummary? Eligibility { get { return this.EligibilityOption.Value; } set { this.EligibilityOption = new(value); } }
+
+        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -118,6 +133,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  Ready: ").Append(Ready).Append("\n");
             sb.Append("  RequiredVariables: ").Append(RequiredVariables).Append("\n");
             sb.Append("  SenderCount: ").Append(SenderCount).Append("\n");
+            sb.Append("  Eligibility: ").Append(Eligibility).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -174,6 +190,7 @@ namespace Reacon.Sdk.Model
             Option<bool?> ready = default;
             Option<List<string>?> requiredVariables = default;
             Option<decimal?> senderCount = default;
+            Option<MailRecipientEligibilitySummary?> eligibility = default;
 
             while (utf8JsonReader.Read())
             {
@@ -210,6 +227,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "senderCount":
                             senderCount = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
+                            break;
+                        case "eligibility":
+                            eligibility = new Option<MailRecipientEligibilitySummary?>(JsonSerializer.Deserialize<MailRecipientEligibilitySummary>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
@@ -261,7 +281,10 @@ namespace Reacon.Sdk.Model
             if (senderCount.IsSet && senderCount.Value == null)
                 throw new ArgumentNullException(nameof(senderCount), "Property is not nullable for class MailPostCadenceRunsPreflightResponse200.");
 
-            var reaconModelResult = new MailPostCadenceRunsPreflightResponse200(audienceCount.Value!.Value!, cadenceId.Value!, cadenceVersion.Value!.Value!, missingVariables.Value!, ready.Value!.Value!, requiredVariables.Value!, senderCount.Value!.Value!);
+            if (eligibility.IsSet && eligibility.Value == null)
+                throw new ArgumentNullException(nameof(eligibility), "Property is not nullable for class MailPostCadenceRunsPreflightResponse200.");
+
+            var reaconModelResult = new MailPostCadenceRunsPreflightResponse200(audienceCount.Value!.Value!, cadenceId.Value!, cadenceVersion.Value!.Value!, missingVariables.Value!, ready.Value!.Value!, requiredVariables.Value!, senderCount.Value!.Value!, eligibility);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -299,6 +322,9 @@ namespace Reacon.Sdk.Model
             if (mailPostCadenceRunsPreflightResponse200.RequiredVariables == null)
                 throw new ArgumentNullException(nameof(mailPostCadenceRunsPreflightResponse200.RequiredVariables), "Property is required for class MailPostCadenceRunsPreflightResponse200.");
 
+            if (mailPostCadenceRunsPreflightResponse200.EligibilityOption.IsSet && mailPostCadenceRunsPreflightResponse200.Eligibility == null)
+                throw new ArgumentNullException(nameof(mailPostCadenceRunsPreflightResponse200.Eligibility), "Property is required for class MailPostCadenceRunsPreflightResponse200.");
+
             writer.WriteNumber("audienceCount", mailPostCadenceRunsPreflightResponse200.AudienceCount);
 
             writer.WriteString("cadenceId", mailPostCadenceRunsPreflightResponse200.CadenceId);
@@ -313,9 +339,15 @@ namespace Reacon.Sdk.Model
             JsonSerializer.Serialize(writer, mailPostCadenceRunsPreflightResponse200.RequiredVariables, jsonSerializerOptions);
             writer.WriteNumber("senderCount", mailPostCadenceRunsPreflightResponse200.SenderCount);
 
+            if (mailPostCadenceRunsPreflightResponse200.EligibilityOption.IsSet)
+            {
+                writer.WritePropertyName("eligibility");
+                JsonSerializer.Serialize(writer, mailPostCadenceRunsPreflightResponse200.Eligibility, jsonSerializerOptions);
+            }
+
             foreach (var property in mailPostCadenceRunsPreflightResponse200.AdditionalProperties)
             {
-                if (property.Key == "audienceCount" || property.Key == "cadenceId" || property.Key == "cadenceVersion" || property.Key == "missingVariables" || property.Key == "ready" || property.Key == "requiredVariables" || property.Key == "senderCount") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "audienceCount" || property.Key == "cadenceId" || property.Key == "cadenceVersion" || property.Key == "missingVariables" || property.Key == "ready" || property.Key == "requiredVariables" || property.Key == "senderCount" || property.Key == "eligibility") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

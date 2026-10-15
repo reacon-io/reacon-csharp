@@ -26,28 +26,36 @@ using Reacon.Sdk.Client;
 namespace Reacon.Sdk.Model
 {
     /// <summary>
-    /// ProductSequenceRecipientsListOutput
+    /// MailContactRecordVerification
     /// </summary>
-    public partial class ProductSequenceRecipientsListOutput : IValidatableObject
+    public partial class MailContactRecordVerification : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProductSequenceRecipientsListOutput" /> class.
+        /// Initializes a new instance of the <see cref="MailContactRecordVerification" /> class.
         /// </summary>
-        /// <param name="items">items</param>
+        /// <param name="lastVerifiedAt">lastVerifiedAt</param>
+        /// <param name="status">status</param>
         [JsonConstructor]
-        public ProductSequenceRecipientsListOutput(List<ProductDatedRecipient> items)
+        public MailContactRecordVerification(DateTimeOffset? lastVerifiedAt = default, string? status = default)
         {
-            Items = items;
+            LastVerifiedAt = lastVerifiedAt;
+            Status = status;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
-        /// Gets or Sets Items
+        /// Gets or Sets LastVerifiedAt
         /// </summary>
-        [JsonPropertyName("items")]
-        public List<ProductDatedRecipient> Items { get; set; }
+        [JsonPropertyName("lastVerifiedAt")]
+        public DateTimeOffset? LastVerifiedAt { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Status
+        /// </summary>
+        [JsonPropertyName("status")]
+        public string? Status { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -62,8 +70,9 @@ namespace Reacon.Sdk.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class ProductSequenceRecipientsListOutput {\n");
-            sb.Append("  Items: ").Append(Items).Append("\n");
+            sb.Append("class MailContactRecordVerification {\n");
+            sb.Append("  LastVerifiedAt: ").Append(LastVerifiedAt).Append("\n");
+            sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -81,29 +90,34 @@ namespace Reacon.Sdk.Model
     }
 
     /// <summary>
-    /// A Json converter for type <see cref="ProductSequenceRecipientsListOutput" />
+    /// A Json converter for type <see cref="MailContactRecordVerification" />
     /// </summary>
-    public partial class ProductSequenceRecipientsListOutputJsonConverter : JsonConverter<ProductSequenceRecipientsListOutput>
+    public partial class MailContactRecordVerificationJsonConverter : JsonConverter<MailContactRecordVerification>
     {
         partial void OnCreated();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProductSequenceRecipientsListOutputJsonConverter" /> class.
+        /// Initializes a new instance of the <see cref="MailContactRecordVerificationJsonConverter" /> class.
         /// </summary>
-        public ProductSequenceRecipientsListOutputJsonConverter()
+        public MailContactRecordVerificationJsonConverter()
         {
             OnCreated();
         }
 
         /// <summary>
-        /// Deserializes json to <see cref="ProductSequenceRecipientsListOutput" />
+        /// The format to use to serialize LastVerifiedAt
+        /// </summary>
+        public string LastVerifiedAtFormat { get; private set; } = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
+
+        /// <summary>
+        /// Deserializes json to <see cref="MailContactRecordVerification" />
         /// </summary>
         /// <param name="utf8JsonReader"></param>
         /// <param name="typeToConvert"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <returns></returns>
         /// <exception cref="JsonException"></exception>
-        public override ProductSequenceRecipientsListOutput Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
+        public override MailContactRecordVerification Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
         {
             int currentDepth = utf8JsonReader.CurrentDepth;
             var additionalProperties = new Dictionary<string, JsonElement>();
@@ -113,7 +127,8 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            Option<List<ProductDatedRecipient>?> items = default;
+            Option<DateTimeOffset?> lastVerifiedAt = default;
+            Option<string?> status = default;
 
             while (utf8JsonReader.Read())
             {
@@ -130,8 +145,11 @@ namespace Reacon.Sdk.Model
 
                     switch (localVarJsonPropertyName)
                     {
-                        case "items":
-                            items = new Option<List<ProductDatedRecipient>?>(JsonSerializer.Deserialize<List<ProductDatedRecipient>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                        case "lastVerifiedAt":
+                            lastVerifiedAt = new Option<DateTimeOffset?>(JsonSerializer.Deserialize<DateTimeOffset?>(ref utf8JsonReader, jsonSerializerOptions));
+                            break;
+                        case "status":
+                            status = new Option<string?>(utf8JsonReader.GetString());
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
@@ -141,50 +159,54 @@ namespace Reacon.Sdk.Model
                 }
             }
 
-            if (!items.IsSet)
-                throw new ArgumentException("Property is required for class ProductSequenceRecipientsListOutput.", nameof(items));
+            if (!lastVerifiedAt.IsSet)
+                throw new ArgumentException("Property is required for class MailContactRecordVerification.", nameof(lastVerifiedAt));
 
-            if (items.IsSet && items.Value == null)
-                throw new ArgumentNullException(nameof(items), "Property is not nullable for class ProductSequenceRecipientsListOutput.");
+            if (!status.IsSet)
+                throw new ArgumentException("Property is required for class MailContactRecordVerification.", nameof(status));
 
-            var reaconModelResult = new ProductSequenceRecipientsListOutput(items.Value!);
+            var reaconModelResult = new MailContactRecordVerification(lastVerifiedAt.Value!, status.Value!);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
 
         /// <summary>
-        /// Serializes a <see cref="ProductSequenceRecipientsListOutput" />
+        /// Serializes a <see cref="MailContactRecordVerification" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="productSequenceRecipientsListOutput"></param>
+        /// <param name="mailContactRecordVerification"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public override void Write(Utf8JsonWriter writer, ProductSequenceRecipientsListOutput productSequenceRecipientsListOutput, JsonSerializerOptions jsonSerializerOptions)
+        public override void Write(Utf8JsonWriter writer, MailContactRecordVerification mailContactRecordVerification, JsonSerializerOptions jsonSerializerOptions)
         {
             writer.WriteStartObject();
 
-            WriteProperties(writer, productSequenceRecipientsListOutput, jsonSerializerOptions);
+            WriteProperties(writer, mailContactRecordVerification, jsonSerializerOptions);
             writer.WriteEndObject();
         }
 
         /// <summary>
-        /// Serializes the properties of <see cref="ProductSequenceRecipientsListOutput" />
+        /// Serializes the properties of <see cref="MailContactRecordVerification" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="productSequenceRecipientsListOutput"></param>
+        /// <param name="mailContactRecordVerification"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void WriteProperties(Utf8JsonWriter writer, ProductSequenceRecipientsListOutput productSequenceRecipientsListOutput, JsonSerializerOptions jsonSerializerOptions)
+        public void WriteProperties(Utf8JsonWriter writer, MailContactRecordVerification mailContactRecordVerification, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (productSequenceRecipientsListOutput.Items == null)
-                throw new ArgumentNullException(nameof(productSequenceRecipientsListOutput.Items), "Property is required for class ProductSequenceRecipientsListOutput.");
+            if (mailContactRecordVerification.LastVerifiedAt != null)
+                writer.WriteString("lastVerifiedAt", mailContactRecordVerification.LastVerifiedAt.Value.ToString(LastVerifiedAtFormat));
+            else
+                writer.WriteNull("lastVerifiedAt");
 
-            writer.WritePropertyName("items");
-            JsonSerializer.Serialize(writer, productSequenceRecipientsListOutput.Items, jsonSerializerOptions);
+            if (mailContactRecordVerification.Status != null)
+                writer.WriteString("status", mailContactRecordVerification.Status);
+            else
+                writer.WriteNull("status");
 
-            foreach (var property in productSequenceRecipientsListOutput.AdditionalProperties)
+            foreach (var property in mailContactRecordVerification.AdditionalProperties)
             {
-                if (property.Key == "items") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "lastVerifiedAt" || property.Key == "status") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

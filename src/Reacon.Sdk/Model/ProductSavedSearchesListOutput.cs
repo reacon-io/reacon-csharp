@@ -34,10 +34,14 @@ namespace Reacon.Sdk.Model
         /// Initializes a new instance of the <see cref="ProductSavedSearchesListOutput" /> class.
         /// </summary>
         /// <param name="items">Currently always empty.</param>
+        /// <param name="reason">reason</param>
+        /// <param name="supported">supported</param>
         [JsonConstructor]
-        public ProductSavedSearchesListOutput(List<Object> items)
+        public ProductSavedSearchesListOutput(List<Object> items, string reason, bool supported)
         {
             Items = items;
+            Reason = reason;
+            Supported = supported;
             OnCreated();
         }
 
@@ -49,6 +53,18 @@ namespace Reacon.Sdk.Model
         /// <value>Currently always empty.</value>
         [JsonPropertyName("items")]
         public List<Object> Items { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Reason
+        /// </summary>
+        [JsonPropertyName("reason")]
+        public string Reason { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Supported
+        /// </summary>
+        [JsonPropertyName("supported")]
+        public bool Supported { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -65,6 +81,8 @@ namespace Reacon.Sdk.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class ProductSavedSearchesListOutput {\n");
             sb.Append("  Items: ").Append(Items).Append("\n");
+            sb.Append("  Reason: ").Append(Reason).Append("\n");
+            sb.Append("  Supported: ").Append(Supported).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -115,6 +133,8 @@ namespace Reacon.Sdk.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<List<Object>?> items = default;
+            Option<string?> reason = default;
+            Option<bool?> supported = default;
 
             while (utf8JsonReader.Read())
             {
@@ -134,6 +154,12 @@ namespace Reacon.Sdk.Model
                         case "items":
                             items = new Option<List<Object>?>(JsonSerializer.Deserialize<List<Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
+                        case "reason":
+                            reason = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
+                        case "supported":
+                            supported = new Option<bool?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (bool?)null : utf8JsonReader.GetBoolean());
+                            break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
                                 additionalProperties[localVarJsonPropertyName!] = reaconUnknownValue.RootElement.Clone();
@@ -145,10 +171,22 @@ namespace Reacon.Sdk.Model
             if (!items.IsSet)
                 throw new ArgumentException("Property is required for class ProductSavedSearchesListOutput.", nameof(items));
 
+            if (!reason.IsSet)
+                throw new ArgumentException("Property is required for class ProductSavedSearchesListOutput.", nameof(reason));
+
+            if (!supported.IsSet)
+                throw new ArgumentException("Property is required for class ProductSavedSearchesListOutput.", nameof(supported));
+
             if (items.IsSet && items.Value == null)
                 throw new ArgumentNullException(nameof(items), "Property is not nullable for class ProductSavedSearchesListOutput.");
 
-            var reaconModelResult = new ProductSavedSearchesListOutput(items.Value!);
+            if (reason.IsSet && reason.Value == null)
+                throw new ArgumentNullException(nameof(reason), "Property is not nullable for class ProductSavedSearchesListOutput.");
+
+            if (supported.IsSet && supported.Value == null)
+                throw new ArgumentNullException(nameof(supported), "Property is not nullable for class ProductSavedSearchesListOutput.");
+
+            var reaconModelResult = new ProductSavedSearchesListOutput(items.Value!, reason.Value!, supported.Value!.Value!);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -180,12 +218,18 @@ namespace Reacon.Sdk.Model
             if (productSavedSearchesListOutput.Items == null)
                 throw new ArgumentNullException(nameof(productSavedSearchesListOutput.Items), "Property is required for class ProductSavedSearchesListOutput.");
 
+            if (productSavedSearchesListOutput.Reason == null)
+                throw new ArgumentNullException(nameof(productSavedSearchesListOutput.Reason), "Property is required for class ProductSavedSearchesListOutput.");
+
             writer.WritePropertyName("items");
             JsonSerializer.Serialize(writer, productSavedSearchesListOutput.Items, jsonSerializerOptions);
+            writer.WriteString("reason", productSavedSearchesListOutput.Reason);
+
+            writer.WriteBoolean("supported", productSavedSearchesListOutput.Supported);
 
             foreach (var property in productSavedSearchesListOutput.AdditionalProperties)
             {
-                if (property.Key == "items") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "items" || property.Key == "reason" || property.Key == "supported") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

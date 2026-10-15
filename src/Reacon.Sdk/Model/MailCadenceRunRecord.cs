@@ -56,12 +56,13 @@ namespace Reacon.Sdk.Model
         /// <param name="lastError">lastError</param>
         /// <param name="leaseExpiresAt">leaseExpiresAt</param>
         /// <param name="leaseOwner">leaseOwner</param>
+        /// <param name="messageEditRevision">messageEditRevision</param>
         /// <param name="outcome">outcome</param>
         /// <param name="pendingMessageId">pendingMessageId</param>
         /// <param name="pendingNextNodeId">pendingNextNodeId</param>
         /// <param name="taskId">taskId</param>
         [JsonConstructor]
-        public MailCadenceRunRecord(string actorId, decimal attemptCount, string cadenceId, decimal cadenceVersion, string contactId, DateTimeOffset createdAt, string currentNodeId, DateTimeOffset dueAt, string id, string idempotencyKey, string mailboxId, string status, string tenantId, DateTimeOffset updatedAt, decimal varVersion, Option<string?> audienceListId = default, Option<string?> campaignId = default, Option<string?> campaignName = default, Option<List<MailCadenceExperimentContext>?> experimentContexts = default, Option<string?> lastAcceptedMessageId = default, Option<string?> lastError = default, Option<DateTimeOffset?> leaseExpiresAt = default, Option<string?> leaseOwner = default, Option<string?> outcome = default, Option<string?> pendingMessageId = default, Option<string?> pendingNextNodeId = default, Option<string?> taskId = default)
+        public MailCadenceRunRecord(string actorId, decimal attemptCount, string cadenceId, decimal cadenceVersion, string contactId, DateTimeOffset createdAt, string currentNodeId, DateTimeOffset dueAt, string id, string idempotencyKey, string mailboxId, string status, string tenantId, DateTimeOffset updatedAt, decimal varVersion, Option<string?> audienceListId = default, Option<string?> campaignId = default, Option<string?> campaignName = default, Option<List<MailCadenceExperimentContext>?> experimentContexts = default, Option<string?> lastAcceptedMessageId = default, Option<string?> lastError = default, Option<DateTimeOffset?> leaseExpiresAt = default, Option<string?> leaseOwner = default, Option<decimal?> messageEditRevision = default, Option<string?> outcome = default, Option<string?> pendingMessageId = default, Option<string?> pendingNextNodeId = default, Option<string?> taskId = default)
         {
             ActorId = actorId;
             AttemptCount = attemptCount;
@@ -86,6 +87,7 @@ namespace Reacon.Sdk.Model
             LastErrorOption = lastError;
             LeaseExpiresAtOption = leaseExpiresAt;
             LeaseOwnerOption = leaseOwner;
+            MessageEditRevisionOption = messageEditRevision;
             OutcomeOption = outcome;
             PendingMessageIdOption = pendingMessageId;
             PendingNextNodeIdOption = pendingNextNodeId;
@@ -290,6 +292,19 @@ namespace Reacon.Sdk.Model
         public string? LeaseOwner { get { return this.LeaseOwnerOption.Value; } set { this.LeaseOwnerOption = new(value); } }
 
         /// <summary>
+        /// Used to track the state of MessageEditRevision
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<decimal?> MessageEditRevisionOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets MessageEditRevision
+        /// </summary>
+        [JsonPropertyName("messageEditRevision")]
+        public decimal? MessageEditRevision { get { return this.MessageEditRevisionOption.Value; } set { this.MessageEditRevisionOption = new(value); } }
+
+        /// <summary>
         /// Used to track the state of Outcome
         /// </summary>
         [JsonIgnore]
@@ -378,6 +393,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  LastError: ").Append(LastError).Append("\n");
             sb.Append("  LeaseExpiresAt: ").Append(LeaseExpiresAt).Append("\n");
             sb.Append("  LeaseOwner: ").Append(LeaseOwner).Append("\n");
+            sb.Append("  MessageEditRevision: ").Append(MessageEditRevision).Append("\n");
             sb.Append("  Outcome: ").Append(Outcome).Append("\n");
             sb.Append("  PendingMessageId: ").Append(PendingMessageId).Append("\n");
             sb.Append("  PendingNextNodeId: ").Append(PendingNextNodeId).Append("\n");
@@ -474,6 +490,7 @@ namespace Reacon.Sdk.Model
             Option<string?> lastError = default;
             Option<DateTimeOffset?> leaseExpiresAt = default;
             Option<string?> leaseOwner = default;
+            Option<decimal?> messageEditRevision = default;
             Option<string?> outcome = default;
             Option<string?> pendingMessageId = default;
             Option<string?> pendingNextNodeId = default;
@@ -562,6 +579,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "leaseOwner":
                             leaseOwner = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
+                        case "messageEditRevision":
+                            messageEditRevision = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
                             break;
                         case "outcome":
                             outcome = new Option<string?>(utf8JsonReader.GetString()!);
@@ -697,6 +717,9 @@ namespace Reacon.Sdk.Model
             if (leaseOwner.IsSet && leaseOwner.Value == null)
                 throw new ArgumentNullException(nameof(leaseOwner), "Property is not nullable for class MailCadenceRunRecord.");
 
+            if (messageEditRevision.IsSet && messageEditRevision.Value == null)
+                throw new ArgumentNullException(nameof(messageEditRevision), "Property is not nullable for class MailCadenceRunRecord.");
+
             if (outcome.IsSet && outcome.Value == null)
                 throw new ArgumentNullException(nameof(outcome), "Property is not nullable for class MailCadenceRunRecord.");
 
@@ -709,7 +732,7 @@ namespace Reacon.Sdk.Model
             if (taskId.IsSet && taskId.Value == null)
                 throw new ArgumentNullException(nameof(taskId), "Property is not nullable for class MailCadenceRunRecord.");
 
-            var reaconModelResult = new MailCadenceRunRecord(actorId.Value!, attemptCount.Value!.Value!, cadenceId.Value!, cadenceVersion.Value!.Value!, contactId.Value!, createdAt.Value!.Value!, currentNodeId.Value!, dueAt.Value!.Value!, id.Value!, idempotencyKey.Value!, mailboxId.Value!, status.Value!, tenantId.Value!, updatedAt.Value!.Value!, varVersion.Value!.Value!, audienceListId, campaignId, campaignName, experimentContexts, lastAcceptedMessageId, lastError, leaseExpiresAt, leaseOwner, outcome, pendingMessageId, pendingNextNodeId, taskId);
+            var reaconModelResult = new MailCadenceRunRecord(actorId.Value!, attemptCount.Value!.Value!, cadenceId.Value!, cadenceVersion.Value!.Value!, contactId.Value!, createdAt.Value!.Value!, currentNodeId.Value!, dueAt.Value!.Value!, id.Value!, idempotencyKey.Value!, mailboxId.Value!, status.Value!, tenantId.Value!, updatedAt.Value!.Value!, varVersion.Value!.Value!, audienceListId, campaignId, campaignName, experimentContexts, lastAcceptedMessageId, lastError, leaseExpiresAt, leaseOwner, messageEditRevision, outcome, pendingMessageId, pendingNextNodeId, taskId);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -854,6 +877,9 @@ namespace Reacon.Sdk.Model
             if (mailCadenceRunRecord.LeaseOwnerOption.IsSet)
                 writer.WriteString("leaseOwner", mailCadenceRunRecord.LeaseOwner);
 
+            if (mailCadenceRunRecord.MessageEditRevisionOption.IsSet)
+                writer.WriteNumber("messageEditRevision", mailCadenceRunRecord.MessageEditRevisionOption.Value!.Value);
+
             if (mailCadenceRunRecord.OutcomeOption.IsSet)
                 writer.WriteString("outcome", mailCadenceRunRecord.Outcome);
 
@@ -868,7 +894,7 @@ namespace Reacon.Sdk.Model
 
             foreach (var property in mailCadenceRunRecord.AdditionalProperties)
             {
-                if (property.Key == "actorId" || property.Key == "attemptCount" || property.Key == "cadenceId" || property.Key == "cadenceVersion" || property.Key == "contactId" || property.Key == "createdAt" || property.Key == "currentNodeId" || property.Key == "dueAt" || property.Key == "id" || property.Key == "idempotencyKey" || property.Key == "mailboxId" || property.Key == "status" || property.Key == "tenantId" || property.Key == "updatedAt" || property.Key == "version" || property.Key == "audienceListId" || property.Key == "campaignId" || property.Key == "campaignName" || property.Key == "experimentContexts" || property.Key == "lastAcceptedMessageId" || property.Key == "lastError" || property.Key == "leaseExpiresAt" || property.Key == "leaseOwner" || property.Key == "outcome" || property.Key == "pendingMessageId" || property.Key == "pendingNextNodeId" || property.Key == "taskId") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "actorId" || property.Key == "attemptCount" || property.Key == "cadenceId" || property.Key == "cadenceVersion" || property.Key == "contactId" || property.Key == "createdAt" || property.Key == "currentNodeId" || property.Key == "dueAt" || property.Key == "id" || property.Key == "idempotencyKey" || property.Key == "mailboxId" || property.Key == "status" || property.Key == "tenantId" || property.Key == "updatedAt" || property.Key == "version" || property.Key == "audienceListId" || property.Key == "campaignId" || property.Key == "campaignName" || property.Key == "experimentContexts" || property.Key == "lastAcceptedMessageId" || property.Key == "lastError" || property.Key == "leaseExpiresAt" || property.Key == "leaseOwner" || property.Key == "messageEditRevision" || property.Key == "outcome" || property.Key == "pendingMessageId" || property.Key == "pendingNextNodeId" || property.Key == "taskId") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

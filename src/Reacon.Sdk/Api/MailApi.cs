@@ -1566,9 +1566,12 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"> (optional, default to 100)</param>
         /// <param name="cursor"> (optional)</param>
+        /// <param name="query"> (optional)</param>
+        /// <param name="status"> (optional)</param>
+        /// <param name="sequenceId"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IListMailMessagesApiResponse"/>&gt;</returns>
-        Task<IListMailMessagesApiResponse> ListMailMessagesAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IListMailMessagesApiResponse> ListMailMessagesAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, Option<string> query = default, Option<string> status = default, Option<string> sequenceId = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// List mail delivery activity
@@ -1579,9 +1582,12 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"> (optional, default to 100)</param>
         /// <param name="cursor"> (optional)</param>
+        /// <param name="query"> (optional)</param>
+        /// <param name="status"> (optional)</param>
+        /// <param name="sequenceId"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IListMailMessagesApiResponse"/>?&gt;</returns>
-        Task<IListMailMessagesApiResponse?> ListMailMessagesOrDefaultAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, System.Threading.CancellationToken cancellationToken = default);
+        Task<IListMailMessagesApiResponse?> ListMailMessagesOrDefaultAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, Option<string> query = default, Option<string> status = default, Option<string> sequenceId = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// List reply automations
@@ -54209,21 +54215,33 @@ namespace Reacon.Sdk.Api
             partial void OnDeserializationError(ref bool suppressDefaultLog, Exception exception, HttpStatusCode httpStatusCode);
         }
 
-        partial void FormatListMailMessages(ref string teamId, ref Option<int> limit, ref Option<string> cursor);
+        partial void FormatListMailMessages(ref string teamId, ref Option<int> limit, ref Option<string> cursor, ref Option<string> query, ref Option<string> status, ref Option<string> sequenceId);
 
         /// <summary>
         /// Validates the request parameters
         /// </summary>
         /// <param name="teamId"></param>
         /// <param name="cursor"></param>
+        /// <param name="query"></param>
+        /// <param name="status"></param>
+        /// <param name="sequenceId"></param>
         /// <returns></returns>
-        private void ValidateListMailMessages(string teamId, Option<string> cursor)
+        private void ValidateListMailMessages(string teamId, Option<string> cursor, Option<string> query, Option<string> status, Option<string> sequenceId)
         {
             if (teamId == null)
                 throw new ArgumentNullException(nameof(teamId));
 
             if (cursor.IsSet && cursor.Value == null)
                 throw new ArgumentNullException(nameof(cursor));
+
+            if (query.IsSet && query.Value == null)
+                throw new ArgumentNullException(nameof(query));
+
+            if (status.IsSet && status.Value == null)
+                throw new ArgumentNullException(nameof(status));
+
+            if (sequenceId.IsSet && sequenceId.Value == null)
+                throw new ArgumentNullException(nameof(sequenceId));
         }
 
         /// <summary>
@@ -54233,10 +54251,13 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"></param>
         /// <param name="cursor"></param>
-        private void AfterListMailMessagesDefaultImplementation(IListMailMessagesApiResponse apiResponseLocalVar, string teamId, Option<int> limit, Option<string> cursor)
+        /// <param name="query"></param>
+        /// <param name="status"></param>
+        /// <param name="sequenceId"></param>
+        private void AfterListMailMessagesDefaultImplementation(IListMailMessagesApiResponse apiResponseLocalVar, string teamId, Option<int> limit, Option<string> cursor, Option<string> query, Option<string> status, Option<string> sequenceId)
         {
             bool suppressDefaultLog = false;
-            AfterListMailMessages(ref suppressDefaultLog, apiResponseLocalVar, teamId, limit, cursor);
+            AfterListMailMessages(ref suppressDefaultLog, apiResponseLocalVar, teamId, limit, cursor, query, status, sequenceId);
             if (!suppressDefaultLog)
                 Logger.LogInformation(RestLogEvents.ApiRequestCompleted, "{0,-9} | {1} | {2}", (apiResponseLocalVar.DownloadedAt - apiResponseLocalVar.RequestedAt).TotalSeconds, apiResponseLocalVar.StatusCode, apiResponseLocalVar.Path);
         }
@@ -54249,7 +54270,10 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"></param>
         /// <param name="cursor"></param>
-        partial void AfterListMailMessages(ref bool suppressDefaultLog, IListMailMessagesApiResponse apiResponseLocalVar, string teamId, Option<int> limit, Option<string> cursor);
+        /// <param name="query"></param>
+        /// <param name="status"></param>
+        /// <param name="sequenceId"></param>
+        partial void AfterListMailMessages(ref bool suppressDefaultLog, IListMailMessagesApiResponse apiResponseLocalVar, string teamId, Option<int> limit, Option<string> cursor, Option<string> query, Option<string> status, Option<string> sequenceId);
 
         /// <summary>
         /// Logs exceptions that occur while retrieving the server response
@@ -54260,10 +54284,13 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"></param>
         /// <param name="cursor"></param>
-        private void OnErrorListMailMessagesDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, string teamId, Option<int> limit, Option<string> cursor)
+        /// <param name="query"></param>
+        /// <param name="status"></param>
+        /// <param name="sequenceId"></param>
+        private void OnErrorListMailMessagesDefaultImplementation(Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, string teamId, Option<int> limit, Option<string> cursor, Option<string> query, Option<string> status, Option<string> sequenceId)
         {
             bool suppressDefaultLogLocalVar = false;
-            OnErrorListMailMessages(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar, teamId, limit, cursor);
+            OnErrorListMailMessages(ref suppressDefaultLogLocalVar, exceptionLocalVar, pathFormatLocalVar, pathLocalVar, teamId, limit, cursor, query, status, sequenceId);
             if (!suppressDefaultLogLocalVar)
                 Logger.LogError(RestLogEvents.ApiRequestFailed, exceptionLocalVar, "An error occurred while sending the request to the server.");
         }
@@ -54278,7 +54305,10 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"></param>
         /// <param name="cursor"></param>
-        partial void OnErrorListMailMessages(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, string teamId, Option<int> limit, Option<string> cursor);
+        /// <param name="query"></param>
+        /// <param name="status"></param>
+        /// <param name="sequenceId"></param>
+        partial void OnErrorListMailMessages(ref bool suppressDefaultLogLocalVar, Exception exceptionLocalVar, string pathFormatLocalVar, string pathLocalVar, string teamId, Option<int> limit, Option<string> cursor, Option<string> query, Option<string> status, Option<string> sequenceId);
 
         /// <summary>
         /// List mail delivery activity Returns a cursor page of outbound messages. limit defaults to 100 and must be an integer from 1 to 500. nextCursor is omitted when exhausted. Requires authenticated team membership.
@@ -54286,13 +54316,16 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"> (optional, default to 100)</param>
         /// <param name="cursor"> (optional)</param>
+        /// <param name="query"> (optional)</param>
+        /// <param name="status"> (optional)</param>
+        /// <param name="sequenceId"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IListMailMessagesApiResponse"/>&gt;</returns>
-        public async Task<IListMailMessagesApiResponse?> ListMailMessagesOrDefaultAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IListMailMessagesApiResponse?> ListMailMessagesOrDefaultAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, Option<string> query = default, Option<string> status = default, Option<string> sequenceId = default, System.Threading.CancellationToken cancellationToken = default)
         {
             try
             {
-                return await ListMailMessagesAsync(teamId, limit, cursor, cancellationToken).ConfigureAwait(false);
+                return await ListMailMessagesAsync(teamId, limit, cursor, query, status, sequenceId, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -54307,17 +54340,20 @@ namespace Reacon.Sdk.Api
         /// <param name="teamId"></param>
         /// <param name="limit"> (optional, default to 100)</param>
         /// <param name="cursor"> (optional)</param>
+        /// <param name="query"> (optional)</param>
+        /// <param name="status"> (optional)</param>
+        /// <param name="sequenceId"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns><see cref="Task"/>&lt;<see cref="IListMailMessagesApiResponse"/>&gt;</returns>
-        public async Task<IListMailMessagesApiResponse> ListMailMessagesAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<IListMailMessagesApiResponse> ListMailMessagesAsync(string teamId, Option<int> limit = default, Option<string> cursor = default, Option<string> query = default, Option<string> status = default, Option<string> sequenceId = default, System.Threading.CancellationToken cancellationToken = default)
         {
             UriBuilder uriBuilderLocalVar = new UriBuilder();
 
             try
             {
-                ValidateListMailMessages(teamId, cursor);
+                ValidateListMailMessages(teamId, cursor, query, status, sequenceId);
 
-                FormatListMailMessages(ref teamId, ref limit, ref cursor);
+                FormatListMailMessages(ref teamId, ref limit, ref cursor, ref query, ref status, ref sequenceId);
 
                 using (HttpRequestMessage httpRequestMessageLocalVar = new HttpRequestMessage())
                 {
@@ -54336,6 +54372,15 @@ namespace Reacon.Sdk.Api
 
                     if (cursor.IsSet)
                         parseQueryStringLocalVar["cursor"] = ClientUtils.ParameterToString(cursor.Value);
+
+                    if (query.IsSet)
+                        parseQueryStringLocalVar["query"] = ClientUtils.ParameterToString(query.Value);
+
+                    if (status.IsSet)
+                        parseQueryStringLocalVar["status"] = ClientUtils.ParameterToString(status.Value);
+
+                    if (sequenceId.IsSet)
+                        parseQueryStringLocalVar["sequenceId"] = ClientUtils.ParameterToString(sequenceId.Value);
 
                     uriBuilderLocalVar.Query = parseQueryStringLocalVar.ToString();
 
@@ -54372,7 +54417,7 @@ namespace Reacon.Sdk.Api
                             }
                         }
 
-                        AfterListMailMessagesDefaultImplementation(apiResponseLocalVar, teamId, limit, cursor);
+                        AfterListMailMessagesDefaultImplementation(apiResponseLocalVar, teamId, limit, cursor, query, status, sequenceId);
 
                         Events.ExecuteOnListMailMessages(apiResponseLocalVar);
 
@@ -54386,7 +54431,7 @@ namespace Reacon.Sdk.Api
             }
             catch(Exception e)
             {
-                OnErrorListMailMessagesDefaultImplementation(e, "/v1/teams/{teamId}/mail/messages", uriBuilderLocalVar.Path, teamId, limit, cursor);
+                OnErrorListMailMessagesDefaultImplementation(e, "/v1/teams/{teamId}/mail/messages", uriBuilderLocalVar.Path, teamId, limit, cursor, query, status, sequenceId);
                 Events.ExecuteOnErrorListMailMessages(e);
                 throw;
             }

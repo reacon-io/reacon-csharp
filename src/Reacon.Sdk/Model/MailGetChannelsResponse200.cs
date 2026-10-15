@@ -37,13 +37,15 @@ namespace Reacon.Sdk.Model
         /// <param name="execution">execution</param>
         /// <param name="sms">sms</param>
         /// <param name="whatsapp">whatsapp</param>
+        /// <param name="worker">worker</param>
         [JsonConstructor]
-        public MailGetChannelsResponse200(MailGetChannelsResponse200Email email, MailGetChannelsResponse200Execution execution, MailGetChannelsResponse200Sms sms, MailGetChannelsResponse200Whatsapp whatsapp)
+        public MailGetChannelsResponse200(MailGetChannelsResponse200Email email, MailGetChannelsResponse200Execution execution, MailGetChannelsResponse200Sms sms, MailGetChannelsResponse200Whatsapp whatsapp, MailMailExecutionWorkerStatus worker)
         {
             Email = email;
             Execution = execution;
             Sms = sms;
             Whatsapp = whatsapp;
+            Worker = worker;
             OnCreated();
         }
 
@@ -74,6 +76,12 @@ namespace Reacon.Sdk.Model
         public MailGetChannelsResponse200Whatsapp Whatsapp { get; set; }
 
         /// <summary>
+        /// Gets or Sets Worker
+        /// </summary>
+        [JsonPropertyName("worker")]
+        public MailMailExecutionWorkerStatus Worker { get; set; }
+
+        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -91,6 +99,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  Execution: ").Append(Execution).Append("\n");
             sb.Append("  Sms: ").Append(Sms).Append("\n");
             sb.Append("  Whatsapp: ").Append(Whatsapp).Append("\n");
+            sb.Append("  Worker: ").Append(Worker).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -144,6 +153,7 @@ namespace Reacon.Sdk.Model
             Option<MailGetChannelsResponse200Execution?> execution = default;
             Option<MailGetChannelsResponse200Sms?> sms = default;
             Option<MailGetChannelsResponse200Whatsapp?> whatsapp = default;
+            Option<MailMailExecutionWorkerStatus?> worker = default;
 
             while (utf8JsonReader.Read())
             {
@@ -172,6 +182,9 @@ namespace Reacon.Sdk.Model
                         case "whatsapp":
                             whatsapp = new Option<MailGetChannelsResponse200Whatsapp?>(JsonSerializer.Deserialize<MailGetChannelsResponse200Whatsapp>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
+                        case "worker":
+                            worker = new Option<MailMailExecutionWorkerStatus?>(JsonSerializer.Deserialize<MailMailExecutionWorkerStatus>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
                                 additionalProperties[localVarJsonPropertyName!] = reaconUnknownValue.RootElement.Clone();
@@ -192,6 +205,9 @@ namespace Reacon.Sdk.Model
             if (!whatsapp.IsSet)
                 throw new ArgumentException("Property is required for class MailGetChannelsResponse200.", nameof(whatsapp));
 
+            if (!worker.IsSet)
+                throw new ArgumentException("Property is required for class MailGetChannelsResponse200.", nameof(worker));
+
             if (email.IsSet && email.Value == null)
                 throw new ArgumentNullException(nameof(email), "Property is not nullable for class MailGetChannelsResponse200.");
 
@@ -204,7 +220,10 @@ namespace Reacon.Sdk.Model
             if (whatsapp.IsSet && whatsapp.Value == null)
                 throw new ArgumentNullException(nameof(whatsapp), "Property is not nullable for class MailGetChannelsResponse200.");
 
-            var reaconModelResult = new MailGetChannelsResponse200(email.Value!, execution.Value!, sms.Value!, whatsapp.Value!);
+            if (worker.IsSet && worker.Value == null)
+                throw new ArgumentNullException(nameof(worker), "Property is not nullable for class MailGetChannelsResponse200.");
+
+            var reaconModelResult = new MailGetChannelsResponse200(email.Value!, execution.Value!, sms.Value!, whatsapp.Value!, worker.Value!);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -245,6 +264,9 @@ namespace Reacon.Sdk.Model
             if (mailGetChannelsResponse200.Whatsapp == null)
                 throw new ArgumentNullException(nameof(mailGetChannelsResponse200.Whatsapp), "Property is required for class MailGetChannelsResponse200.");
 
+            if (mailGetChannelsResponse200.Worker == null)
+                throw new ArgumentNullException(nameof(mailGetChannelsResponse200.Worker), "Property is required for class MailGetChannelsResponse200.");
+
             writer.WritePropertyName("email");
             JsonSerializer.Serialize(writer, mailGetChannelsResponse200.Email, jsonSerializerOptions);
             writer.WritePropertyName("execution");
@@ -253,10 +275,12 @@ namespace Reacon.Sdk.Model
             JsonSerializer.Serialize(writer, mailGetChannelsResponse200.Sms, jsonSerializerOptions);
             writer.WritePropertyName("whatsapp");
             JsonSerializer.Serialize(writer, mailGetChannelsResponse200.Whatsapp, jsonSerializerOptions);
+            writer.WritePropertyName("worker");
+            JsonSerializer.Serialize(writer, mailGetChannelsResponse200.Worker, jsonSerializerOptions);
 
             foreach (var property in mailGetChannelsResponse200.AdditionalProperties)
             {
-                if (property.Key == "email" || property.Key == "execution" || property.Key == "sms" || property.Key == "whatsapp") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "email" || property.Key == "execution" || property.Key == "sms" || property.Key == "whatsapp" || property.Key == "worker") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

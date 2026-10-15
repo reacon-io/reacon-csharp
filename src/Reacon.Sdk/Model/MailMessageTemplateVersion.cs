@@ -43,10 +43,11 @@ namespace Reacon.Sdk.Model
         /// <param name="tenantId">tenantId</param>
         /// <param name="variables">variables</param>
         /// <param name="varVersion">varVersion</param>
+        /// <param name="attachments">attachments</param>
         /// <param name="subject">subject</param>
         /// <param name="whatsappApproval">whatsappApproval</param>
         [JsonConstructor]
-        public MailMessageTemplateVersion(string body, string channel, DateTimeOffset createdAt, string createdByActorId, string id, string name, string status, string tenantId, List<string> variables, decimal varVersion, Option<string?> subject = default, Option<MailMessageTemplateVersionWhatsappApproval?> whatsappApproval = default)
+        public MailMessageTemplateVersion(string body, string channel, DateTimeOffset createdAt, string createdByActorId, string id, string name, string status, string tenantId, List<string> variables, decimal varVersion, Option<List<MailEmailAssetReference>?> attachments = default, Option<string?> subject = default, Option<MailMessageTemplateVersionWhatsappApproval?> whatsappApproval = default)
         {
             Body = body;
             Channel = channel;
@@ -58,6 +59,7 @@ namespace Reacon.Sdk.Model
             TenantId = tenantId;
             Variables = variables;
             VarVersion = varVersion;
+            AttachmentsOption = attachments;
             SubjectOption = subject;
             WhatsappApprovalOption = whatsappApproval;
             OnCreated();
@@ -126,6 +128,19 @@ namespace Reacon.Sdk.Model
         public decimal VarVersion { get; set; }
 
         /// <summary>
+        /// Used to track the state of Attachments
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<MailEmailAssetReference>?> AttachmentsOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Attachments
+        /// </summary>
+        [JsonPropertyName("attachments")]
+        public List<MailEmailAssetReference>? Attachments { get { return this.AttachmentsOption.Value; } set { this.AttachmentsOption = new(value); } }
+
+        /// <summary>
         /// Used to track the state of Subject
         /// </summary>
         [JsonIgnore]
@@ -175,6 +190,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  TenantId: ").Append(TenantId).Append("\n");
             sb.Append("  Variables: ").Append(Variables).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
+            sb.Append("  Attachments: ").Append(Attachments).Append("\n");
             sb.Append("  Subject: ").Append(Subject).Append("\n");
             sb.Append("  WhatsappApproval: ").Append(WhatsappApproval).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
@@ -241,6 +257,7 @@ namespace Reacon.Sdk.Model
             Option<string?> tenantId = default;
             Option<List<string>?> variables = default;
             Option<decimal?> varVersion = default;
+            Option<List<MailEmailAssetReference>?> attachments = default;
             Option<string?> subject = default;
             Option<MailMessageTemplateVersionWhatsappApproval?> whatsappApproval = default;
 
@@ -288,6 +305,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "version":
                             varVersion = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
+                            break;
+                        case "attachments":
+                            attachments = new Option<List<MailEmailAssetReference>?>(JsonSerializer.Deserialize<List<MailEmailAssetReference>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "subject":
                             subject = new Option<string?>(utf8JsonReader.GetString()!);
@@ -363,13 +383,16 @@ namespace Reacon.Sdk.Model
             if (varVersion.IsSet && varVersion.Value == null)
                 throw new ArgumentNullException(nameof(varVersion), "Property is not nullable for class MailMessageTemplateVersion.");
 
+            if (attachments.IsSet && attachments.Value == null)
+                throw new ArgumentNullException(nameof(attachments), "Property is not nullable for class MailMessageTemplateVersion.");
+
             if (subject.IsSet && subject.Value == null)
                 throw new ArgumentNullException(nameof(subject), "Property is not nullable for class MailMessageTemplateVersion.");
 
             if (whatsappApproval.IsSet && whatsappApproval.Value == null)
                 throw new ArgumentNullException(nameof(whatsappApproval), "Property is not nullable for class MailMessageTemplateVersion.");
 
-            var reaconModelResult = new MailMessageTemplateVersion(body.Value!, channel.Value!, createdAt.Value!.Value!, createdByActorId.Value!, id.Value!, name.Value!, status.Value!, tenantId.Value!, variables.Value!, varVersion.Value!.Value!, subject, whatsappApproval);
+            var reaconModelResult = new MailMessageTemplateVersion(body.Value!, channel.Value!, createdAt.Value!.Value!, createdByActorId.Value!, id.Value!, name.Value!, status.Value!, tenantId.Value!, variables.Value!, varVersion.Value!.Value!, attachments, subject, whatsappApproval);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -422,6 +445,9 @@ namespace Reacon.Sdk.Model
             if (mailMessageTemplateVersion.Variables == null)
                 throw new ArgumentNullException(nameof(mailMessageTemplateVersion.Variables), "Property is required for class MailMessageTemplateVersion.");
 
+            if (mailMessageTemplateVersion.AttachmentsOption.IsSet && mailMessageTemplateVersion.Attachments == null)
+                throw new ArgumentNullException(nameof(mailMessageTemplateVersion.Attachments), "Property is required for class MailMessageTemplateVersion.");
+
             if (mailMessageTemplateVersion.SubjectOption.IsSet && mailMessageTemplateVersion.Subject == null)
                 throw new ArgumentNullException(nameof(mailMessageTemplateVersion.Subject), "Property is required for class MailMessageTemplateVersion.");
 
@@ -448,6 +474,11 @@ namespace Reacon.Sdk.Model
             JsonSerializer.Serialize(writer, mailMessageTemplateVersion.Variables, jsonSerializerOptions);
             writer.WriteNumber("version", mailMessageTemplateVersion.VarVersion);
 
+            if (mailMessageTemplateVersion.AttachmentsOption.IsSet)
+            {
+                writer.WritePropertyName("attachments");
+                JsonSerializer.Serialize(writer, mailMessageTemplateVersion.Attachments, jsonSerializerOptions);
+            }
             if (mailMessageTemplateVersion.SubjectOption.IsSet)
                 writer.WriteString("subject", mailMessageTemplateVersion.Subject);
 
@@ -459,7 +490,7 @@ namespace Reacon.Sdk.Model
 
             foreach (var property in mailMessageTemplateVersion.AdditionalProperties)
             {
-                if (property.Key == "body" || property.Key == "channel" || property.Key == "createdAt" || property.Key == "createdByActorId" || property.Key == "id" || property.Key == "name" || property.Key == "status" || property.Key == "tenantId" || property.Key == "variables" || property.Key == "version" || property.Key == "subject" || property.Key == "whatsappApproval") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "body" || property.Key == "channel" || property.Key == "createdAt" || property.Key == "createdByActorId" || property.Key == "id" || property.Key == "name" || property.Key == "status" || property.Key == "tenantId" || property.Key == "variables" || property.Key == "version" || property.Key == "attachments" || property.Key == "subject" || property.Key == "whatsappApproval") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

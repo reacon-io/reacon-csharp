@@ -35,11 +35,13 @@ namespace Reacon.Sdk.Model
         /// </summary>
         /// <param name="clientRequestId">clientRequestId</param>
         /// <param name="text">text</param>
+        /// <param name="draftRevision">draftRevision</param>
         [JsonConstructor]
-        public MailPostInboxByMessageIdReplyRequest(string clientRequestId, string text)
+        public MailPostInboxByMessageIdReplyRequest(string clientRequestId, string text, Option<long?> draftRevision = default)
         {
             ClientRequestId = clientRequestId;
             Text = text;
+            DraftRevisionOption = draftRevision;
             OnCreated();
         }
 
@@ -58,6 +60,19 @@ namespace Reacon.Sdk.Model
         public string Text { get; set; }
 
         /// <summary>
+        /// Used to track the state of DraftRevision
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<long?> DraftRevisionOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets DraftRevision
+        /// </summary>
+        [JsonPropertyName("draftRevision")]
+        public long? DraftRevision { get { return this.DraftRevisionOption.Value; } set { this.DraftRevisionOption = new(value); } }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -67,6 +82,7 @@ namespace Reacon.Sdk.Model
             sb.Append("class MailPostInboxByMessageIdReplyRequest {\n");
             sb.Append("  ClientRequestId: ").Append(ClientRequestId).Append("\n");
             sb.Append("  Text: ").Append(Text).Append("\n");
+            sb.Append("  DraftRevision: ").Append(DraftRevision).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -100,6 +116,12 @@ namespace Reacon.Sdk.Model
             if (this.Text != null && this.Text.Length < 1)
             {
                 yield return new ValidationResult("Invalid value for Text, length must be greater than 1.", new [] { "Text" });
+            }
+
+            // DraftRevision (long) minimum
+            if (this.DraftRevisionOption.IsSet && this.DraftRevisionOption.Value < (long)0)
+            {
+                yield return new ValidationResult("Invalid value for DraftRevision, must be a value greater than 0.", new [] { "DraftRevision" });
             }
 
             yield break;
@@ -140,6 +162,7 @@ namespace Reacon.Sdk.Model
 
             Option<string?> clientRequestId = default;
             Option<string?> text = default;
+            Option<long?> draftRevision = default;
 
             while (utf8JsonReader.Read())
             {
@@ -162,6 +185,9 @@ namespace Reacon.Sdk.Model
                         case "text":
                             text = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
+                        case "draftRevision":
+                            draftRevision = new Option<long?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (int?)null : utf8JsonReader.GetInt32());
+                            break;
                         default:
                             break;
                     }
@@ -180,7 +206,10 @@ namespace Reacon.Sdk.Model
             if (text.IsSet && text.Value == null)
                 throw new ArgumentNullException(nameof(text), "Property is not nullable for class MailPostInboxByMessageIdReplyRequest.");
 
-            return new MailPostInboxByMessageIdReplyRequest(clientRequestId.Value!, text.Value!);
+            if (draftRevision.IsSet && draftRevision.Value == null)
+                throw new ArgumentNullException(nameof(draftRevision), "Property is not nullable for class MailPostInboxByMessageIdReplyRequest.");
+
+            return new MailPostInboxByMessageIdReplyRequest(clientRequestId.Value!, text.Value!, draftRevision);
         }
 
         /// <summary>
@@ -216,6 +245,9 @@ namespace Reacon.Sdk.Model
             writer.WriteString("clientRequestId", mailPostInboxByMessageIdReplyRequest.ClientRequestId);
 
             writer.WriteString("text", mailPostInboxByMessageIdReplyRequest.Text);
+
+            if (mailPostInboxByMessageIdReplyRequest.DraftRevisionOption.IsSet)
+                writer.WriteNumber("draftRevision", mailPostInboxByMessageIdReplyRequest.DraftRevisionOption.Value!.Value);
         }
     }
 }
