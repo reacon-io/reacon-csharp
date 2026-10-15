@@ -26,12 +26,12 @@ using Reacon.Sdk.Client;
 namespace Reacon.Sdk.Model
 {
     /// <summary>
-    /// MailSignatureCandidate
+    /// MailGetSignaturesResponse200CandidatesInner
     /// </summary>
-    public partial class MailSignatureCandidate : IValidatableObject
+    public partial class MailGetSignaturesResponse200CandidatesInner : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MailSignatureCandidate" /> class.
+        /// Initializes a new instance of the <see cref="MailGetSignaturesResponse200CandidatesInner" /> class.
         /// </summary>
         /// <param name="confidence">confidence</param>
         /// <param name="createdAt">createdAt</param>
@@ -45,7 +45,7 @@ namespace Reacon.Sdk.Model
         /// <param name="status">status</param>
         /// <param name="tenantId">tenantId</param>
         [JsonConstructor]
-        public MailSignatureCandidate(decimal confidence, DateTimeOffset createdAt, string extractorVersion, MailSignatureCandidateFields fields, string id, string signatureFingerprint, string signatureText, string signatureTextHash, string sourceMessageId, string status, string tenantId)
+        public MailGetSignaturesResponse200CandidatesInner(decimal confidence, DateTimeOffset createdAt, string extractorVersion, MailGetSignaturesResponse200CandidatesInnerFields fields, string id, string signatureFingerprint, string signatureText, string signatureTextHash, string sourceMessageId, string status, string tenantId)
         {
             Confidence = confidence;
             CreatedAt = createdAt;
@@ -85,7 +85,7 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets Fields
         /// </summary>
         [JsonPropertyName("fields")]
-        public MailSignatureCandidateFields Fields { get; set; }
+        public MailGetSignaturesResponse200CandidatesInnerFields Fields { get; set; }
 
         /// <summary>
         /// Gets or Sets Id
@@ -142,7 +142,7 @@ namespace Reacon.Sdk.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class MailSignatureCandidate {\n");
+            sb.Append("class MailGetSignaturesResponse200CandidatesInner {\n");
             sb.Append("  Confidence: ").Append(Confidence).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  ExtractorVersion: ").Append(ExtractorVersion).Append("\n");
@@ -171,16 +171,16 @@ namespace Reacon.Sdk.Model
     }
 
     /// <summary>
-    /// A Json converter for type <see cref="MailSignatureCandidate" />
+    /// A Json converter for type <see cref="MailGetSignaturesResponse200CandidatesInner" />
     /// </summary>
-    public partial class MailSignatureCandidateJsonConverter : JsonConverter<MailSignatureCandidate>
+    public partial class MailGetSignaturesResponse200CandidatesInnerJsonConverter : JsonConverter<MailGetSignaturesResponse200CandidatesInner>
     {
         partial void OnCreated();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MailSignatureCandidateJsonConverter" /> class.
+        /// Initializes a new instance of the <see cref="MailGetSignaturesResponse200CandidatesInnerJsonConverter" /> class.
         /// </summary>
-        public MailSignatureCandidateJsonConverter()
+        public MailGetSignaturesResponse200CandidatesInnerJsonConverter()
         {
             OnCreated();
         }
@@ -191,14 +191,14 @@ namespace Reacon.Sdk.Model
         public string CreatedAtFormat { get; private set; } = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK";
 
         /// <summary>
-        /// Deserializes json to <see cref="MailSignatureCandidate" />
+        /// Deserializes json to <see cref="MailGetSignaturesResponse200CandidatesInner" />
         /// </summary>
         /// <param name="utf8JsonReader"></param>
         /// <param name="typeToConvert"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <returns></returns>
         /// <exception cref="JsonException"></exception>
-        public override MailSignatureCandidate Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
+        public override MailGetSignaturesResponse200CandidatesInner Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
         {
             int currentDepth = utf8JsonReader.CurrentDepth;
             var additionalProperties = new Dictionary<string, JsonElement>();
@@ -211,7 +211,7 @@ namespace Reacon.Sdk.Model
             Option<decimal?> confidence = default;
             Option<DateTimeOffset?> createdAt = default;
             Option<string?> extractorVersion = default;
-            Option<MailSignatureCandidateFields?> fields = default;
+            Option<MailGetSignaturesResponse200CandidatesInnerFields?> fields = default;
             Option<string?> id = default;
             Option<string?> signatureFingerprint = default;
             Option<string?> signatureText = default;
@@ -245,7 +245,7 @@ namespace Reacon.Sdk.Model
                             extractorVersion = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "fields":
-                            fields = new Option<MailSignatureCandidateFields?>(JsonSerializer.Deserialize<MailSignatureCandidateFields>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            fields = new Option<MailGetSignaturesResponse200CandidatesInnerFields?>(JsonSerializer.Deserialize<MailGetSignaturesResponse200CandidatesInnerFields>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "id":
                             id = new Option<string?>(utf8JsonReader.GetString()!);
@@ -277,150 +277,150 @@ namespace Reacon.Sdk.Model
             }
 
             if (!confidence.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(confidence));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(confidence));
 
             if (!createdAt.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(createdAt));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(createdAt));
 
             if (!extractorVersion.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(extractorVersion));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(extractorVersion));
 
             if (!fields.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(fields));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(fields));
 
             if (!id.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(id));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(id));
 
             if (!signatureFingerprint.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(signatureFingerprint));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(signatureFingerprint));
 
             if (!signatureText.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(signatureText));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(signatureText));
 
             if (!signatureTextHash.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(signatureTextHash));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(signatureTextHash));
 
             if (!sourceMessageId.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(sourceMessageId));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(sourceMessageId));
 
             if (!status.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(status));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(status));
 
             if (!tenantId.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidate.", nameof(tenantId));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInner.", nameof(tenantId));
 
             if (confidence.IsSet && confidence.Value == null)
-                throw new ArgumentNullException(nameof(confidence), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(confidence), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (createdAt.IsSet && createdAt.Value == null)
-                throw new ArgumentNullException(nameof(createdAt), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(createdAt), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (extractorVersion.IsSet && extractorVersion.Value == null)
-                throw new ArgumentNullException(nameof(extractorVersion), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(extractorVersion), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (fields.IsSet && fields.Value == null)
-                throw new ArgumentNullException(nameof(fields), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(fields), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (id.IsSet && id.Value == null)
-                throw new ArgumentNullException(nameof(id), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(id), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (signatureFingerprint.IsSet && signatureFingerprint.Value == null)
-                throw new ArgumentNullException(nameof(signatureFingerprint), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(signatureFingerprint), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (signatureText.IsSet && signatureText.Value == null)
-                throw new ArgumentNullException(nameof(signatureText), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(signatureText), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (signatureTextHash.IsSet && signatureTextHash.Value == null)
-                throw new ArgumentNullException(nameof(signatureTextHash), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(signatureTextHash), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (sourceMessageId.IsSet && sourceMessageId.Value == null)
-                throw new ArgumentNullException(nameof(sourceMessageId), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(sourceMessageId), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (status.IsSet && status.Value == null)
-                throw new ArgumentNullException(nameof(status), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(status), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
             if (tenantId.IsSet && tenantId.Value == null)
-                throw new ArgumentNullException(nameof(tenantId), "Property is not nullable for class MailSignatureCandidate.");
+                throw new ArgumentNullException(nameof(tenantId), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInner.");
 
-            var reaconModelResult = new MailSignatureCandidate(confidence.Value!.Value!, createdAt.Value!.Value!, extractorVersion.Value!, fields.Value!, id.Value!, signatureFingerprint.Value!, signatureText.Value!, signatureTextHash.Value!, sourceMessageId.Value!, status.Value!, tenantId.Value!);
+            var reaconModelResult = new MailGetSignaturesResponse200CandidatesInner(confidence.Value!.Value!, createdAt.Value!.Value!, extractorVersion.Value!, fields.Value!, id.Value!, signatureFingerprint.Value!, signatureText.Value!, signatureTextHash.Value!, sourceMessageId.Value!, status.Value!, tenantId.Value!);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
 
         /// <summary>
-        /// Serializes a <see cref="MailSignatureCandidate" />
+        /// Serializes a <see cref="MailGetSignaturesResponse200CandidatesInner" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="mailSignatureCandidate"></param>
+        /// <param name="mailGetSignaturesResponse200CandidatesInner"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public override void Write(Utf8JsonWriter writer, MailSignatureCandidate mailSignatureCandidate, JsonSerializerOptions jsonSerializerOptions)
+        public override void Write(Utf8JsonWriter writer, MailGetSignaturesResponse200CandidatesInner mailGetSignaturesResponse200CandidatesInner, JsonSerializerOptions jsonSerializerOptions)
         {
             writer.WriteStartObject();
 
-            WriteProperties(writer, mailSignatureCandidate, jsonSerializerOptions);
+            WriteProperties(writer, mailGetSignaturesResponse200CandidatesInner, jsonSerializerOptions);
             writer.WriteEndObject();
         }
 
         /// <summary>
-        /// Serializes the properties of <see cref="MailSignatureCandidate" />
+        /// Serializes the properties of <see cref="MailGetSignaturesResponse200CandidatesInner" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="mailSignatureCandidate"></param>
+        /// <param name="mailGetSignaturesResponse200CandidatesInner"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void WriteProperties(Utf8JsonWriter writer, MailSignatureCandidate mailSignatureCandidate, JsonSerializerOptions jsonSerializerOptions)
+        public void WriteProperties(Utf8JsonWriter writer, MailGetSignaturesResponse200CandidatesInner mailGetSignaturesResponse200CandidatesInner, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (mailSignatureCandidate.ExtractorVersion == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.ExtractorVersion), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.ExtractorVersion == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.ExtractorVersion), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.Fields == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.Fields), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.Fields == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.Fields), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.Id == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.Id), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.Id == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.Id), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.SignatureFingerprint == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.SignatureFingerprint), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.SignatureFingerprint == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.SignatureFingerprint), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.SignatureText == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.SignatureText), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.SignatureText == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.SignatureText), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.SignatureTextHash == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.SignatureTextHash), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.SignatureTextHash == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.SignatureTextHash), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.SourceMessageId == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.SourceMessageId), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.SourceMessageId == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.SourceMessageId), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.Status == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.Status), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.Status == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.Status), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            if (mailSignatureCandidate.TenantId == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidate.TenantId), "Property is required for class MailSignatureCandidate.");
+            if (mailGetSignaturesResponse200CandidatesInner.TenantId == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInner.TenantId), "Property is required for class MailGetSignaturesResponse200CandidatesInner.");
 
-            writer.WriteNumber("confidence", mailSignatureCandidate.Confidence);
+            writer.WriteNumber("confidence", mailGetSignaturesResponse200CandidatesInner.Confidence);
 
-            writer.WriteString("createdAt", mailSignatureCandidate.CreatedAt.ToString(CreatedAtFormat));
+            writer.WriteString("createdAt", mailGetSignaturesResponse200CandidatesInner.CreatedAt.ToString(CreatedAtFormat));
 
-            writer.WriteString("extractorVersion", mailSignatureCandidate.ExtractorVersion);
+            writer.WriteString("extractorVersion", mailGetSignaturesResponse200CandidatesInner.ExtractorVersion);
 
             writer.WritePropertyName("fields");
-            JsonSerializer.Serialize(writer, mailSignatureCandidate.Fields, jsonSerializerOptions);
-            writer.WriteString("id", mailSignatureCandidate.Id);
+            JsonSerializer.Serialize(writer, mailGetSignaturesResponse200CandidatesInner.Fields, jsonSerializerOptions);
+            writer.WriteString("id", mailGetSignaturesResponse200CandidatesInner.Id);
 
-            writer.WriteString("signatureFingerprint", mailSignatureCandidate.SignatureFingerprint);
+            writer.WriteString("signatureFingerprint", mailGetSignaturesResponse200CandidatesInner.SignatureFingerprint);
 
-            writer.WriteString("signatureText", mailSignatureCandidate.SignatureText);
+            writer.WriteString("signatureText", mailGetSignaturesResponse200CandidatesInner.SignatureText);
 
-            writer.WriteString("signatureTextHash", mailSignatureCandidate.SignatureTextHash);
+            writer.WriteString("signatureTextHash", mailGetSignaturesResponse200CandidatesInner.SignatureTextHash);
 
-            writer.WriteString("sourceMessageId", mailSignatureCandidate.SourceMessageId);
+            writer.WriteString("sourceMessageId", mailGetSignaturesResponse200CandidatesInner.SourceMessageId);
 
-            writer.WriteString("status", mailSignatureCandidate.Status);
+            writer.WriteString("status", mailGetSignaturesResponse200CandidatesInner.Status);
 
-            writer.WriteString("tenantId", mailSignatureCandidate.TenantId);
+            writer.WriteString("tenantId", mailGetSignaturesResponse200CandidatesInner.TenantId);
 
-            foreach (var property in mailSignatureCandidate.AdditionalProperties)
+            foreach (var property in mailGetSignaturesResponse200CandidatesInner.AdditionalProperties)
             {
                 if (property.Key == "confidence" || property.Key == "createdAt" || property.Key == "extractorVersion" || property.Key == "fields" || property.Key == "id" || property.Key == "signatureFingerprint" || property.Key == "signatureText" || property.Key == "signatureTextHash" || property.Key == "sourceMessageId" || property.Key == "status" || property.Key == "tenantId") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);

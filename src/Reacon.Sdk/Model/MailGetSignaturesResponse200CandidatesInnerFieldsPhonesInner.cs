@@ -26,12 +26,12 @@ using Reacon.Sdk.Client;
 namespace Reacon.Sdk.Model
 {
     /// <summary>
-    /// MailSignatureCandidateFieldsPhonesInner
+    /// MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner
     /// </summary>
-    public partial class MailSignatureCandidateFieldsPhonesInner : IValidatableObject
+    public partial class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MailSignatureCandidateFieldsPhonesInner" /> class.
+        /// Initializes a new instance of the <see cref="MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner" /> class.
         /// </summary>
         /// <param name="confidence">confidence</param>
         /// <param name="method">method</param>
@@ -40,7 +40,7 @@ namespace Reacon.Sdk.Model
         /// <param name="sourceStart">sourceStart</param>
         /// <param name="value">value</param>
         [JsonConstructor]
-        public MailSignatureCandidateFieldsPhonesInner(decimal confidence, string method, MailPhoneNumberValue normalizedValue, decimal sourceEnd, decimal sourceStart, MailPhoneNumberValue value)
+        public MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner(decimal confidence, string method, MailPhoneNumberValue normalizedValue, decimal sourceEnd, decimal sourceStart, MailPhoneNumberValue value)
         {
             Confidence = confidence;
             Method = method;
@@ -102,7 +102,7 @@ namespace Reacon.Sdk.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class MailSignatureCandidateFieldsPhonesInner {\n");
+            sb.Append("class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner {\n");
             sb.Append("  Confidence: ").Append(Confidence).Append("\n");
             sb.Append("  Method: ").Append(Method).Append("\n");
             sb.Append("  NormalizedValue: ").Append(NormalizedValue).Append("\n");
@@ -126,29 +126,29 @@ namespace Reacon.Sdk.Model
     }
 
     /// <summary>
-    /// A Json converter for type <see cref="MailSignatureCandidateFieldsPhonesInner" />
+    /// A Json converter for type <see cref="MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner" />
     /// </summary>
-    public partial class MailSignatureCandidateFieldsPhonesInnerJsonConverter : JsonConverter<MailSignatureCandidateFieldsPhonesInner>
+    public partial class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInnerJsonConverter : JsonConverter<MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner>
     {
         partial void OnCreated();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MailSignatureCandidateFieldsPhonesInnerJsonConverter" /> class.
+        /// Initializes a new instance of the <see cref="MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInnerJsonConverter" /> class.
         /// </summary>
-        public MailSignatureCandidateFieldsPhonesInnerJsonConverter()
+        public MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInnerJsonConverter()
         {
             OnCreated();
         }
 
         /// <summary>
-        /// Deserializes json to <see cref="MailSignatureCandidateFieldsPhonesInner" />
+        /// Deserializes json to <see cref="MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner" />
         /// </summary>
         /// <param name="utf8JsonReader"></param>
         /// <param name="typeToConvert"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <returns></returns>
         /// <exception cref="JsonException"></exception>
-        public override MailSignatureCandidateFieldsPhonesInner Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
+        public override MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner Read(ref Utf8JsonReader utf8JsonReader, Type typeToConvert, JsonSerializerOptions jsonSerializerOptions)
         {
             int currentDepth = utf8JsonReader.CurrentDepth;
             var additionalProperties = new Dictionary<string, JsonElement>();
@@ -207,93 +207,93 @@ namespace Reacon.Sdk.Model
             }
 
             if (!confidence.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidateFieldsPhonesInner.", nameof(confidence));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.", nameof(confidence));
 
             if (!method.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidateFieldsPhonesInner.", nameof(method));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.", nameof(method));
 
             if (!normalizedValue.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidateFieldsPhonesInner.", nameof(normalizedValue));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.", nameof(normalizedValue));
 
             if (!sourceEnd.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidateFieldsPhonesInner.", nameof(sourceEnd));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.", nameof(sourceEnd));
 
             if (!sourceStart.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidateFieldsPhonesInner.", nameof(sourceStart));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.", nameof(sourceStart));
 
             if (!value.IsSet)
-                throw new ArgumentException("Property is required for class MailSignatureCandidateFieldsPhonesInner.", nameof(value));
+                throw new ArgumentException("Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.", nameof(value));
 
             if (confidence.IsSet && confidence.Value == null)
-                throw new ArgumentNullException(nameof(confidence), "Property is not nullable for class MailSignatureCandidateFieldsPhonesInner.");
+                throw new ArgumentNullException(nameof(confidence), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
             if (method.IsSet && method.Value == null)
-                throw new ArgumentNullException(nameof(method), "Property is not nullable for class MailSignatureCandidateFieldsPhonesInner.");
+                throw new ArgumentNullException(nameof(method), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
             if (normalizedValue.IsSet && normalizedValue.Value == null)
-                throw new ArgumentNullException(nameof(normalizedValue), "Property is not nullable for class MailSignatureCandidateFieldsPhonesInner.");
+                throw new ArgumentNullException(nameof(normalizedValue), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
             if (sourceEnd.IsSet && sourceEnd.Value == null)
-                throw new ArgumentNullException(nameof(sourceEnd), "Property is not nullable for class MailSignatureCandidateFieldsPhonesInner.");
+                throw new ArgumentNullException(nameof(sourceEnd), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
             if (sourceStart.IsSet && sourceStart.Value == null)
-                throw new ArgumentNullException(nameof(sourceStart), "Property is not nullable for class MailSignatureCandidateFieldsPhonesInner.");
+                throw new ArgumentNullException(nameof(sourceStart), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
             if (value.IsSet && value.Value == null)
-                throw new ArgumentNullException(nameof(value), "Property is not nullable for class MailSignatureCandidateFieldsPhonesInner.");
+                throw new ArgumentNullException(nameof(value), "Property is not nullable for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
-            var reaconModelResult = new MailSignatureCandidateFieldsPhonesInner(confidence.Value!.Value!, method.Value!, normalizedValue.Value!, sourceEnd.Value!.Value!, sourceStart.Value!.Value!, value.Value!);
+            var reaconModelResult = new MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner(confidence.Value!.Value!, method.Value!, normalizedValue.Value!, sourceEnd.Value!.Value!, sourceStart.Value!.Value!, value.Value!);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
 
         /// <summary>
-        /// Serializes a <see cref="MailSignatureCandidateFieldsPhonesInner" />
+        /// Serializes a <see cref="MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="mailSignatureCandidateFieldsPhonesInner"></param>
+        /// <param name="mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public override void Write(Utf8JsonWriter writer, MailSignatureCandidateFieldsPhonesInner mailSignatureCandidateFieldsPhonesInner, JsonSerializerOptions jsonSerializerOptions)
+        public override void Write(Utf8JsonWriter writer, MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner, JsonSerializerOptions jsonSerializerOptions)
         {
             writer.WriteStartObject();
 
-            WriteProperties(writer, mailSignatureCandidateFieldsPhonesInner, jsonSerializerOptions);
+            WriteProperties(writer, mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner, jsonSerializerOptions);
             writer.WriteEndObject();
         }
 
         /// <summary>
-        /// Serializes the properties of <see cref="MailSignatureCandidateFieldsPhonesInner" />
+        /// Serializes the properties of <see cref="MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner" />
         /// </summary>
         /// <param name="writer"></param>
-        /// <param name="mailSignatureCandidateFieldsPhonesInner"></param>
+        /// <param name="mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner"></param>
         /// <param name="jsonSerializerOptions"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void WriteProperties(Utf8JsonWriter writer, MailSignatureCandidateFieldsPhonesInner mailSignatureCandidateFieldsPhonesInner, JsonSerializerOptions jsonSerializerOptions)
+        public void WriteProperties(Utf8JsonWriter writer, MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner, JsonSerializerOptions jsonSerializerOptions)
         {
-            if (mailSignatureCandidateFieldsPhonesInner.Method == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidateFieldsPhonesInner.Method), "Property is required for class MailSignatureCandidateFieldsPhonesInner.");
+            if (mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.Method == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.Method), "Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
-            if (mailSignatureCandidateFieldsPhonesInner.NormalizedValue == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidateFieldsPhonesInner.NormalizedValue), "Property is required for class MailSignatureCandidateFieldsPhonesInner.");
+            if (mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.NormalizedValue == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.NormalizedValue), "Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
-            if (mailSignatureCandidateFieldsPhonesInner.Value == null)
-                throw new ArgumentNullException(nameof(mailSignatureCandidateFieldsPhonesInner.Value), "Property is required for class MailSignatureCandidateFieldsPhonesInner.");
+            if (mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.Value == null)
+                throw new ArgumentNullException(nameof(mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.Value), "Property is required for class MailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.");
 
-            writer.WriteNumber("confidence", mailSignatureCandidateFieldsPhonesInner.Confidence);
+            writer.WriteNumber("confidence", mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.Confidence);
 
-            writer.WriteString("method", mailSignatureCandidateFieldsPhonesInner.Method);
+            writer.WriteString("method", mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.Method);
 
             writer.WritePropertyName("normalizedValue");
-            JsonSerializer.Serialize(writer, mailSignatureCandidateFieldsPhonesInner.NormalizedValue, jsonSerializerOptions);
-            writer.WriteNumber("sourceEnd", mailSignatureCandidateFieldsPhonesInner.SourceEnd);
+            JsonSerializer.Serialize(writer, mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.NormalizedValue, jsonSerializerOptions);
+            writer.WriteNumber("sourceEnd", mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.SourceEnd);
 
-            writer.WriteNumber("sourceStart", mailSignatureCandidateFieldsPhonesInner.SourceStart);
+            writer.WriteNumber("sourceStart", mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.SourceStart);
 
             writer.WritePropertyName("value");
-            JsonSerializer.Serialize(writer, mailSignatureCandidateFieldsPhonesInner.Value, jsonSerializerOptions);
+            JsonSerializer.Serialize(writer, mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.Value, jsonSerializerOptions);
 
-            foreach (var property in mailSignatureCandidateFieldsPhonesInner.AdditionalProperties)
+            foreach (var property in mailGetSignaturesResponse200CandidatesInnerFieldsPhonesInner.AdditionalProperties)
             {
                 if (property.Key == "confidence" || property.Key == "method" || property.Key == "normalizedValue" || property.Key == "sourceEnd" || property.Key == "sourceStart" || property.Key == "value") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);

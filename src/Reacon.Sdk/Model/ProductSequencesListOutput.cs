@@ -33,21 +33,105 @@ namespace Reacon.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductSequencesListOutput" /> class.
         /// </summary>
+        /// <param name="cadences">cadences</param>
+        /// <param name="campaigns">campaigns</param>
+        /// <param name="drafts">drafts</param>
         /// <param name="items">items</param>
+        /// <param name="source">source</param>
         [JsonConstructor]
-        public ProductSequencesListOutput(List<ProductSequence> items)
+        public ProductSequencesListOutput(List<Dictionary<string, Object>> cadences, List<Dictionary<string, Object>> campaigns, List<Dictionary<string, Object>> drafts, List<Dictionary<string, Object>> items, SourceEnum source)
         {
+            Cadences = cadences;
+            Campaigns = campaigns;
+            Drafts = drafts;
             Items = items;
+            Source = source;
             OnCreated();
         }
 
         partial void OnCreated();
 
         /// <summary>
+        /// Defines Source
+        /// </summary>
+        public enum SourceEnum
+        {
+            /// <summary>
+            /// Enum CanonicalMail for value: canonical_mail
+            /// </summary>
+            CanonicalMail = 1
+        }
+
+        /// <summary>
+        /// Returns a <see cref="SourceEnum"/>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static SourceEnum SourceEnumFromString(string value)
+        {
+            if (value.Equals("canonical_mail"))
+                return SourceEnum.CanonicalMail;
+
+            throw new NotImplementedException($"Could not convert value to type SourceEnum: '{value}'");
+        }
+
+        /// <summary>
+        /// Returns a <see cref="SourceEnum"/>
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static SourceEnum? SourceEnumFromStringOrDefault(string value)
+        {
+            if (value.Equals("canonical_mail"))
+                return SourceEnum.CanonicalMail;
+
+            return null;
+        }
+
+        /// <summary>
+        /// Converts the <see cref="SourceEnum"/> to the json value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static string SourceEnumToJsonValue(SourceEnum value)
+        {
+            if (value == SourceEnum.CanonicalMail)
+                return "canonical_mail";
+
+            throw new NotImplementedException($"Value could not be handled: '{value}'");
+        }
+
+        /// <summary>
+        /// Gets or Sets Source
+        /// </summary>
+        [JsonPropertyName("source")]
+        public SourceEnum Source { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Cadences
+        /// </summary>
+        [JsonPropertyName("cadences")]
+        public List<Dictionary<string, Object>> Cadences { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Campaigns
+        /// </summary>
+        [JsonPropertyName("campaigns")]
+        public List<Dictionary<string, Object>> Campaigns { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Drafts
+        /// </summary>
+        [JsonPropertyName("drafts")]
+        public List<Dictionary<string, Object>> Drafts { get; set; }
+
+        /// <summary>
         /// Gets or Sets Items
         /// </summary>
         [JsonPropertyName("items")]
-        public List<ProductSequence> Items { get; set; }
+        public List<Dictionary<string, Object>> Items { get; set; }
 
         /// <summary>
         /// Gets or Sets additional properties
@@ -63,7 +147,11 @@ namespace Reacon.Sdk.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class ProductSequencesListOutput {\n");
+            sb.Append("  Cadences: ").Append(Cadences).Append("\n");
+            sb.Append("  Campaigns: ").Append(Campaigns).Append("\n");
+            sb.Append("  Drafts: ").Append(Drafts).Append("\n");
             sb.Append("  Items: ").Append(Items).Append("\n");
+            sb.Append("  Source: ").Append(Source).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -113,7 +201,11 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            Option<List<ProductSequence>?> items = default;
+            Option<List<Dictionary<string, Object>>?> cadences = default;
+            Option<List<Dictionary<string, Object>>?> campaigns = default;
+            Option<List<Dictionary<string, Object>>?> drafts = default;
+            Option<List<Dictionary<string, Object>>?> items = default;
+            Option<ProductSequencesListOutput.SourceEnum?> source = default;
 
             while (utf8JsonReader.Read())
             {
@@ -130,8 +222,27 @@ namespace Reacon.Sdk.Model
 
                     switch (localVarJsonPropertyName)
                     {
+                        case "cadences":
+                            cadences = new Option<List<Dictionary<string, Object>>?>(JsonSerializer.Deserialize<List<Dictionary<string, Object>>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "campaigns":
+                            campaigns = new Option<List<Dictionary<string, Object>>?>(JsonSerializer.Deserialize<List<Dictionary<string, Object>>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "drafts":
+                            drafts = new Option<List<Dictionary<string, Object>>?>(JsonSerializer.Deserialize<List<Dictionary<string, Object>>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
                         case "items":
-                            items = new Option<List<ProductSequence>?>(JsonSerializer.Deserialize<List<ProductSequence>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            items = new Option<List<Dictionary<string, Object>>?>(JsonSerializer.Deserialize<List<Dictionary<string, Object>>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "source":
+                            string? sourceRawValue = utf8JsonReader.GetString();
+                            if (sourceRawValue != null)
+                            {
+                                ProductSequencesListOutput.SourceEnum? sourceValue = ProductSequencesListOutput.SourceEnumFromStringOrDefault(sourceRawValue);
+                                if (sourceValue == null)
+                                    throw new JsonException();
+                                source = new Option<ProductSequencesListOutput.SourceEnum?>(sourceValue);
+                            }
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
@@ -141,13 +252,37 @@ namespace Reacon.Sdk.Model
                 }
             }
 
+            if (!cadences.IsSet)
+                throw new ArgumentException("Property is required for class ProductSequencesListOutput.", nameof(cadences));
+
+            if (!campaigns.IsSet)
+                throw new ArgumentException("Property is required for class ProductSequencesListOutput.", nameof(campaigns));
+
+            if (!drafts.IsSet)
+                throw new ArgumentException("Property is required for class ProductSequencesListOutput.", nameof(drafts));
+
             if (!items.IsSet)
                 throw new ArgumentException("Property is required for class ProductSequencesListOutput.", nameof(items));
+
+            if (!source.IsSet)
+                throw new ArgumentException("Property is required for class ProductSequencesListOutput.", nameof(source));
+
+            if (cadences.IsSet && cadences.Value == null)
+                throw new ArgumentNullException(nameof(cadences), "Property is not nullable for class ProductSequencesListOutput.");
+
+            if (campaigns.IsSet && campaigns.Value == null)
+                throw new ArgumentNullException(nameof(campaigns), "Property is not nullable for class ProductSequencesListOutput.");
+
+            if (drafts.IsSet && drafts.Value == null)
+                throw new ArgumentNullException(nameof(drafts), "Property is not nullable for class ProductSequencesListOutput.");
 
             if (items.IsSet && items.Value == null)
                 throw new ArgumentNullException(nameof(items), "Property is not nullable for class ProductSequencesListOutput.");
 
-            var reaconModelResult = new ProductSequencesListOutput(items.Value!);
+            if (source.IsSet && source.Value == null)
+                throw new ArgumentNullException(nameof(source), "Property is not nullable for class ProductSequencesListOutput.");
+
+            var reaconModelResult = new ProductSequencesListOutput(cadences.Value!, campaigns.Value!, drafts.Value!, items.Value!, source.Value!.Value!);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -176,15 +311,32 @@ namespace Reacon.Sdk.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, ProductSequencesListOutput productSequencesListOutput, JsonSerializerOptions jsonSerializerOptions)
         {
+            if (productSequencesListOutput.Cadences == null)
+                throw new ArgumentNullException(nameof(productSequencesListOutput.Cadences), "Property is required for class ProductSequencesListOutput.");
+
+            if (productSequencesListOutput.Campaigns == null)
+                throw new ArgumentNullException(nameof(productSequencesListOutput.Campaigns), "Property is required for class ProductSequencesListOutput.");
+
+            if (productSequencesListOutput.Drafts == null)
+                throw new ArgumentNullException(nameof(productSequencesListOutput.Drafts), "Property is required for class ProductSequencesListOutput.");
+
             if (productSequencesListOutput.Items == null)
                 throw new ArgumentNullException(nameof(productSequencesListOutput.Items), "Property is required for class ProductSequencesListOutput.");
 
+            writer.WritePropertyName("cadences");
+            JsonSerializer.Serialize(writer, productSequencesListOutput.Cadences, jsonSerializerOptions);
+            writer.WritePropertyName("campaigns");
+            JsonSerializer.Serialize(writer, productSequencesListOutput.Campaigns, jsonSerializerOptions);
+            writer.WritePropertyName("drafts");
+            JsonSerializer.Serialize(writer, productSequencesListOutput.Drafts, jsonSerializerOptions);
             writer.WritePropertyName("items");
             JsonSerializer.Serialize(writer, productSequencesListOutput.Items, jsonSerializerOptions);
+            var sourceRawValue = ProductSequencesListOutput.SourceEnumToJsonValue(productSequencesListOutput.Source);
+            writer.WriteString("source", sourceRawValue);
 
             foreach (var property in productSequencesListOutput.AdditionalProperties)
             {
-                if (property.Key == "items") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "source" || property.Key == "cadences" || property.Key == "campaigns" || property.Key == "drafts" || property.Key == "items") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

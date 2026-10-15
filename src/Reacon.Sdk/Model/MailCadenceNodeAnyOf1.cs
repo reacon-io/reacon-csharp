@@ -40,9 +40,10 @@ namespace Reacon.Sdk.Model
         /// <param name="nextNodeId">nextNodeId</param>
         /// <param name="templateId">templateId</param>
         /// <param name="templateVersion">templateVersion</param>
+        /// <param name="emailThread">emailThread</param>
         /// <param name="experiment">experiment</param>
         [JsonConstructor]
-        public MailCadenceNodeAnyOf1(string id, string name, string channel, KindEnum kind, string nextNodeId, string templateId, decimal templateVersion, Option<MailCadenceMessageExperiment?> experiment = default)
+        public MailCadenceNodeAnyOf1(string id, string name, string channel, KindEnum kind, string nextNodeId, string templateId, decimal templateVersion, Option<string?> emailThread = default, Option<MailCadenceMessageExperiment?> experiment = default)
         {
             Id = id;
             Name = name;
@@ -51,6 +52,7 @@ namespace Reacon.Sdk.Model
             NextNodeId = nextNodeId;
             TemplateId = templateId;
             TemplateVersion = templateVersion;
+            EmailThreadOption = emailThread;
             ExperimentOption = experiment;
             OnCreated();
         }
@@ -152,6 +154,19 @@ namespace Reacon.Sdk.Model
         public decimal TemplateVersion { get; set; }
 
         /// <summary>
+        /// Used to track the state of EmailThread
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<string?> EmailThreadOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets EmailThread
+        /// </summary>
+        [JsonPropertyName("emailThread")]
+        public string? EmailThread { get { return this.EmailThreadOption.Value; } set { this.EmailThreadOption = new(value); } }
+
+        /// <summary>
         /// Used to track the state of Experiment
         /// </summary>
         [JsonIgnore]
@@ -185,6 +200,7 @@ namespace Reacon.Sdk.Model
             sb.Append("  NextNodeId: ").Append(NextNodeId).Append("\n");
             sb.Append("  TemplateId: ").Append(TemplateId).Append("\n");
             sb.Append("  TemplateVersion: ").Append(TemplateVersion).Append("\n");
+            sb.Append("  EmailThread: ").Append(EmailThread).Append("\n");
             sb.Append("  Experiment: ").Append(Experiment).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
@@ -242,6 +258,7 @@ namespace Reacon.Sdk.Model
             Option<string?> nextNodeId = default;
             Option<string?> templateId = default;
             Option<decimal?> templateVersion = default;
+            Option<string?> emailThread = default;
             Option<MailCadenceMessageExperiment?> experiment = default;
 
             while (utf8JsonReader.Read())
@@ -286,6 +303,9 @@ namespace Reacon.Sdk.Model
                             break;
                         case "templateVersion":
                             templateVersion = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
+                            break;
+                        case "emailThread":
+                            emailThread = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "experiment":
                             experiment = new Option<MailCadenceMessageExperiment?>(JsonSerializer.Deserialize<MailCadenceMessageExperiment>(ref utf8JsonReader, jsonSerializerOptions)!);
@@ -340,10 +360,13 @@ namespace Reacon.Sdk.Model
             if (templateVersion.IsSet && templateVersion.Value == null)
                 throw new ArgumentNullException(nameof(templateVersion), "Property is not nullable for class MailCadenceNodeAnyOf1.");
 
+            if (emailThread.IsSet && emailThread.Value == null)
+                throw new ArgumentNullException(nameof(emailThread), "Property is not nullable for class MailCadenceNodeAnyOf1.");
+
             if (experiment.IsSet && experiment.Value == null)
                 throw new ArgumentNullException(nameof(experiment), "Property is not nullable for class MailCadenceNodeAnyOf1.");
 
-            var reaconModelResult = new MailCadenceNodeAnyOf1(id.Value!, name.Value!, channel.Value!, kind.Value!.Value!, nextNodeId.Value!, templateId.Value!, templateVersion.Value!.Value!, experiment);
+            var reaconModelResult = new MailCadenceNodeAnyOf1(id.Value!, name.Value!, channel.Value!, kind.Value!.Value!, nextNodeId.Value!, templateId.Value!, templateVersion.Value!.Value!, emailThread, experiment);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -387,6 +410,9 @@ namespace Reacon.Sdk.Model
             if (mailCadenceNodeAnyOf1.TemplateId == null)
                 throw new ArgumentNullException(nameof(mailCadenceNodeAnyOf1.TemplateId), "Property is required for class MailCadenceNodeAnyOf1.");
 
+            if (mailCadenceNodeAnyOf1.EmailThreadOption.IsSet && mailCadenceNodeAnyOf1.EmailThread == null)
+                throw new ArgumentNullException(nameof(mailCadenceNodeAnyOf1.EmailThread), "Property is required for class MailCadenceNodeAnyOf1.");
+
             if (mailCadenceNodeAnyOf1.ExperimentOption.IsSet && mailCadenceNodeAnyOf1.Experiment == null)
                 throw new ArgumentNullException(nameof(mailCadenceNodeAnyOf1.Experiment), "Property is required for class MailCadenceNodeAnyOf1.");
 
@@ -404,6 +430,9 @@ namespace Reacon.Sdk.Model
 
             writer.WriteNumber("templateVersion", mailCadenceNodeAnyOf1.TemplateVersion);
 
+            if (mailCadenceNodeAnyOf1.EmailThreadOption.IsSet)
+                writer.WriteString("emailThread", mailCadenceNodeAnyOf1.EmailThread);
+
             if (mailCadenceNodeAnyOf1.ExperimentOption.IsSet)
             {
                 writer.WritePropertyName("experiment");
@@ -412,7 +441,7 @@ namespace Reacon.Sdk.Model
 
             foreach (var property in mailCadenceNodeAnyOf1.AdditionalProperties)
             {
-                if (property.Key == "kind" || property.Key == "id" || property.Key == "name" || property.Key == "channel" || property.Key == "nextNodeId" || property.Key == "templateId" || property.Key == "templateVersion" || property.Key == "experiment") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "kind" || property.Key == "id" || property.Key == "name" || property.Key == "channel" || property.Key == "nextNodeId" || property.Key == "templateId" || property.Key == "templateVersion" || property.Key == "emailThread" || property.Key == "experiment") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

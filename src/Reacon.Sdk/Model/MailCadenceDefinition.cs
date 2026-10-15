@@ -41,9 +41,14 @@ namespace Reacon.Sdk.Model
         /// <param name="status">status</param>
         /// <param name="tenantId">tenantId</param>
         /// <param name="varVersion">varVersion</param>
+        /// <param name="authoringRevision">authoringRevision</param>
+        /// <param name="emailDelivery">emailDelivery</param>
+        /// <param name="emailExcludedContactIds">emailExcludedContactIds</param>
+        /// <param name="emailRecipientOverrides">emailRecipientOverrides</param>
+        /// <param name="emailRenderSeed">emailRenderSeed</param>
         /// <param name="stopConditions">stopConditions</param>
         [JsonConstructor]
-        public MailCadenceDefinition(DateTimeOffset createdAt, string createdByActorId, string id, string name, List<MailCadenceNode> nodes, string status, string tenantId, decimal varVersion, Option<MailCadenceStopConditions?> stopConditions = default)
+        public MailCadenceDefinition(DateTimeOffset createdAt, string createdByActorId, string id, string name, List<MailCadenceNode> nodes, string status, string tenantId, decimal varVersion, Option<decimal?> authoringRevision = default, Option<MailEmailSequenceDeliverySettings?> emailDelivery = default, Option<List<string>?> emailExcludedContactIds = default, Option<List<MailEmailSequenceRecipientOverride>?> emailRecipientOverrides = default, Option<string?> emailRenderSeed = default, Option<MailCadenceStopConditions?> stopConditions = default)
         {
             CreatedAt = createdAt;
             CreatedByActorId = createdByActorId;
@@ -53,6 +58,11 @@ namespace Reacon.Sdk.Model
             Status = status;
             TenantId = tenantId;
             VarVersion = varVersion;
+            AuthoringRevisionOption = authoringRevision;
+            EmailDeliveryOption = emailDelivery;
+            EmailExcludedContactIdsOption = emailExcludedContactIds;
+            EmailRecipientOverridesOption = emailRecipientOverrides;
+            EmailRenderSeedOption = emailRenderSeed;
             StopConditionsOption = stopConditions;
             OnCreated();
         }
@@ -108,6 +118,71 @@ namespace Reacon.Sdk.Model
         public decimal VarVersion { get; set; }
 
         /// <summary>
+        /// Used to track the state of AuthoringRevision
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<decimal?> AuthoringRevisionOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets AuthoringRevision
+        /// </summary>
+        [JsonPropertyName("authoringRevision")]
+        public decimal? AuthoringRevision { get { return this.AuthoringRevisionOption.Value; } set { this.AuthoringRevisionOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of EmailDelivery
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<MailEmailSequenceDeliverySettings?> EmailDeliveryOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets EmailDelivery
+        /// </summary>
+        [JsonPropertyName("emailDelivery")]
+        public MailEmailSequenceDeliverySettings? EmailDelivery { get { return this.EmailDeliveryOption.Value; } set { this.EmailDeliveryOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of EmailExcludedContactIds
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<string>?> EmailExcludedContactIdsOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets EmailExcludedContactIds
+        /// </summary>
+        [JsonPropertyName("emailExcludedContactIds")]
+        public List<string>? EmailExcludedContactIds { get { return this.EmailExcludedContactIdsOption.Value; } set { this.EmailExcludedContactIdsOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of EmailRecipientOverrides
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<MailEmailSequenceRecipientOverride>?> EmailRecipientOverridesOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets EmailRecipientOverrides
+        /// </summary>
+        [JsonPropertyName("emailRecipientOverrides")]
+        public List<MailEmailSequenceRecipientOverride>? EmailRecipientOverrides { get { return this.EmailRecipientOverridesOption.Value; } set { this.EmailRecipientOverridesOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of EmailRenderSeed
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<string?> EmailRenderSeedOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets EmailRenderSeed
+        /// </summary>
+        [JsonPropertyName("emailRenderSeed")]
+        public string? EmailRenderSeed { get { return this.EmailRenderSeedOption.Value; } set { this.EmailRenderSeedOption = new(value); } }
+
+        /// <summary>
         /// Used to track the state of StopConditions
         /// </summary>
         [JsonIgnore]
@@ -142,6 +217,11 @@ namespace Reacon.Sdk.Model
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  TenantId: ").Append(TenantId).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
+            sb.Append("  AuthoringRevision: ").Append(AuthoringRevision).Append("\n");
+            sb.Append("  EmailDelivery: ").Append(EmailDelivery).Append("\n");
+            sb.Append("  EmailExcludedContactIds: ").Append(EmailExcludedContactIds).Append("\n");
+            sb.Append("  EmailRecipientOverrides: ").Append(EmailRecipientOverrides).Append("\n");
+            sb.Append("  EmailRenderSeed: ").Append(EmailRenderSeed).Append("\n");
             sb.Append("  StopConditions: ").Append(StopConditions).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
@@ -205,6 +285,11 @@ namespace Reacon.Sdk.Model
             Option<string?> status = default;
             Option<string?> tenantId = default;
             Option<decimal?> varVersion = default;
+            Option<decimal?> authoringRevision = default;
+            Option<MailEmailSequenceDeliverySettings?> emailDelivery = default;
+            Option<List<string>?> emailExcludedContactIds = default;
+            Option<List<MailEmailSequenceRecipientOverride>?> emailRecipientOverrides = default;
+            Option<string?> emailRenderSeed = default;
             Option<MailCadenceStopConditions?> stopConditions = default;
 
             while (utf8JsonReader.Read())
@@ -245,6 +330,21 @@ namespace Reacon.Sdk.Model
                             break;
                         case "version":
                             varVersion = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
+                            break;
+                        case "authoringRevision":
+                            authoringRevision = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
+                            break;
+                        case "emailDelivery":
+                            emailDelivery = new Option<MailEmailSequenceDeliverySettings?>(JsonSerializer.Deserialize<MailEmailSequenceDeliverySettings>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "emailExcludedContactIds":
+                            emailExcludedContactIds = new Option<List<string>?>(JsonSerializer.Deserialize<List<string>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "emailRecipientOverrides":
+                            emailRecipientOverrides = new Option<List<MailEmailSequenceRecipientOverride>?>(JsonSerializer.Deserialize<List<MailEmailSequenceRecipientOverride>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "emailRenderSeed":
+                            emailRenderSeed = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
                         case "stopConditions":
                             stopConditions = new Option<MailCadenceStopConditions?>(JsonSerializer.Deserialize<MailCadenceStopConditions>(ref utf8JsonReader, jsonSerializerOptions)!);
@@ -305,10 +405,25 @@ namespace Reacon.Sdk.Model
             if (varVersion.IsSet && varVersion.Value == null)
                 throw new ArgumentNullException(nameof(varVersion), "Property is not nullable for class MailCadenceDefinition.");
 
+            if (authoringRevision.IsSet && authoringRevision.Value == null)
+                throw new ArgumentNullException(nameof(authoringRevision), "Property is not nullable for class MailCadenceDefinition.");
+
+            if (emailDelivery.IsSet && emailDelivery.Value == null)
+                throw new ArgumentNullException(nameof(emailDelivery), "Property is not nullable for class MailCadenceDefinition.");
+
+            if (emailExcludedContactIds.IsSet && emailExcludedContactIds.Value == null)
+                throw new ArgumentNullException(nameof(emailExcludedContactIds), "Property is not nullable for class MailCadenceDefinition.");
+
+            if (emailRecipientOverrides.IsSet && emailRecipientOverrides.Value == null)
+                throw new ArgumentNullException(nameof(emailRecipientOverrides), "Property is not nullable for class MailCadenceDefinition.");
+
+            if (emailRenderSeed.IsSet && emailRenderSeed.Value == null)
+                throw new ArgumentNullException(nameof(emailRenderSeed), "Property is not nullable for class MailCadenceDefinition.");
+
             if (stopConditions.IsSet && stopConditions.Value == null)
                 throw new ArgumentNullException(nameof(stopConditions), "Property is not nullable for class MailCadenceDefinition.");
 
-            var reaconModelResult = new MailCadenceDefinition(createdAt.Value!.Value!, createdByActorId.Value!, id.Value!, name.Value!, nodes.Value!, status.Value!, tenantId.Value!, varVersion.Value!.Value!, stopConditions);
+            var reaconModelResult = new MailCadenceDefinition(createdAt.Value!.Value!, createdByActorId.Value!, id.Value!, name.Value!, nodes.Value!, status.Value!, tenantId.Value!, varVersion.Value!.Value!, authoringRevision, emailDelivery, emailExcludedContactIds, emailRecipientOverrides, emailRenderSeed, stopConditions);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -355,6 +470,18 @@ namespace Reacon.Sdk.Model
             if (mailCadenceDefinition.TenantId == null)
                 throw new ArgumentNullException(nameof(mailCadenceDefinition.TenantId), "Property is required for class MailCadenceDefinition.");
 
+            if (mailCadenceDefinition.EmailDeliveryOption.IsSet && mailCadenceDefinition.EmailDelivery == null)
+                throw new ArgumentNullException(nameof(mailCadenceDefinition.EmailDelivery), "Property is required for class MailCadenceDefinition.");
+
+            if (mailCadenceDefinition.EmailExcludedContactIdsOption.IsSet && mailCadenceDefinition.EmailExcludedContactIds == null)
+                throw new ArgumentNullException(nameof(mailCadenceDefinition.EmailExcludedContactIds), "Property is required for class MailCadenceDefinition.");
+
+            if (mailCadenceDefinition.EmailRecipientOverridesOption.IsSet && mailCadenceDefinition.EmailRecipientOverrides == null)
+                throw new ArgumentNullException(nameof(mailCadenceDefinition.EmailRecipientOverrides), "Property is required for class MailCadenceDefinition.");
+
+            if (mailCadenceDefinition.EmailRenderSeedOption.IsSet && mailCadenceDefinition.EmailRenderSeed == null)
+                throw new ArgumentNullException(nameof(mailCadenceDefinition.EmailRenderSeed), "Property is required for class MailCadenceDefinition.");
+
             if (mailCadenceDefinition.StopConditionsOption.IsSet && mailCadenceDefinition.StopConditions == null)
                 throw new ArgumentNullException(nameof(mailCadenceDefinition.StopConditions), "Property is required for class MailCadenceDefinition.");
 
@@ -374,6 +501,27 @@ namespace Reacon.Sdk.Model
 
             writer.WriteNumber("version", mailCadenceDefinition.VarVersion);
 
+            if (mailCadenceDefinition.AuthoringRevisionOption.IsSet)
+                writer.WriteNumber("authoringRevision", mailCadenceDefinition.AuthoringRevisionOption.Value!.Value);
+
+            if (mailCadenceDefinition.EmailDeliveryOption.IsSet)
+            {
+                writer.WritePropertyName("emailDelivery");
+                JsonSerializer.Serialize(writer, mailCadenceDefinition.EmailDelivery, jsonSerializerOptions);
+            }
+            if (mailCadenceDefinition.EmailExcludedContactIdsOption.IsSet)
+            {
+                writer.WritePropertyName("emailExcludedContactIds");
+                JsonSerializer.Serialize(writer, mailCadenceDefinition.EmailExcludedContactIds, jsonSerializerOptions);
+            }
+            if (mailCadenceDefinition.EmailRecipientOverridesOption.IsSet)
+            {
+                writer.WritePropertyName("emailRecipientOverrides");
+                JsonSerializer.Serialize(writer, mailCadenceDefinition.EmailRecipientOverrides, jsonSerializerOptions);
+            }
+            if (mailCadenceDefinition.EmailRenderSeedOption.IsSet)
+                writer.WriteString("emailRenderSeed", mailCadenceDefinition.EmailRenderSeed);
+
             if (mailCadenceDefinition.StopConditionsOption.IsSet)
             {
                 writer.WritePropertyName("stopConditions");
@@ -382,7 +530,7 @@ namespace Reacon.Sdk.Model
 
             foreach (var property in mailCadenceDefinition.AdditionalProperties)
             {
-                if (property.Key == "createdAt" || property.Key == "createdByActorId" || property.Key == "id" || property.Key == "name" || property.Key == "nodes" || property.Key == "status" || property.Key == "tenantId" || property.Key == "version" || property.Key == "stopConditions") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "createdAt" || property.Key == "createdByActorId" || property.Key == "id" || property.Key == "name" || property.Key == "nodes" || property.Key == "status" || property.Key == "tenantId" || property.Key == "version" || property.Key == "authoringRevision" || property.Key == "emailDelivery" || property.Key == "emailExcludedContactIds" || property.Key == "emailRecipientOverrides" || property.Key == "emailRenderSeed" || property.Key == "stopConditions") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

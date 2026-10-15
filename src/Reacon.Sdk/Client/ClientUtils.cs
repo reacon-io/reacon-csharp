@@ -378,6 +378,34 @@ namespace Reacon.Sdk.Client
                 return ProductLeadUpsertExecution.ToolEnumToJsonValue(productLeadUpsertExecutionToolEnum);
             if (obj is ProductLeadsListExecution.ToolEnum productLeadsListExecutionToolEnum)
                 return ProductLeadsListExecution.ToolEnumToJsonValue(productLeadsListExecutionToolEnum);
+            if (obj is ProductMailSequenceAddAbExecution.ToolEnum productMailSequenceAddAbExecutionToolEnum)
+                return ProductMailSequenceAddAbExecution.ToolEnumToJsonValue(productMailSequenceAddAbExecutionToolEnum);
+            if (obj is ProductMailSequenceAddAudienceExecution.ToolEnum productMailSequenceAddAudienceExecutionToolEnum)
+                return ProductMailSequenceAddAudienceExecution.ToolEnumToJsonValue(productMailSequenceAddAudienceExecutionToolEnum);
+            if (obj is ProductMailSequenceCampaignsListExecution.ToolEnum productMailSequenceCampaignsListExecutionToolEnum)
+                return ProductMailSequenceCampaignsListExecution.ToolEnumToJsonValue(productMailSequenceCampaignsListExecutionToolEnum);
+            if (obj is ProductMailSequenceDraftSaveExecution.ToolEnum productMailSequenceDraftSaveExecutionToolEnum)
+                return ProductMailSequenceDraftSaveExecution.ToolEnumToJsonValue(productMailSequenceDraftSaveExecutionToolEnum);
+            if (obj is ProductMailSequenceDraftSaveInput.StatusEnum productMailSequenceDraftSaveInputStatusEnum)
+                return ProductMailSequenceDraftSaveInput.StatusEnumToJsonValue(productMailSequenceDraftSaveInputStatusEnum);
+            if (obj is ProductMailSequenceDraftsListExecution.ToolEnum productMailSequenceDraftsListExecutionToolEnum)
+                return ProductMailSequenceDraftsListExecution.ToolEnumToJsonValue(productMailSequenceDraftsListExecutionToolEnum);
+            if (obj is ProductMailSequenceLaunchExecution.ToolEnum productMailSequenceLaunchExecutionToolEnum)
+                return ProductMailSequenceLaunchExecution.ToolEnumToJsonValue(productMailSequenceLaunchExecutionToolEnum);
+            if (obj is ProductMailSequenceLaunchInput.EnrollmentModeEnum productMailSequenceLaunchInputEnrollmentModeEnum)
+                return ProductMailSequenceLaunchInput.EnrollmentModeEnumToJsonValue(productMailSequenceLaunchInputEnrollmentModeEnum);
+            if (obj is ProductMailSequencePublishExecution.ToolEnum productMailSequencePublishExecutionToolEnum)
+                return ProductMailSequencePublishExecution.ToolEnumToJsonValue(productMailSequencePublishExecutionToolEnum);
+            if (obj is ProductMailSequenceReadinessExecution.ToolEnum productMailSequenceReadinessExecutionToolEnum)
+                return ProductMailSequenceReadinessExecution.ToolEnumToJsonValue(productMailSequenceReadinessExecutionToolEnum);
+            if (obj is ProductMailSequenceRecipientsListExecution.ToolEnum productMailSequenceRecipientsListExecutionToolEnum)
+                return ProductMailSequenceRecipientsListExecution.ToolEnumToJsonValue(productMailSequenceRecipientsListExecutionToolEnum);
+            if (obj is ProductMailSequenceResultsExecution.ToolEnum productMailSequenceResultsExecutionToolEnum)
+                return ProductMailSequenceResultsExecution.ToolEnumToJsonValue(productMailSequenceResultsExecutionToolEnum);
+            if (obj is ProductMailSequenceStateExecution.ToolEnum productMailSequenceStateExecutionToolEnum)
+                return ProductMailSequenceStateExecution.ToolEnumToJsonValue(productMailSequenceStateExecutionToolEnum);
+            if (obj is ProductMailSequenceStateInput.ActionEnum productMailSequenceStateInputActionEnum)
+                return ProductMailSequenceStateInput.ActionEnumToJsonValue(productMailSequenceStateInputActionEnum);
             if (obj is ProductPersonEnrichExecution.ToolEnum productPersonEnrichExecutionToolEnum)
                 return ProductPersonEnrichExecution.ToolEnumToJsonValue(productPersonEnrichExecutionToolEnum);
             if (obj is ProductSavedSearchesListExecution.ToolEnum productSavedSearchesListExecutionToolEnum)
@@ -392,8 +420,12 @@ namespace Reacon.Sdk.Client
                 return ProductSequenceRecipientsListExecution.ToolEnumToJsonValue(productSequenceRecipientsListExecutionToolEnum);
             if (obj is ProductSequenceStartExecution.ToolEnum productSequenceStartExecutionToolEnum)
                 return ProductSequenceStartExecution.ToolEnumToJsonValue(productSequenceStartExecutionToolEnum);
+            if (obj is ProductSequenceStartInput.EnrollmentModeEnum productSequenceStartInputEnrollmentModeEnum)
+                return ProductSequenceStartInput.EnrollmentModeEnumToJsonValue(productSequenceStartInputEnrollmentModeEnum);
             if (obj is ProductSequencesListExecution.ToolEnum productSequencesListExecutionToolEnum)
                 return ProductSequencesListExecution.ToolEnumToJsonValue(productSequencesListExecutionToolEnum);
+            if (obj is ProductSequencesListOutput.SourceEnum productSequencesListOutputSourceEnum)
+                return ProductSequencesListOutput.SourceEnumToJsonValue(productSequencesListOutputSourceEnum);
             if (obj is ProductTeamMembersExecution.ToolEnum productTeamMembersExecutionToolEnum)
                 return ProductTeamMembersExecution.ToolEnumToJsonValue(productTeamMembersExecutionToolEnum);
             if (obj is ProductToolExecution.ToolEnum productToolExecutionToolEnum)

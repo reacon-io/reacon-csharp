@@ -36,14 +36,18 @@ namespace Reacon.Sdk.Model
         /// <param name="name">name</param>
         /// <param name="nodes">nodes</param>
         /// <param name="status">status</param>
+        /// <param name="emailExcludedContactIds">emailExcludedContactIds</param>
+        /// <param name="emailRecipientOverrides">emailRecipientOverrides</param>
         /// <param name="id">id</param>
         /// <param name="stopConditions">stopConditions</param>
         [JsonConstructor]
-        public MailPostCadencesRequest(string name, List<MailPostCadencesRequestNodesInner> nodes, StatusEnum status, Option<string?> id = default, Option<MailPostCadencesRequestStopConditions?> stopConditions = default)
+        public MailPostCadencesRequest(string name, List<MailPostCadencesRequestNodesInner> nodes, StatusEnum status, Option<List<Guid>?> emailExcludedContactIds = default, Option<List<MailPostCadencesRequestEmailRecipientOverridesInner>?> emailRecipientOverrides = default, Option<string?> id = default, Option<MailPostCadencesRequestStopConditions?> stopConditions = default)
         {
             Name = name;
             Nodes = nodes;
             Status = status;
+            EmailExcludedContactIdsOption = emailExcludedContactIds;
+            EmailRecipientOverridesOption = emailRecipientOverrides;
             IdOption = id;
             StopConditionsOption = stopConditions;
             OnCreated();
@@ -150,6 +154,32 @@ namespace Reacon.Sdk.Model
         public List<MailPostCadencesRequestNodesInner> Nodes { get; set; }
 
         /// <summary>
+        /// Used to track the state of EmailExcludedContactIds
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<Guid>?> EmailExcludedContactIdsOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets EmailExcludedContactIds
+        /// </summary>
+        [JsonPropertyName("emailExcludedContactIds")]
+        public List<Guid>? EmailExcludedContactIds { get { return this.EmailExcludedContactIdsOption.Value; } set { this.EmailExcludedContactIdsOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of EmailRecipientOverrides
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<MailPostCadencesRequestEmailRecipientOverridesInner>?> EmailRecipientOverridesOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets EmailRecipientOverrides
+        /// </summary>
+        [JsonPropertyName("emailRecipientOverrides")]
+        public List<MailPostCadencesRequestEmailRecipientOverridesInner>? EmailRecipientOverrides { get { return this.EmailRecipientOverridesOption.Value; } set { this.EmailRecipientOverridesOption = new(value); } }
+
+        /// <summary>
         /// Used to track the state of Id
         /// </summary>
         [JsonIgnore]
@@ -186,6 +216,8 @@ namespace Reacon.Sdk.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Nodes: ").Append(Nodes).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  EmailExcludedContactIds: ").Append(EmailExcludedContactIds).Append("\n");
+            sb.Append("  EmailRecipientOverrides: ").Append(EmailRecipientOverrides).Append("\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  StopConditions: ").Append(StopConditions).Append("\n");
             sb.Append("}\n");
@@ -262,6 +294,8 @@ namespace Reacon.Sdk.Model
             Option<string?> name = default;
             Option<List<MailPostCadencesRequestNodesInner>?> nodes = default;
             Option<MailPostCadencesRequest.StatusEnum?> status = default;
+            Option<List<Guid>?> emailExcludedContactIds = default;
+            Option<List<MailPostCadencesRequestEmailRecipientOverridesInner>?> emailRecipientOverrides = default;
             Option<string?> id = default;
             Option<MailPostCadencesRequestStopConditions?> stopConditions = default;
 
@@ -296,6 +330,12 @@ namespace Reacon.Sdk.Model
                                 status = new Option<MailPostCadencesRequest.StatusEnum?>(statusValue);
                             }
                             break;
+                        case "emailExcludedContactIds":
+                            emailExcludedContactIds = new Option<List<Guid>?>(JsonSerializer.Deserialize<List<Guid>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "emailRecipientOverrides":
+                            emailRecipientOverrides = new Option<List<MailPostCadencesRequestEmailRecipientOverridesInner>?>(JsonSerializer.Deserialize<List<MailPostCadencesRequestEmailRecipientOverridesInner>>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
                         case "id":
                             id = new Option<string?>(utf8JsonReader.GetString()!);
                             break;
@@ -326,13 +366,19 @@ namespace Reacon.Sdk.Model
             if (status.IsSet && status.Value == null)
                 throw new ArgumentNullException(nameof(status), "Property is not nullable for class MailPostCadencesRequest.");
 
+            if (emailExcludedContactIds.IsSet && emailExcludedContactIds.Value == null)
+                throw new ArgumentNullException(nameof(emailExcludedContactIds), "Property is not nullable for class MailPostCadencesRequest.");
+
+            if (emailRecipientOverrides.IsSet && emailRecipientOverrides.Value == null)
+                throw new ArgumentNullException(nameof(emailRecipientOverrides), "Property is not nullable for class MailPostCadencesRequest.");
+
             if (id.IsSet && id.Value == null)
                 throw new ArgumentNullException(nameof(id), "Property is not nullable for class MailPostCadencesRequest.");
 
             if (stopConditions.IsSet && stopConditions.Value == null)
                 throw new ArgumentNullException(nameof(stopConditions), "Property is not nullable for class MailPostCadencesRequest.");
 
-            return new MailPostCadencesRequest(name.Value!, nodes.Value!, status.Value!.Value!, id, stopConditions);
+            return new MailPostCadencesRequest(name.Value!, nodes.Value!, status.Value!.Value!, emailExcludedContactIds, emailRecipientOverrides, id, stopConditions);
         }
 
         /// <summary>
@@ -365,6 +411,12 @@ namespace Reacon.Sdk.Model
             if (mailPostCadencesRequest.Nodes == null)
                 throw new ArgumentNullException(nameof(mailPostCadencesRequest.Nodes), "Property is required for class MailPostCadencesRequest.");
 
+            if (mailPostCadencesRequest.EmailExcludedContactIdsOption.IsSet && mailPostCadencesRequest.EmailExcludedContactIds == null)
+                throw new ArgumentNullException(nameof(mailPostCadencesRequest.EmailExcludedContactIds), "Property is required for class MailPostCadencesRequest.");
+
+            if (mailPostCadencesRequest.EmailRecipientOverridesOption.IsSet && mailPostCadencesRequest.EmailRecipientOverrides == null)
+                throw new ArgumentNullException(nameof(mailPostCadencesRequest.EmailRecipientOverrides), "Property is required for class MailPostCadencesRequest.");
+
             if (mailPostCadencesRequest.IdOption.IsSet && mailPostCadencesRequest.Id == null)
                 throw new ArgumentNullException(nameof(mailPostCadencesRequest.Id), "Property is required for class MailPostCadencesRequest.");
 
@@ -377,6 +429,16 @@ namespace Reacon.Sdk.Model
             JsonSerializer.Serialize(writer, mailPostCadencesRequest.Nodes, jsonSerializerOptions);
             var statusRawValue = MailPostCadencesRequest.StatusEnumToJsonValue(mailPostCadencesRequest.Status);
             writer.WriteString("status", statusRawValue);
+            if (mailPostCadencesRequest.EmailExcludedContactIdsOption.IsSet)
+            {
+                writer.WritePropertyName("emailExcludedContactIds");
+                JsonSerializer.Serialize(writer, mailPostCadencesRequest.EmailExcludedContactIds, jsonSerializerOptions);
+            }
+            if (mailPostCadencesRequest.EmailRecipientOverridesOption.IsSet)
+            {
+                writer.WritePropertyName("emailRecipientOverrides");
+                JsonSerializer.Serialize(writer, mailPostCadencesRequest.EmailRecipientOverrides, jsonSerializerOptions);
+            }
             if (mailPostCadencesRequest.IdOption.IsSet)
                 writer.WriteString("id", mailPostCadencesRequest.Id);
 

@@ -34,11 +34,11 @@ namespace Reacon.Sdk.Model
         /// Initializes a new instance of the <see cref="ProductSequenceStartExecution" /> class.
         /// </summary>
         /// <param name="executionId">executionId</param>
-        /// <param name="output">output</param>
+        /// <param name="output">Response body of the Mail API operation POST /v1/teams/{teamId}/mail/cadence-campaigns, returned unchanged.</param>
         /// <param name="replay">replay</param>
         /// <param name="tool">tool</param>
         [JsonConstructor]
-        public ProductSequenceStartExecution(Guid executionId, ProductSequenceStartOutput output, bool replay, ToolEnum tool)
+        public ProductSequenceStartExecution(Guid executionId, Dictionary<string, Object> output, bool replay, ToolEnum tool)
         {
             ExecutionId = executionId;
             Output = output;
@@ -114,10 +114,11 @@ namespace Reacon.Sdk.Model
         public Guid ExecutionId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Output
+        /// Response body of the Mail API operation POST /v1/teams/{teamId}/mail/cadence-campaigns, returned unchanged.
         /// </summary>
+        /// <value>Response body of the Mail API operation POST /v1/teams/{teamId}/mail/cadence-campaigns, returned unchanged.</value>
         [JsonPropertyName("output")]
-        public ProductSequenceStartOutput Output { get; set; }
+        public Dictionary<string, Object> Output { get; set; }
 
         /// <summary>
         /// Gets or Sets Replay
@@ -193,7 +194,7 @@ namespace Reacon.Sdk.Model
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
             Option<Guid?> executionId = default;
-            Option<ProductSequenceStartOutput?> output = default;
+            Option<Dictionary<string, Object>?> output = default;
             Option<bool?> replay = default;
             Option<ProductSequenceStartExecution.ToolEnum?> tool = default;
 
@@ -216,7 +217,7 @@ namespace Reacon.Sdk.Model
                             executionId = new Option<Guid?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (Guid?)null : utf8JsonReader.GetGuid());
                             break;
                         case "output":
-                            output = new Option<ProductSequenceStartOutput?>(JsonSerializer.Deserialize<ProductSequenceStartOutput>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            output = new Option<Dictionary<string, Object>?>(JsonSerializer.Deserialize<Dictionary<string, Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "replay":
                             replay = new Option<bool?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (bool?)null : utf8JsonReader.GetBoolean());

@@ -41,13 +41,15 @@ namespace Reacon.Sdk.Model
         /// <param name="deliveryRate">deliveryRate</param>
         /// <param name="from">from</param>
         /// <param name="mailboxes">mailboxes</param>
-        /// <param name="replyRate">replyRate</param>
+        /// <param name="replyRate">Legacy message-based rate, retained for API compatibility.</param>
         /// <param name="to">to</param>
         /// <param name="total">total</param>
         /// <param name="variants">variants</param>
         /// <param name="averageAcceptanceLatencyMs">averageAcceptanceLatencyMs</param>
+        /// <param name="recipients">recipients</param>
+        /// <param name="sequences">sequences</param>
         [JsonConstructor]
-        public MailMessageAnalyticsOverview(decimal acceptanceRate, decimal bounceRate, decimal complaintRate, MailCampaignProgressMessageCounts counts, List<MailMessageAnalyticsOverviewDailyInner> daily, decimal deliveryRate, DateTimeOffset from, List<MailMessageAnalyticsOverviewMailboxesInner> mailboxes, decimal replyRate, DateTimeOffset to, decimal total, List<MailMessageAnalyticsOverviewVariantsInner> variants, decimal? averageAcceptanceLatencyMs = default)
+        public MailMessageAnalyticsOverview(decimal acceptanceRate, decimal bounceRate, decimal complaintRate, MailCampaignProgressMessageCounts counts, List<MailMessageAnalyticsOverviewDailyInner> daily, decimal deliveryRate, DateTimeOffset from, List<MailMessageAnalyticsOverviewMailboxesInner> mailboxes, decimal replyRate, DateTimeOffset to, decimal total, List<MailMessageAnalyticsOverviewVariantsInner> variants, decimal? averageAcceptanceLatencyMs = default, Option<MailRecipientEngagement?> recipients = default, Option<List<MailSequenceRecipientEngagement>?> sequences = default)
         {
             AcceptanceRate = acceptanceRate;
             BounceRate = bounceRate;
@@ -62,6 +64,8 @@ namespace Reacon.Sdk.Model
             Total = total;
             Variants = variants;
             AverageAcceptanceLatencyMs = averageAcceptanceLatencyMs;
+            RecipientsOption = recipients;
+            SequencesOption = sequences;
             OnCreated();
         }
 
@@ -116,8 +120,9 @@ namespace Reacon.Sdk.Model
         public List<MailMessageAnalyticsOverviewMailboxesInner> Mailboxes { get; set; }
 
         /// <summary>
-        /// Gets or Sets ReplyRate
+        /// Legacy message-based rate, retained for API compatibility.
         /// </summary>
+        /// <value>Legacy message-based rate, retained for API compatibility.</value>
         [JsonPropertyName("replyRate")]
         public decimal ReplyRate { get; set; }
 
@@ -146,6 +151,32 @@ namespace Reacon.Sdk.Model
         public decimal? AverageAcceptanceLatencyMs { get; set; }
 
         /// <summary>
+        /// Used to track the state of Recipients
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<MailRecipientEngagement?> RecipientsOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Recipients
+        /// </summary>
+        [JsonPropertyName("recipients")]
+        public MailRecipientEngagement? Recipients { get { return this.RecipientsOption.Value; } set { this.RecipientsOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of Sequences
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<List<MailSequenceRecipientEngagement>?> SequencesOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Sequences
+        /// </summary>
+        [JsonPropertyName("sequences")]
+        public List<MailSequenceRecipientEngagement>? Sequences { get { return this.SequencesOption.Value; } set { this.SequencesOption = new(value); } }
+
+        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -172,6 +203,8 @@ namespace Reacon.Sdk.Model
             sb.Append("  Total: ").Append(Total).Append("\n");
             sb.Append("  Variants: ").Append(Variants).Append("\n");
             sb.Append("  AverageAcceptanceLatencyMs: ").Append(AverageAcceptanceLatencyMs).Append("\n");
+            sb.Append("  Recipients: ").Append(Recipients).Append("\n");
+            sb.Append("  Sequences: ").Append(Sequences).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -244,6 +277,8 @@ namespace Reacon.Sdk.Model
             Option<decimal?> total = default;
             Option<List<MailMessageAnalyticsOverviewVariantsInner>?> variants = default;
             Option<decimal?> averageAcceptanceLatencyMs = default;
+            Option<MailRecipientEngagement?> recipients = default;
+            Option<List<MailSequenceRecipientEngagement>?> sequences = default;
 
             while (utf8JsonReader.Read())
             {
@@ -298,6 +333,12 @@ namespace Reacon.Sdk.Model
                             break;
                         case "averageAcceptanceLatencyMs":
                             averageAcceptanceLatencyMs = new Option<decimal?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (decimal?)null : utf8JsonReader.GetDecimal());
+                            break;
+                        case "recipients":
+                            recipients = new Option<MailRecipientEngagement?>(JsonSerializer.Deserialize<MailRecipientEngagement>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            break;
+                        case "sequences":
+                            sequences = new Option<List<MailSequenceRecipientEngagement>?>(JsonSerializer.Deserialize<List<MailSequenceRecipientEngagement>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         default:
                             using (var reaconUnknownValue = JsonDocument.ParseValue(ref utf8JsonReader))
@@ -382,7 +423,13 @@ namespace Reacon.Sdk.Model
             if (variants.IsSet && variants.Value == null)
                 throw new ArgumentNullException(nameof(variants), "Property is not nullable for class MailMessageAnalyticsOverview.");
 
-            var reaconModelResult = new MailMessageAnalyticsOverview(acceptanceRate.Value!.Value!, bounceRate.Value!.Value!, complaintRate.Value!.Value!, counts.Value!, daily.Value!, deliveryRate.Value!.Value!, from.Value!.Value!, mailboxes.Value!, replyRate.Value!.Value!, to.Value!.Value!, total.Value!.Value!, variants.Value!, averageAcceptanceLatencyMs.Value!);
+            if (recipients.IsSet && recipients.Value == null)
+                throw new ArgumentNullException(nameof(recipients), "Property is not nullable for class MailMessageAnalyticsOverview.");
+
+            if (sequences.IsSet && sequences.Value == null)
+                throw new ArgumentNullException(nameof(sequences), "Property is not nullable for class MailMessageAnalyticsOverview.");
+
+            var reaconModelResult = new MailMessageAnalyticsOverview(acceptanceRate.Value!.Value!, bounceRate.Value!.Value!, complaintRate.Value!.Value!, counts.Value!, daily.Value!, deliveryRate.Value!.Value!, from.Value!.Value!, mailboxes.Value!, replyRate.Value!.Value!, to.Value!.Value!, total.Value!.Value!, variants.Value!, averageAcceptanceLatencyMs.Value!, recipients, sequences);
             foreach (var property in additionalProperties) reaconModelResult.AdditionalProperties[property.Key] = property.Value;
             return reaconModelResult;
         }
@@ -423,6 +470,12 @@ namespace Reacon.Sdk.Model
             if (mailMessageAnalyticsOverview.Variants == null)
                 throw new ArgumentNullException(nameof(mailMessageAnalyticsOverview.Variants), "Property is required for class MailMessageAnalyticsOverview.");
 
+            if (mailMessageAnalyticsOverview.RecipientsOption.IsSet && mailMessageAnalyticsOverview.Recipients == null)
+                throw new ArgumentNullException(nameof(mailMessageAnalyticsOverview.Recipients), "Property is required for class MailMessageAnalyticsOverview.");
+
+            if (mailMessageAnalyticsOverview.SequencesOption.IsSet && mailMessageAnalyticsOverview.Sequences == null)
+                throw new ArgumentNullException(nameof(mailMessageAnalyticsOverview.Sequences), "Property is required for class MailMessageAnalyticsOverview.");
+
             writer.WriteNumber("acceptanceRate", mailMessageAnalyticsOverview.AcceptanceRate);
 
             writer.WriteNumber("bounceRate", mailMessageAnalyticsOverview.BounceRate);
@@ -452,9 +505,20 @@ namespace Reacon.Sdk.Model
             else
                 writer.WriteNull("averageAcceptanceLatencyMs");
 
+            if (mailMessageAnalyticsOverview.RecipientsOption.IsSet)
+            {
+                writer.WritePropertyName("recipients");
+                JsonSerializer.Serialize(writer, mailMessageAnalyticsOverview.Recipients, jsonSerializerOptions);
+            }
+            if (mailMessageAnalyticsOverview.SequencesOption.IsSet)
+            {
+                writer.WritePropertyName("sequences");
+                JsonSerializer.Serialize(writer, mailMessageAnalyticsOverview.Sequences, jsonSerializerOptions);
+            }
+
             foreach (var property in mailMessageAnalyticsOverview.AdditionalProperties)
             {
-                if (property.Key == "acceptanceRate" || property.Key == "bounceRate" || property.Key == "complaintRate" || property.Key == "counts" || property.Key == "daily" || property.Key == "deliveryRate" || property.Key == "from" || property.Key == "mailboxes" || property.Key == "replyRate" || property.Key == "to" || property.Key == "total" || property.Key == "variants" || property.Key == "averageAcceptanceLatencyMs") throw new JsonException("Additional properties cannot override declared properties");
+                if (property.Key == "acceptanceRate" || property.Key == "bounceRate" || property.Key == "complaintRate" || property.Key == "counts" || property.Key == "daily" || property.Key == "deliveryRate" || property.Key == "from" || property.Key == "mailboxes" || property.Key == "replyRate" || property.Key == "to" || property.Key == "total" || property.Key == "variants" || property.Key == "averageAcceptanceLatencyMs" || property.Key == "recipients" || property.Key == "sequences") throw new JsonException("Additional properties cannot override declared properties");
                 writer.WritePropertyName(property.Key);
                 property.Value.WriteTo(writer);
             }

@@ -33,12 +33,12 @@ namespace Reacon.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductSequenceRecipientsListExecution" /> class.
         /// </summary>
-        /// <param name="output">output</param>
+        /// <param name="output">Response body of the Mail API operation GET /v1/teams/{teamId}/mail/cadence-recipients, returned unchanged.</param>
         /// <param name="replay">replay</param>
         /// <param name="tool">tool</param>
         /// <param name="executionId">executionId</param>
         [JsonConstructor]
-        public ProductSequenceRecipientsListExecution(ProductSequenceRecipientsListOutput output, bool replay, ToolEnum tool, string? executionId = default)
+        public ProductSequenceRecipientsListExecution(Dictionary<string, Object> output, bool replay, ToolEnum tool, string? executionId = default)
         {
             Output = output;
             Replay = replay;
@@ -108,10 +108,11 @@ namespace Reacon.Sdk.Model
         public ToolEnum Tool { get; set; }
 
         /// <summary>
-        /// Gets or Sets Output
+        /// Response body of the Mail API operation GET /v1/teams/{teamId}/mail/cadence-recipients, returned unchanged.
         /// </summary>
+        /// <value>Response body of the Mail API operation GET /v1/teams/{teamId}/mail/cadence-recipients, returned unchanged.</value>
         [JsonPropertyName("output")]
-        public ProductSequenceRecipientsListOutput Output { get; set; }
+        public Dictionary<string, Object> Output { get; set; }
 
         /// <summary>
         /// Gets or Sets Replay
@@ -192,7 +193,7 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            Option<ProductSequenceRecipientsListOutput?> output = default;
+            Option<Dictionary<string, Object>?> output = default;
             Option<bool?> replay = default;
             Option<ProductSequenceRecipientsListExecution.ToolEnum?> tool = default;
             Option<string?> executionId = default;
@@ -213,7 +214,7 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "output":
-                            output = new Option<ProductSequenceRecipientsListOutput?>(JsonSerializer.Deserialize<ProductSequenceRecipientsListOutput>(ref utf8JsonReader, jsonSerializerOptions)!);
+                            output = new Option<Dictionary<string, Object>?>(JsonSerializer.Deserialize<Dictionary<string, Object>>(ref utf8JsonReader, jsonSerializerOptions)!);
                             break;
                         case "replay":
                             replay = new Option<bool?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (bool?)null : utf8JsonReader.GetBoolean());

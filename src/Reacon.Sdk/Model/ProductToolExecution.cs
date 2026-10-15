@@ -453,6 +453,116 @@ namespace Reacon.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
         /// </summary>
+        /// <param name="productMailSequenceDraftsListExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceDraftsListExecution productMailSequenceDraftsListExecution)
+        {
+            ProductMailSequenceDraftsListExecution = productMailSequenceDraftsListExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceDraftSaveExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceDraftSaveExecution productMailSequenceDraftSaveExecution)
+        {
+            ProductMailSequenceDraftSaveExecution = productMailSequenceDraftSaveExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceAddAudienceExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceAddAudienceExecution productMailSequenceAddAudienceExecution)
+        {
+            ProductMailSequenceAddAudienceExecution = productMailSequenceAddAudienceExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceReadinessExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceReadinessExecution productMailSequenceReadinessExecution)
+        {
+            ProductMailSequenceReadinessExecution = productMailSequenceReadinessExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequencePublishExecution"></param>
+        internal ProductToolExecution(ProductMailSequencePublishExecution productMailSequencePublishExecution)
+        {
+            ProductMailSequencePublishExecution = productMailSequencePublishExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceLaunchExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceLaunchExecution productMailSequenceLaunchExecution)
+        {
+            ProductMailSequenceLaunchExecution = productMailSequenceLaunchExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceCampaignsListExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceCampaignsListExecution productMailSequenceCampaignsListExecution)
+        {
+            ProductMailSequenceCampaignsListExecution = productMailSequenceCampaignsListExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceRecipientsListExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceRecipientsListExecution productMailSequenceRecipientsListExecution)
+        {
+            ProductMailSequenceRecipientsListExecution = productMailSequenceRecipientsListExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceAddAbExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceAddAbExecution productMailSequenceAddAbExecution)
+        {
+            ProductMailSequenceAddAbExecution = productMailSequenceAddAbExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceStateExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceStateExecution productMailSequenceStateExecution)
+        {
+            ProductMailSequenceStateExecution = productMailSequenceStateExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
+        /// <param name="productMailSequenceResultsExecution"></param>
+        internal ProductToolExecution(ProductMailSequenceResultsExecution productMailSequenceResultsExecution)
+        {
+            ProductMailSequenceResultsExecution = productMailSequenceResultsExecution;
+            OnCreated();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductToolExecution" /> class.
+        /// </summary>
         /// <param name="productAccountInfoExecution"></param>
         internal ProductToolExecution(ProductAccountInfoExecution productAccountInfoExecution)
         {
@@ -728,34 +838,89 @@ namespace Reacon.Sdk.Model
             SequenceStart = 42,
 
             /// <summary>
+            /// Enum MailSequenceDraftsList for value: mail_sequence_drafts_list
+            /// </summary>
+            MailSequenceDraftsList = 43,
+
+            /// <summary>
+            /// Enum MailSequenceDraftSave for value: mail_sequence_draft_save
+            /// </summary>
+            MailSequenceDraftSave = 44,
+
+            /// <summary>
+            /// Enum MailSequenceAddAudience for value: mail_sequence_add_audience
+            /// </summary>
+            MailSequenceAddAudience = 45,
+
+            /// <summary>
+            /// Enum MailSequenceReadiness for value: mail_sequence_readiness
+            /// </summary>
+            MailSequenceReadiness = 46,
+
+            /// <summary>
+            /// Enum MailSequencePublish for value: mail_sequence_publish
+            /// </summary>
+            MailSequencePublish = 47,
+
+            /// <summary>
+            /// Enum MailSequenceLaunch for value: mail_sequence_launch
+            /// </summary>
+            MailSequenceLaunch = 48,
+
+            /// <summary>
+            /// Enum MailSequenceCampaignsList for value: mail_sequence_campaigns_list
+            /// </summary>
+            MailSequenceCampaignsList = 49,
+
+            /// <summary>
+            /// Enum MailSequenceRecipientsList for value: mail_sequence_recipients_list
+            /// </summary>
+            MailSequenceRecipientsList = 50,
+
+            /// <summary>
+            /// Enum MailSequenceAddAb for value: mail_sequence_add_ab
+            /// </summary>
+            MailSequenceAddAb = 51,
+
+            /// <summary>
+            /// Enum MailSequenceState for value: mail_sequence_state
+            /// </summary>
+            MailSequenceState = 52,
+
+            /// <summary>
+            /// Enum MailSequenceResults for value: mail_sequence_results
+            /// </summary>
+            MailSequenceResults = 53,
+
+            /// <summary>
             /// Enum AccountInfo for value: account_info
             /// </summary>
-            AccountInfo = 43,
+            AccountInfo = 54,
 
             /// <summary>
             /// Enum Usage for value: usage
             /// </summary>
-            Usage = 44,
+            Usage = 55,
 
             /// <summary>
             /// Enum UsageHistory for value: usage_history
             /// </summary>
-            UsageHistory = 45,
+            UsageHistory = 56,
 
             /// <summary>
             /// Enum TeamMembers for value: team_members
             /// </summary>
-            TeamMembers = 46,
+            TeamMembers = 57,
 
             /// <summary>
             /// Enum ConnectedApps for value: connected_apps
             /// </summary>
-            ConnectedApps = 47,
+            ConnectedApps = 58,
 
             /// <summary>
             /// Enum ConnectedAppPush for value: connected_app_push
             /// </summary>
-            ConnectedAppPush = 48
+            ConnectedAppPush = 59
         }
 
         /// <summary>
@@ -891,6 +1056,39 @@ namespace Reacon.Sdk.Model
 
             if (value.Equals("sequence_start"))
                 return ToolEnum.SequenceStart;
+
+            if (value.Equals("mail_sequence_drafts_list"))
+                return ToolEnum.MailSequenceDraftsList;
+
+            if (value.Equals("mail_sequence_draft_save"))
+                return ToolEnum.MailSequenceDraftSave;
+
+            if (value.Equals("mail_sequence_add_audience"))
+                return ToolEnum.MailSequenceAddAudience;
+
+            if (value.Equals("mail_sequence_readiness"))
+                return ToolEnum.MailSequenceReadiness;
+
+            if (value.Equals("mail_sequence_publish"))
+                return ToolEnum.MailSequencePublish;
+
+            if (value.Equals("mail_sequence_launch"))
+                return ToolEnum.MailSequenceLaunch;
+
+            if (value.Equals("mail_sequence_campaigns_list"))
+                return ToolEnum.MailSequenceCampaignsList;
+
+            if (value.Equals("mail_sequence_recipients_list"))
+                return ToolEnum.MailSequenceRecipientsList;
+
+            if (value.Equals("mail_sequence_add_ab"))
+                return ToolEnum.MailSequenceAddAb;
+
+            if (value.Equals("mail_sequence_state"))
+                return ToolEnum.MailSequenceState;
+
+            if (value.Equals("mail_sequence_results"))
+                return ToolEnum.MailSequenceResults;
 
             if (value.Equals("account_info"))
                 return ToolEnum.AccountInfo;
@@ -1046,6 +1244,39 @@ namespace Reacon.Sdk.Model
             if (value.Equals("sequence_start"))
                 return ToolEnum.SequenceStart;
 
+            if (value.Equals("mail_sequence_drafts_list"))
+                return ToolEnum.MailSequenceDraftsList;
+
+            if (value.Equals("mail_sequence_draft_save"))
+                return ToolEnum.MailSequenceDraftSave;
+
+            if (value.Equals("mail_sequence_add_audience"))
+                return ToolEnum.MailSequenceAddAudience;
+
+            if (value.Equals("mail_sequence_readiness"))
+                return ToolEnum.MailSequenceReadiness;
+
+            if (value.Equals("mail_sequence_publish"))
+                return ToolEnum.MailSequencePublish;
+
+            if (value.Equals("mail_sequence_launch"))
+                return ToolEnum.MailSequenceLaunch;
+
+            if (value.Equals("mail_sequence_campaigns_list"))
+                return ToolEnum.MailSequenceCampaignsList;
+
+            if (value.Equals("mail_sequence_recipients_list"))
+                return ToolEnum.MailSequenceRecipientsList;
+
+            if (value.Equals("mail_sequence_add_ab"))
+                return ToolEnum.MailSequenceAddAb;
+
+            if (value.Equals("mail_sequence_state"))
+                return ToolEnum.MailSequenceState;
+
+            if (value.Equals("mail_sequence_results"))
+                return ToolEnum.MailSequenceResults;
+
             if (value.Equals("account_info"))
                 return ToolEnum.AccountInfo;
 
@@ -1200,6 +1431,39 @@ namespace Reacon.Sdk.Model
 
             if (value == ToolEnum.SequenceStart)
                 return "sequence_start";
+
+            if (value == ToolEnum.MailSequenceDraftsList)
+                return "mail_sequence_drafts_list";
+
+            if (value == ToolEnum.MailSequenceDraftSave)
+                return "mail_sequence_draft_save";
+
+            if (value == ToolEnum.MailSequenceAddAudience)
+                return "mail_sequence_add_audience";
+
+            if (value == ToolEnum.MailSequenceReadiness)
+                return "mail_sequence_readiness";
+
+            if (value == ToolEnum.MailSequencePublish)
+                return "mail_sequence_publish";
+
+            if (value == ToolEnum.MailSequenceLaunch)
+                return "mail_sequence_launch";
+
+            if (value == ToolEnum.MailSequenceCampaignsList)
+                return "mail_sequence_campaigns_list";
+
+            if (value == ToolEnum.MailSequenceRecipientsList)
+                return "mail_sequence_recipients_list";
+
+            if (value == ToolEnum.MailSequenceAddAb)
+                return "mail_sequence_add_ab";
+
+            if (value == ToolEnum.MailSequenceState)
+                return "mail_sequence_state";
+
+            if (value == ToolEnum.MailSequenceResults)
+                return "mail_sequence_results";
 
             if (value == ToolEnum.AccountInfo)
                 return "account_info";
@@ -1433,6 +1697,61 @@ namespace Reacon.Sdk.Model
         public ProductSequenceStartExecution? ProductSequenceStartExecution { get; set; }
 
         /// <summary>
+        /// Gets or Sets ProductMailSequenceDraftsListExecution
+        /// </summary>
+        public ProductMailSequenceDraftsListExecution? ProductMailSequenceDraftsListExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceDraftSaveExecution
+        /// </summary>
+        public ProductMailSequenceDraftSaveExecution? ProductMailSequenceDraftSaveExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceAddAudienceExecution
+        /// </summary>
+        public ProductMailSequenceAddAudienceExecution? ProductMailSequenceAddAudienceExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceReadinessExecution
+        /// </summary>
+        public ProductMailSequenceReadinessExecution? ProductMailSequenceReadinessExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequencePublishExecution
+        /// </summary>
+        public ProductMailSequencePublishExecution? ProductMailSequencePublishExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceLaunchExecution
+        /// </summary>
+        public ProductMailSequenceLaunchExecution? ProductMailSequenceLaunchExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceCampaignsListExecution
+        /// </summary>
+        public ProductMailSequenceCampaignsListExecution? ProductMailSequenceCampaignsListExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceRecipientsListExecution
+        /// </summary>
+        public ProductMailSequenceRecipientsListExecution? ProductMailSequenceRecipientsListExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceAddAbExecution
+        /// </summary>
+        public ProductMailSequenceAddAbExecution? ProductMailSequenceAddAbExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceStateExecution
+        /// </summary>
+        public ProductMailSequenceStateExecution? ProductMailSequenceStateExecution { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductMailSequenceResultsExecution
+        /// </summary>
+        public ProductMailSequenceResultsExecution? ProductMailSequenceResultsExecution { get; set; }
+
+        /// <summary>
         /// Gets or Sets ProductAccountInfoExecution
         /// </summary>
         public ProductAccountInfoExecution? ProductAccountInfoExecution { get; set; }
@@ -1573,6 +1892,17 @@ namespace Reacon.Sdk.Model
             ProductLeadUpdateExecution? productLeadUpdateExecution = null;
             ProductLeadUpsertExecution? productLeadUpsertExecution = null;
             ProductLeadsListExecution? productLeadsListExecution = null;
+            ProductMailSequenceAddAbExecution? productMailSequenceAddAbExecution = null;
+            ProductMailSequenceAddAudienceExecution? productMailSequenceAddAudienceExecution = null;
+            ProductMailSequenceCampaignsListExecution? productMailSequenceCampaignsListExecution = null;
+            ProductMailSequenceDraftSaveExecution? productMailSequenceDraftSaveExecution = null;
+            ProductMailSequenceDraftsListExecution? productMailSequenceDraftsListExecution = null;
+            ProductMailSequenceLaunchExecution? productMailSequenceLaunchExecution = null;
+            ProductMailSequencePublishExecution? productMailSequencePublishExecution = null;
+            ProductMailSequenceReadinessExecution? productMailSequenceReadinessExecution = null;
+            ProductMailSequenceRecipientsListExecution? productMailSequenceRecipientsListExecution = null;
+            ProductMailSequenceResultsExecution? productMailSequenceResultsExecution = null;
+            ProductMailSequenceStateExecution? productMailSequenceStateExecution = null;
             ProductPersonEnrichExecution? productPersonEnrichExecution = null;
             ProductSavedSearchesListExecution? productSavedSearchesListExecution = null;
             ProductSequenceRecipientAddExecution? productSequenceRecipientAddExecution = null;
@@ -1786,6 +2116,61 @@ namespace Reacon.Sdk.Model
                             Utf8JsonReader utf8JsonReaderProductLeadsListExecution = utf8JsonReader;
                             productLeadsListExecution = JsonSerializer.Deserialize<ProductLeadsListExecution>(ref utf8JsonReaderProductLeadsListExecution, jsonSerializerOptions);
                         }
+                        if (discriminator?.Equals("mail_sequence_add_ab") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceAddAbExecution = utf8JsonReader;
+                            productMailSequenceAddAbExecution = JsonSerializer.Deserialize<ProductMailSequenceAddAbExecution>(ref utf8JsonReaderProductMailSequenceAddAbExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_add_audience") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceAddAudienceExecution = utf8JsonReader;
+                            productMailSequenceAddAudienceExecution = JsonSerializer.Deserialize<ProductMailSequenceAddAudienceExecution>(ref utf8JsonReaderProductMailSequenceAddAudienceExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_campaigns_list") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceCampaignsListExecution = utf8JsonReader;
+                            productMailSequenceCampaignsListExecution = JsonSerializer.Deserialize<ProductMailSequenceCampaignsListExecution>(ref utf8JsonReaderProductMailSequenceCampaignsListExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_draft_save") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceDraftSaveExecution = utf8JsonReader;
+                            productMailSequenceDraftSaveExecution = JsonSerializer.Deserialize<ProductMailSequenceDraftSaveExecution>(ref utf8JsonReaderProductMailSequenceDraftSaveExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_drafts_list") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceDraftsListExecution = utf8JsonReader;
+                            productMailSequenceDraftsListExecution = JsonSerializer.Deserialize<ProductMailSequenceDraftsListExecution>(ref utf8JsonReaderProductMailSequenceDraftsListExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_launch") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceLaunchExecution = utf8JsonReader;
+                            productMailSequenceLaunchExecution = JsonSerializer.Deserialize<ProductMailSequenceLaunchExecution>(ref utf8JsonReaderProductMailSequenceLaunchExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_publish") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequencePublishExecution = utf8JsonReader;
+                            productMailSequencePublishExecution = JsonSerializer.Deserialize<ProductMailSequencePublishExecution>(ref utf8JsonReaderProductMailSequencePublishExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_readiness") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceReadinessExecution = utf8JsonReader;
+                            productMailSequenceReadinessExecution = JsonSerializer.Deserialize<ProductMailSequenceReadinessExecution>(ref utf8JsonReaderProductMailSequenceReadinessExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_recipients_list") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceRecipientsListExecution = utf8JsonReader;
+                            productMailSequenceRecipientsListExecution = JsonSerializer.Deserialize<ProductMailSequenceRecipientsListExecution>(ref utf8JsonReaderProductMailSequenceRecipientsListExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_results") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceResultsExecution = utf8JsonReader;
+                            productMailSequenceResultsExecution = JsonSerializer.Deserialize<ProductMailSequenceResultsExecution>(ref utf8JsonReaderProductMailSequenceResultsExecution, jsonSerializerOptions);
+                        }
+                        if (discriminator?.Equals("mail_sequence_state") ?? false)
+                        {
+                            Utf8JsonReader utf8JsonReaderProductMailSequenceStateExecution = utf8JsonReader;
+                            productMailSequenceStateExecution = JsonSerializer.Deserialize<ProductMailSequenceStateExecution>(ref utf8JsonReaderProductMailSequenceStateExecution, jsonSerializerOptions);
+                        }
                         if (discriminator?.Equals("person_enrich") ?? false)
                         {
                             Utf8JsonReader utf8JsonReaderProductPersonEnrichExecution = utf8JsonReader;
@@ -1992,6 +2377,39 @@ namespace Reacon.Sdk.Model
 
             if (productLeadsListExecution != null)
                 return new ProductToolExecution(productLeadsListExecution);
+
+            if (productMailSequenceAddAbExecution != null)
+                return new ProductToolExecution(productMailSequenceAddAbExecution);
+
+            if (productMailSequenceAddAudienceExecution != null)
+                return new ProductToolExecution(productMailSequenceAddAudienceExecution);
+
+            if (productMailSequenceCampaignsListExecution != null)
+                return new ProductToolExecution(productMailSequenceCampaignsListExecution);
+
+            if (productMailSequenceDraftSaveExecution != null)
+                return new ProductToolExecution(productMailSequenceDraftSaveExecution);
+
+            if (productMailSequenceDraftsListExecution != null)
+                return new ProductToolExecution(productMailSequenceDraftsListExecution);
+
+            if (productMailSequenceLaunchExecution != null)
+                return new ProductToolExecution(productMailSequenceLaunchExecution);
+
+            if (productMailSequencePublishExecution != null)
+                return new ProductToolExecution(productMailSequencePublishExecution);
+
+            if (productMailSequenceReadinessExecution != null)
+                return new ProductToolExecution(productMailSequenceReadinessExecution);
+
+            if (productMailSequenceRecipientsListExecution != null)
+                return new ProductToolExecution(productMailSequenceRecipientsListExecution);
+
+            if (productMailSequenceResultsExecution != null)
+                return new ProductToolExecution(productMailSequenceResultsExecution);
+
+            if (productMailSequenceStateExecution != null)
+                return new ProductToolExecution(productMailSequenceStateExecution);
 
             if (productPersonEnrichExecution != null)
                 return new ProductToolExecution(productPersonEnrichExecution);
@@ -2290,6 +2708,72 @@ namespace Reacon.Sdk.Model
             {
                 ProductSequenceStartExecutionJsonConverter productSequenceStartExecutionJsonConverter = (ProductSequenceStartExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductSequenceStartExecution.GetType()));
                 productSequenceStartExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductSequenceStartExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceDraftsListExecution != null)
+            {
+                ProductMailSequenceDraftsListExecutionJsonConverter productMailSequenceDraftsListExecutionJsonConverter = (ProductMailSequenceDraftsListExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceDraftsListExecution.GetType()));
+                productMailSequenceDraftsListExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceDraftsListExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceDraftSaveExecution != null)
+            {
+                ProductMailSequenceDraftSaveExecutionJsonConverter productMailSequenceDraftSaveExecutionJsonConverter = (ProductMailSequenceDraftSaveExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceDraftSaveExecution.GetType()));
+                productMailSequenceDraftSaveExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceDraftSaveExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceAddAudienceExecution != null)
+            {
+                ProductMailSequenceAddAudienceExecutionJsonConverter productMailSequenceAddAudienceExecutionJsonConverter = (ProductMailSequenceAddAudienceExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceAddAudienceExecution.GetType()));
+                productMailSequenceAddAudienceExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceAddAudienceExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceReadinessExecution != null)
+            {
+                ProductMailSequenceReadinessExecutionJsonConverter productMailSequenceReadinessExecutionJsonConverter = (ProductMailSequenceReadinessExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceReadinessExecution.GetType()));
+                productMailSequenceReadinessExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceReadinessExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequencePublishExecution != null)
+            {
+                ProductMailSequencePublishExecutionJsonConverter productMailSequencePublishExecutionJsonConverter = (ProductMailSequencePublishExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequencePublishExecution.GetType()));
+                productMailSequencePublishExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequencePublishExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceLaunchExecution != null)
+            {
+                ProductMailSequenceLaunchExecutionJsonConverter productMailSequenceLaunchExecutionJsonConverter = (ProductMailSequenceLaunchExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceLaunchExecution.GetType()));
+                productMailSequenceLaunchExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceLaunchExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceCampaignsListExecution != null)
+            {
+                ProductMailSequenceCampaignsListExecutionJsonConverter productMailSequenceCampaignsListExecutionJsonConverter = (ProductMailSequenceCampaignsListExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceCampaignsListExecution.GetType()));
+                productMailSequenceCampaignsListExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceCampaignsListExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceRecipientsListExecution != null)
+            {
+                ProductMailSequenceRecipientsListExecutionJsonConverter productMailSequenceRecipientsListExecutionJsonConverter = (ProductMailSequenceRecipientsListExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceRecipientsListExecution.GetType()));
+                productMailSequenceRecipientsListExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceRecipientsListExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceAddAbExecution != null)
+            {
+                ProductMailSequenceAddAbExecutionJsonConverter productMailSequenceAddAbExecutionJsonConverter = (ProductMailSequenceAddAbExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceAddAbExecution.GetType()));
+                productMailSequenceAddAbExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceAddAbExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceStateExecution != null)
+            {
+                ProductMailSequenceStateExecutionJsonConverter productMailSequenceStateExecutionJsonConverter = (ProductMailSequenceStateExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceStateExecution.GetType()));
+                productMailSequenceStateExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceStateExecution, jsonSerializerOptions);
+            }
+
+            if (productToolExecution.ProductMailSequenceResultsExecution != null)
+            {
+                ProductMailSequenceResultsExecutionJsonConverter productMailSequenceResultsExecutionJsonConverter = (ProductMailSequenceResultsExecutionJsonConverter) jsonSerializerOptions.Converters.First(c => c.CanConvert(productToolExecution.ProductMailSequenceResultsExecution.GetType()));
+                productMailSequenceResultsExecutionJsonConverter.WriteProperties(writer, productToolExecution.ProductMailSequenceResultsExecution, jsonSerializerOptions);
             }
 
             if (productToolExecution.ProductAccountInfoExecution != null)

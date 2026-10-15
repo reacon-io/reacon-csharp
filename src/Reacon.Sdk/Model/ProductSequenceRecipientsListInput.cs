@@ -34,10 +34,14 @@ namespace Reacon.Sdk.Model
         /// Initializes a new instance of the <see cref="ProductSequenceRecipientsListInput" /> class.
         /// </summary>
         /// <param name="sequenceId">sequenceId</param>
+        /// <param name="limit">limit (default to 25)</param>
+        /// <param name="offset">offset (default to 0)</param>
         [JsonConstructor]
-        public ProductSequenceRecipientsListInput(Guid sequenceId)
+        public ProductSequenceRecipientsListInput(string sequenceId, Option<int?> limit = default, Option<int?> offset = default)
         {
             SequenceId = sequenceId;
+            LimitOption = limit;
+            OffsetOption = offset;
             OnCreated();
         }
 
@@ -47,7 +51,33 @@ namespace Reacon.Sdk.Model
         /// Gets or Sets SequenceId
         /// </summary>
         [JsonPropertyName("sequenceId")]
-        public Guid SequenceId { get; set; }
+        public string SequenceId { get; set; }
+
+        /// <summary>
+        /// Used to track the state of Limit
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<int?> LimitOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Limit
+        /// </summary>
+        [JsonPropertyName("limit")]
+        public int? Limit { get { return this.LimitOption.Value; } set { this.LimitOption = new(value); } }
+
+        /// <summary>
+        /// Used to track the state of Offset
+        /// </summary>
+        [JsonIgnore]
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        public Option<int?> OffsetOption { get; private set; }
+
+        /// <summary>
+        /// Gets or Sets Offset
+        /// </summary>
+        [JsonPropertyName("offset")]
+        public int? Offset { get { return this.OffsetOption.Value; } set { this.OffsetOption = new(value); } }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -58,6 +88,8 @@ namespace Reacon.Sdk.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class ProductSequenceRecipientsListInput {\n");
             sb.Append("  SequenceId: ").Append(SequenceId).Append("\n");
+            sb.Append("  Limit: ").Append(Limit).Append("\n");
+            sb.Append("  Offset: ").Append(Offset).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -69,13 +101,52 @@ namespace Reacon.Sdk.Model
         /// <returns>Validation Result</returns>
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // SequenceId (Guid) pattern
-            Regex regexSequenceId = new Regex(@"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$", RegexOptions.CultureInvariant);
-
-            if (!regexSequenceId.Match(this.SequenceId.ToString()).Success)
+            // SequenceId (string) maxLength
+            if (this.SequenceId != null && this.SequenceId.Length > 200)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for SequenceId, must match a pattern of " + regexSequenceId, new [] { "SequenceId" });
+                yield return new ValidationResult("Invalid value for SequenceId, length must be less than 200.", new [] { "SequenceId" });
             }
+
+            // SequenceId (string) minLength
+            if (this.SequenceId != null && this.SequenceId.Length < 1)
+            {
+                yield return new ValidationResult("Invalid value for SequenceId, length must be greater than 1.", new [] { "SequenceId" });
+            }
+
+            if (this.SequenceId != null) {
+                // SequenceId (string) pattern
+                Regex regexSequenceId = new Regex(@"^[a-zA-Z0-9_-]+$", RegexOptions.CultureInvariant);
+
+                if (!regexSequenceId.Match(this.SequenceId).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for SequenceId, must match a pattern of " + regexSequenceId, new [] { "SequenceId" });
+                }
+            }
+
+            // Limit (int) maximum
+            if (this.LimitOption.IsSet && this.LimitOption.Value > (int)100)
+            {
+                yield return new ValidationResult("Invalid value for Limit, must be a value less than or equal to 100.", new [] { "Limit" });
+            }
+
+            // Limit (int) minimum
+            if (this.LimitOption.IsSet && this.LimitOption.Value < (int)1)
+            {
+                yield return new ValidationResult("Invalid value for Limit, must be a value greater than or equal to 1.", new [] { "Limit" });
+            }
+
+            // Offset (int) maximum
+            if (this.OffsetOption.IsSet && this.OffsetOption.Value > (int)10000)
+            {
+                yield return new ValidationResult("Invalid value for Offset, must be a value less than or equal to 10000.", new [] { "Offset" });
+            }
+
+            // Offset (int) minimum
+            if (this.OffsetOption.IsSet && this.OffsetOption.Value < (int)0)
+            {
+                yield return new ValidationResult("Invalid value for Offset, must be a value greater than or equal to 0.", new [] { "Offset" });
+            }
+
             yield break;
         }
     }
@@ -112,7 +183,9 @@ namespace Reacon.Sdk.Model
 
             JsonTokenType startingTokenType = utf8JsonReader.TokenType;
 
-            Option<Guid?> sequenceId = default;
+            Option<string?> sequenceId = default;
+            Option<int?> limit = default;
+            Option<int?> offset = default;
 
             while (utf8JsonReader.Read())
             {
@@ -130,7 +203,13 @@ namespace Reacon.Sdk.Model
                     switch (localVarJsonPropertyName)
                     {
                         case "sequenceId":
-                            sequenceId = new Option<Guid?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (Guid?)null : utf8JsonReader.GetGuid());
+                            sequenceId = new Option<string?>(utf8JsonReader.GetString()!);
+                            break;
+                        case "limit":
+                            limit = new Option<int?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (int?)null : utf8JsonReader.GetInt32());
+                            break;
+                        case "offset":
+                            offset = new Option<int?>(utf8JsonReader.TokenType == JsonTokenType.Null ? (int?)null : utf8JsonReader.GetInt32());
                             break;
                         default:
                             break;
@@ -144,7 +223,13 @@ namespace Reacon.Sdk.Model
             if (sequenceId.IsSet && sequenceId.Value == null)
                 throw new ArgumentNullException(nameof(sequenceId), "Property is not nullable for class ProductSequenceRecipientsListInput.");
 
-            return new ProductSequenceRecipientsListInput(sequenceId.Value!.Value!);
+            if (limit.IsSet && limit.Value == null)
+                throw new ArgumentNullException(nameof(limit), "Property is not nullable for class ProductSequenceRecipientsListInput.");
+
+            if (offset.IsSet && offset.Value == null)
+                throw new ArgumentNullException(nameof(offset), "Property is not nullable for class ProductSequenceRecipientsListInput.");
+
+            return new ProductSequenceRecipientsListInput(sequenceId.Value!, limit, offset);
         }
 
         /// <summary>
@@ -171,7 +256,16 @@ namespace Reacon.Sdk.Model
         /// <exception cref="NotImplementedException"></exception>
         public void WriteProperties(Utf8JsonWriter writer, ProductSequenceRecipientsListInput productSequenceRecipientsListInput, JsonSerializerOptions jsonSerializerOptions)
         {
+            if (productSequenceRecipientsListInput.SequenceId == null)
+                throw new ArgumentNullException(nameof(productSequenceRecipientsListInput.SequenceId), "Property is required for class ProductSequenceRecipientsListInput.");
+
             writer.WriteString("sequenceId", productSequenceRecipientsListInput.SequenceId);
+
+            if (productSequenceRecipientsListInput.LimitOption.IsSet)
+                writer.WriteNumber("limit", productSequenceRecipientsListInput.LimitOption.Value!.Value);
+
+            if (productSequenceRecipientsListInput.OffsetOption.IsSet)
+                writer.WriteNumber("offset", productSequenceRecipientsListInput.OffsetOption.Value!.Value);
         }
     }
 }
