@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "family": "csharp",
-  "packageVersion": "6.0.1-beta.1",
-  "canonicalVersion": "6.0.1-beta.1",
+  "packageVersion": "6.0.2-beta.1",
+  "canonicalVersion": "6.0.2-beta.1",
   "image": "mcr.microsoft.com/dotnet/sdk@sha256:35d40304542c8689331f8cab17c65926cdf48fe711e289321d71924b230a7d29",
   "contractSha256": "d126f8da770677fa40353a20ca3aa7aca820873fb11fb8e53022b6f6c691b266",
   "recordingIndexSha256": "063ea925b10d8c658ad6438e472ac62d1ffa0519b848cfa00f1a13e2d2906279",
