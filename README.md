@@ -1,6 +1,6 @@
 # Reacon .NET SDK
 
-Package `Reacon.Sdk`, version `6.0.1-beta.1`.
+Package `Reacon.Sdk`, version `6.0.2-beta.1`.
 
 Minimum runtime: **.NET 8.0**.
 
@@ -18,6 +18,8 @@ Prerelease packages may become available before the matching API changes are dep
 
 Package managers can exclude prereleases from their default version selection. To test a prerelease, install its explicit version from the matching documentation instead of relying on a latest or unversioned install.
 
+Any operation can return HTTP 429 when a rate or concurrency limit is reached; wait and retry with backoff instead of retrying immediately. When an error response includes a `requestId`, quote it when you contact support.
+
 List methods can return one page of results. Use the pagination parameters and continuation fields documented for that operation; an empty page or a short page is not a universal end-of-list signal. Keep the same filters and ordering when following a continuation, and set an application-specific page or result limit.
 
 For reproducible deployments, commit your dependency lockfile or pin the package version in your build configuration. Review the API reference and run your application’s integration tests before upgrading the SDK.
@@ -25,7 +27,7 @@ For reproducible deployments, commit your dependency lockfile or pin the package
 ## Installation
 
 ```sh
-dotnet add package Reacon.Sdk --version 6.0.1-beta.1
+dotnet add package Reacon.Sdk --version 6.0.2-beta.1
 ```
 
 The service URL is fixed to https://api.reacon.io. SDKs do not accept a service URL override.
